@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "mixinextras": {
+    "minVersion": "0.5.0"
+  },
+  "package": "net.fellter.moreLeafParticles.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "TintedParticleLeavesBlockMixin",
+    "UntintedParticleLeavesBlockMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

@@ -1,0 +1,2 @@
+accessWidener   v2  named
+transitive-accessible method net/minecraft/client/particle/LeavesParticle <init> (Lnet/minecraft/client/world/ClientWorld;DDDLnet/minecraft/client/particle/SpriteProvider;FFZZFF)V

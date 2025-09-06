@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "more-leaf-particles",
+  "version": "${version}",
+  "name": "More Leaf Particles",
+  "description": "Changes the default leaf particle texture based on the leaves that they originate from.",
+  "authors": [
+    "Fellter"
+  ],
+  "contact": {
+    "issues": "",
+    "homepage": "",
+    "sources": ""
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/more-leaf-particles/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.fellter.moreLeafParticles.client.MoreLeafParticlesClient"
+    ],
+    "main": [
+      "net.fellter.moreLeafParticles.MoreLeafParticles"
+    ]
+  },
+  "mixins": [
+    "more-leaf-particles.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
