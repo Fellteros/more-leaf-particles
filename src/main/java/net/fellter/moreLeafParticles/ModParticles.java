@@ -23,7 +23,6 @@ public final class ModParticles {
 	public static final SimpleParticleType AZALEA_LEAVES = registerSimple("azalea_leaves");
 	public static final SimpleParticleType FLOWERING_AZALEA_PARTICLES = registerSimple("flowering_azalea_particles");
 
-
 	private static ParticleType<TintedParticleEffect> register(String name) {
 		ParticleType<TintedParticleEffect> type = FabricParticleTypes.complex(TintedParticleEffect::createCodec, TintedParticleEffect::createPacketCodec);
 		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MoreLeafParticles.MOD_ID, name), type);
@@ -51,5 +50,4 @@ public final class ModParticles {
 			return new LeavesParticle(world, x, y, z, this.spriteProvider, 0.07F, 10.0F, true, false, 2.0F, 0.021F);
 		}
 	}
-
 }
