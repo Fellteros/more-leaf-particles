@@ -1,5 +1,6 @@
 package net.fellter.moreLeafParticles.client;
 
+import net.fellter.moreLeafParticles.ModLeavesParticle;
 import net.fellter.moreLeafParticles.ModParticles;
 
 import net.minecraft.client.particle.LeavesParticle;
@@ -13,7 +14,7 @@ public class MoreLeafParticlesClient implements ClientModInitializer {
 		ParticleFactoryRegistry.getInstance().register(ModParticles.SPRUCE_NEEDLES, LeavesParticle.TintedLeavesFactory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.BIRCH_LEAVES, LeavesParticle.TintedLeavesFactory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.MANGROVE_LEAVES, LeavesParticle.TintedLeavesFactory::new);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.AZALEA_LEAVES, ModParticles.SimpleLeavesFactory::new);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.FLOWERING_AZALEA_PARTICLES, ModParticles.SimpleLeavesFactory::new);
+		ParticleFactoryRegistry.getInstance().register(ModParticles.AZALEA_LEAVES, ModLeavesParticle.SimpleLeavesFactory::new);
+		ParticleFactoryRegistry.getInstance().register(ModParticles.FLOWERING_AZALEA_PARTICLES, ModLeavesParticle.SimpleLeavesFactory::new);
 	}
 }
