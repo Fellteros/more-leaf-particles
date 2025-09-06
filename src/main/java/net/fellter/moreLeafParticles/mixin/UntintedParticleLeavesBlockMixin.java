@@ -22,8 +22,8 @@ public class UntintedParticleLeavesBlockMixin {
 			ParticleUtil.spawnParticle(world, pos, random, ModParticles.AZALEA_LEAVES);
 		} else if ((Object) this == Blocks.FLOWERING_AZALEA_LEAVES) {
 			ParticleUtil.spawnParticle(world, pos, random, ModParticles.FLOWERING_AZALEA_PARTICLES);
+		} else {
+			original.call(world, pos, random, effect);
 		}
-
-		original.call(world, pos, random, effect);
 	}
 }
