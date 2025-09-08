@@ -8,6 +8,7 @@ import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.particle.TintedParticleEffect;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -29,6 +30,22 @@ public class ModLeavesParticle extends LeavesParticle {
 		@Override
 		public @Nullable Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 			return new ModLeavesParticle(world, x, y, z, this.spriteProvider, 0.07F, 10.0F, true, false, 2.0F, 0.021F);
+		}
+	}
+
+	public static class AcaciaLeavesFactory extends TintedLeavesFactory {
+		private final SpriteProvider provider;
+
+		public AcaciaLeavesFactory(SpriteProvider spriteProvider) {
+			super(spriteProvider);
+			this.provider = spriteProvider;
+		}
+
+		@Override
+		public Particle createParticle(TintedParticleEffect tintedParticleEffect, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+			Particle particle = new ModLeavesParticle(clientWorld, d, e, f, this.provider, 0.07F, 10.0F, true, false, 1.66F, 0.021F);
+			particle.setColor(tintedParticleEffect.getRed(), tintedParticleEffect.getGreen(), tintedParticleEffect.getBlue());
+			return particle;
 		}
 	}
 }

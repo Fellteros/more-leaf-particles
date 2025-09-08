@@ -18,6 +18,7 @@ public class MoreLeafParticlesClient implements ClientModInitializer {
 		ParticleFactoryRegistry.getInstance().register(ModParticles.BIRCH_LEAVES, LeavesParticle.TintedLeavesFactory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.MANGROVE_LEAVES, LeavesParticle.TintedLeavesFactory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.JUNGLE_LEAVES, LeavesParticle.TintedLeavesFactory::new);
+		ParticleFactoryRegistry.getInstance().register(ModParticles.ACACIA_LEAVES, ModLeavesParticle.AcaciaLeavesFactory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.AZALEA_LEAVES, ModLeavesParticle.SimpleLeavesFactory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.FLOWERING_AZALEA_PARTICLES, ModLeavesParticle.SimpleLeavesFactory::new);
 	}
