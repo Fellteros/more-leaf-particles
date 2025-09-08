@@ -9,11 +9,16 @@ import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
+@Environment(EnvType.CLIENT)
 public class ModLeavesParticle extends LeavesParticle {
 	public ModLeavesParticle(ClientWorld world, double x, double y, double z, SpriteProvider spriteProvider, float gravity, float f, boolean bl, boolean bl2, float size, float initialYVelocity) {
 		super(world, x, y, z, spriteProvider, gravity, f, bl, bl2, size, initialYVelocity);
 	}
 
+	@Environment(EnvType.CLIENT)
 	public static class SimpleLeavesFactory implements ParticleFactory<SimpleParticleType> {
 		private final SpriteProvider spriteProvider;
 
