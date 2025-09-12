@@ -4,6 +4,8 @@ import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fellter.moreLeafParticles.ModParticles;
+import net.fellter.moreLeafParticles.MoreLeafParticles;
+import net.fellter.moreLeafParticles.yacl.YACLImpl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -25,6 +27,11 @@ public abstract class TintedParticleLeavesBlockMixin extends LeavesBlock {
 	@Expression("tintedParticleEffect")
 	@ModifyVariable(method = "spawnLeafParticle", at = @At("MIXINEXTRAS:EXPRESSION"))
 	private TintedParticleEffect fellter$spawnLeafParticle(TintedParticleEffect value, World world, BlockPos pos) {
+		if (MoreLeafParticles.isYACLPresent()) {
+			TintedParticleEffect effect = YACLImpl.getTintedFromConfig(this, world, pos);
+			return effect == null ? value : effect;
+		}
+
 		if (this == Blocks.SPRUCE_LEAVES) {
 			return TintedParticleEffect.create(ModParticles.SPRUCE_NEEDLES, world.getBlockColor(pos));
 		} else if (this == Blocks.BIRCH_LEAVES) {
