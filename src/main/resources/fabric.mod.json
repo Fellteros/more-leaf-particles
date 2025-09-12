@@ -21,6 +21,9 @@
     ],
     "main": [
       "net.fellter.moreLeafParticles.MoreLeafParticles"
+    ],
+    "modmenu": [
+      "net.fellter.moreLeafParticles.yacl.ModMenuImpl"
     ]
   },
   "mixins": [
