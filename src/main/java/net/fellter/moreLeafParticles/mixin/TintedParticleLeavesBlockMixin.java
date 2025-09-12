@@ -33,6 +33,8 @@ public abstract class TintedParticleLeavesBlockMixin extends LeavesBlock {
 			return TintedParticleEffect.create(ModParticles.MANGROVE_LEAVES, world.getBlockColor(pos));
 		} else if (this == Blocks.JUNGLE_LEAVES) {
 			return TintedParticleEffect.create(ModParticles.JUNGLE_LEAVES, world.getBlockColor(pos));
+		} else if (this == Blocks.ACACIA_LEAVES) {
+			return TintedParticleEffect.create(ModParticles.ACACIA_LEAVES, world.getBlockColor(pos));
 		}
 
 		return value;

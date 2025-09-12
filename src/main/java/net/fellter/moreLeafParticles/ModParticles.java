@@ -14,6 +14,7 @@ public final class ModParticles {
 	public static final ParticleType<TintedParticleEffect> BIRCH_LEAVES = register("birch_leaves");
 	public static final ParticleType<TintedParticleEffect> MANGROVE_LEAVES = register("mangrove_leaves");
 	public static final ParticleType<TintedParticleEffect> JUNGLE_LEAVES = register("jungle_leaves");
+	public static final ParticleType<TintedParticleEffect> ACACIA_LEAVES = register("acacia_leaves");
 	public static final SimpleParticleType AZALEA_LEAVES = registerSimple("azalea_leaves");
 	public static final SimpleParticleType FLOWERING_AZALEA_PARTICLES = registerSimple("flowering_azalea_particles");
 
