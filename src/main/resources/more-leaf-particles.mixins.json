@@ -11,6 +11,9 @@
     "UntintedParticleLeavesBlockMixin"
   ],
   "client": [
+    "LeavesParticleMixins$CherryLeavesFactoryMixin",
+    "LeavesParticleMixins$PaleOakLeavesFactoryMixin",
+    "LeavesParticleMixins$TintedLeavesFactoryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

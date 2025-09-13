@@ -17,12 +17,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
-public class ModLeavesParticle extends LeavesParticle {
-	public ModLeavesParticle(ClientWorld world, double x, double y, double z, SpriteProvider spriteProvider, float gravity, float f, boolean bl, boolean bl2, float size, float initialYVelocity) {
-		super(world, x, y, z, spriteProvider, gravity, f, bl, bl2, size, initialYVelocity);
-	}
-
-	public static class SpruceLeavesFactory extends TintedLeavesFactory {
+public class ModLeavesParticle {
+	public static class SpruceLeavesFactory extends LeavesParticle.TintedLeavesFactory {
 		private final SpriteProvider provider;
 
 		public SpruceLeavesFactory(SpriteProvider spriteProvider) {
@@ -32,11 +28,19 @@ public class ModLeavesParticle extends LeavesParticle {
 
 		@Override
 		public Particle createParticle(TintedParticleEffect tinted, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			return createTintedParticle(tinted, clientWorld, provider, d, e, f, ModConfig.enableSpruceSize, ModConfig.spruceSize, ModConfig.enableSpruceCustomColor, ModConfig.useSpruceTint, ModConfig.spruceColor);
+			Particle particle = MoreLeafParticles.isYACLPresent()
+					? new Builder(clientWorld, provider, d, e, f)
+					.gravity(ModConfig.spruceGravity)
+					.initVelocityY(ModConfig.spruceInitialVelocity)
+					.size(ModConfig.spruceSize)
+					.build(ModConfig.enableSpruceGravity, ModConfig.enableSpruceSize, ModConfig.enableSpruceInitialVelocity)
+					: super.createParticle(tinted, clientWorld, d, e, f, g, h, i);
+			tintParticle(particle, tinted, ModConfig.enableSpruceCustomColor, ModConfig.useSpruceTint, ModConfig.spruceColor);
+			return particle;
 		}
 	}
 
-	public static class BirchLeavesFactory extends TintedLeavesFactory {
+	public static class BirchLeavesFactory extends LeavesParticle.TintedLeavesFactory {
 		private final SpriteProvider provider;
 
 		public BirchLeavesFactory(SpriteProvider spriteProvider) {
@@ -46,11 +50,19 @@ public class ModLeavesParticle extends LeavesParticle {
 
 		@Override
 		public Particle createParticle(TintedParticleEffect tinted, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			return createTintedParticle(tinted, clientWorld, provider, d, e, f, ModConfig.enableBirchSize, ModConfig.birchSize, ModConfig.enableBirchCustomColor, ModConfig.useBirchTint, ModConfig.birchColor);
+			Particle particle = MoreLeafParticles.isYACLPresent()
+					? new Builder(clientWorld, provider, d, e, f)
+					.gravity(ModConfig.birchGravity)
+					.initVelocityY(ModConfig.birchInitialVelocity)
+					.size(ModConfig.birchSize)
+					.build(ModConfig.enableBirchGravity, ModConfig.enableBirchSize, ModConfig.enableBirchInitialVelocity)
+					: super.createParticle(tinted, clientWorld, d, e, f, g, h, i);
+			tintParticle(particle, tinted, ModConfig.enableBirchCustomColor, ModConfig.useBirchTint, ModConfig.birchColor);
+			return particle;
 		}
 	}
 
-	public static class MangroveLeavesFactory extends TintedLeavesFactory {
+	public static class MangroveLeavesFactory extends LeavesParticle.TintedLeavesFactory {
 		private final SpriteProvider provider;
 
 		public MangroveLeavesFactory(SpriteProvider spriteProvider) {
@@ -60,11 +72,19 @@ public class ModLeavesParticle extends LeavesParticle {
 
 		@Override
 		public Particle createParticle(TintedParticleEffect tinted, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			return createTintedParticle(tinted, clientWorld, provider, d, e, f, ModConfig.enableMangroveSize, ModConfig.mangroveSize, ModConfig.enableMangroveCustomColor, ModConfig.useMangroveTint, ModConfig.mangroveColor);
+			Particle particle = MoreLeafParticles.isYACLPresent()
+					? new Builder(clientWorld, provider, d, e, f)
+					.gravity(ModConfig.mangroveGravity)
+					.initVelocityY(ModConfig.mangroveInitialVelocity)
+					.size(ModConfig.mangroveSize)
+					.build(ModConfig.enableMangroveGravity, ModConfig.enableMangroveSize, ModConfig.enableMangroveInitialVelocity)
+					: super.createParticle(tinted, clientWorld, d, e, f, g, h, i);
+			tintParticle(particle, tinted, ModConfig.enableMangroveCustomColor, ModConfig.useMangroveTint, ModConfig.mangroveColor);
+			return particle;
 		}
 	}
 
-	public static class JungleLeavesFactory extends TintedLeavesFactory {
+	public static class JungleLeavesFactory extends LeavesParticle.TintedLeavesFactory {
 		private final SpriteProvider provider;
 
 		public JungleLeavesFactory(SpriteProvider spriteProvider) {
@@ -74,11 +94,19 @@ public class ModLeavesParticle extends LeavesParticle {
 
 		@Override
 		public Particle createParticle(TintedParticleEffect tinted, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			return createTintedParticle(tinted, clientWorld, provider, d, e, f, ModConfig.enableJungleSize, ModConfig.jungleSize, ModConfig.enableJungleCustomColor, ModConfig.useJungleTint, ModConfig.jungleColor);
+			Particle particle = MoreLeafParticles.isYACLPresent()
+					? new Builder(clientWorld, provider, d, e, f)
+					.gravity(ModConfig.jungleGravity)
+					.initVelocityY(ModConfig.jungleInitialVelocity)
+					.size(ModConfig.jungleSize)
+					.build(ModConfig.enableJungleGravity, ModConfig.enableJungleSize, ModConfig.enableJungleInitialVelocity)
+					: super.createParticle(tinted, clientWorld, d, e, f, g, h, i);
+			tintParticle(particle, tinted, ModConfig.enableSpruceCustomColor, ModConfig.useSpruceTint, ModConfig.spruceColor);
+			return particle;
 		}
 	}
 
-	public static class AcaciaLeavesFactory extends TintedLeavesFactory {
+	public static class AcaciaLeavesFactory extends LeavesParticle.TintedLeavesFactory {
 		private final SpriteProvider provider;
 
 		public AcaciaLeavesFactory(SpriteProvider spriteProvider) {
@@ -88,7 +116,37 @@ public class ModLeavesParticle extends LeavesParticle {
 
 		@Override
 		public Particle createParticle(TintedParticleEffect tinted, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			return createTintedParticle(tinted, clientWorld, provider, d, e, f, ModConfig.enableAcaciaSize, ModConfig.acaciaSize, ModConfig.enableAcaciaCustomColor, ModConfig.useAcaciaTint, ModConfig.acaciaColor);
+			Particle particle = MoreLeafParticles.isYACLPresent()
+					? new Builder(clientWorld, provider, d, e, f)
+					.gravity(ModConfig.acaciaGravity)
+					.initVelocityY(ModConfig.acaciaInitialVelocity)
+					.size(ModConfig.acaciaSize)
+					.build(ModConfig.enableAcaciaGravity, ModConfig.enableAcaciaSize, ModConfig.enableAcaciaInitialVelocity)
+					: new LeavesParticle(clientWorld, d, e, f, provider, 0.07F, 10.0F, true, false, 1.66F, 0.021F);
+			tintParticle(particle, tinted, ModConfig.enableAcaciaCustomColor, ModConfig.useAcaciaTint, ModConfig.acaciaColor);
+			return particle;
+		}
+	}
+
+	public static class DarkOakLeavesFactory extends LeavesParticle.TintedLeavesFactory {
+		private final SpriteProvider provider;
+
+		public DarkOakLeavesFactory(SpriteProvider spriteProvider) {
+			super(spriteProvider);
+			this.provider = spriteProvider;
+		}
+
+		@Override
+		public Particle createParticle(TintedParticleEffect tinted, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+			Particle particle = MoreLeafParticles.isYACLPresent()
+					? new Builder(clientWorld, provider, d, e, f)
+					.gravity(ModConfig.darkOakGravity)
+					.initVelocityY(ModConfig.darkOakInitialVelocity)
+					.size(ModConfig.darkOakSize)
+					.build(ModConfig.enableDarkOakGravity, ModConfig.enableDarkOakSize, ModConfig.enableDarkOakInitialVelocity)
+					: super.createParticle(tinted, clientWorld, d, e, f, g, h, i);
+			tintParticle(particle, tinted, ModConfig.enableDarkOakCustomColor, ModConfig.useDarkOakTint, ModConfig.darkOakColor);
+			return particle;
 		}
 	}
 
@@ -103,9 +161,12 @@ public class ModLeavesParticle extends LeavesParticle {
 		public @Nullable Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 			if (MoreLeafParticles.isYACLPresent()) {
 				float size = ModConfig.enableAzaleaSize ? ModConfig.azaleaSize : 2.0F;
-				return new ModLeavesParticle(world, x, y, z, spriteProvider, 0.07F, 10.0F, true, false, size, 0.021F);
+				float initVelocityY = ModConfig.enableAzaleaInitialVelocity ? ModConfig.azaleaInitialVelocity : 0.021F;
+				float gravity = ModConfig.enableAzaleaGravity ? ModConfig.azaleaGravity : 0.07F;
+
+				return new LeavesParticle(world, x, y, z, spriteProvider, gravity, 10.0F, true, false, size, initVelocityY);
 			} else {
-				return new ModLeavesParticle(world, x, y, z, spriteProvider, 0.07F, 10.0F, true, false, 2.0F, 0.021F);
+				return new LeavesParticle(world, x, y, z, spriteProvider, 0.07F, 10.0F, true, false, 2.0F, 0.021F);
 			}
 		}
 	}
@@ -121,53 +182,81 @@ public class ModLeavesParticle extends LeavesParticle {
 		public @Nullable Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 			if (MoreLeafParticles.isYACLPresent()) {
 				float size = ModConfig.enableFloweringAzaleaSize ? ModConfig.floweringAzaleaSize : 2.0F;
-				return new ModLeavesParticle(world, x, y, z, spriteProvider, 0.07F, 10.0F, true, false, size, 0.021F);
+				float initVelocityY = ModConfig.enableFloweringAzaleaInitialVelocity ? ModConfig.floweringAzaleaInitialVelocity : 0.021F;
+				float gravity = ModConfig.enableFloweringAzaleaGravity ? ModConfig.floweringAzaleaGravity : 0.07F;
+
+				return new LeavesParticle(world, x, y, z, spriteProvider, gravity, 10.0F, true, false, size, initVelocityY);
 			} else {
-				return new ModLeavesParticle(world, x, y, z, spriteProvider, 0.07F, 10.0F, true, false, 2.0F, 0.021F);
+				return new LeavesParticle(world, x, y, z, spriteProvider, 0.07F, 10.0F, true, false, 2.0F, 0.021F);
 			}
 		}
 	}
 
-	static Particle createTintedParticle(
+	public static void tintParticle(
+			Particle particle,
 			TintedParticleEffect tinted,
-			ClientWorld clientWorld,
-			final SpriteProvider provider,
-			double d,
-			double e,
-			double f,
-			boolean enableSize,
-			float customSize,
-			boolean enableCustomColor,
+			boolean enableColor,
 			boolean useTint,
-			Color customColor
+			Color color
 	) {
-		if (MoreLeafParticles.isYACLPresent()) {
-			float size = enableSize ? customSize : 2.0F;
-			Particle particle = new ModLeavesParticle(clientWorld, d, e, f, provider, 0.07F, 10.0F, true, false, size, 0.021F);
+		if (enableColor) {
+			float red = tinted.getRed();
+			float green = tinted.getGreen();
+			float blue = tinted.getBlue();
 
-			if (enableCustomColor) {
-				if (useTint) {
-					particle.setColor(
-							Math.clamp((tinted.getRed() + customColor.getRed()) / 510, 0, 255),
-							Math.clamp((tinted.getGreen() + customColor.getGreen()) / 510, 0, 255),
-							Math.clamp((tinted.getBlue() + customColor.getBlue()) / 510, 0, 255)
-					);
-				} else {
-					particle.setColor(
-							(float) customColor.getRed() / 255,
-							(float) customColor.getGreen() / 255,
-							(float) customColor.getBlue() / 255
-					);
-				}
+			if (useTint) {
+				red = red + ((float) color.getRed() / 255);
+				green = green + ((float) color.getRed() / 255);
+				blue = blue + ((float) color.getBlue() / 255);
+
+				particle.setColor(red, green, blue);
 			} else {
-				particle.setColor(tinted.getRed(), tinted.getGreen(), tinted.getBlue());
+				particle.setColor(red, green, blue);
 			}
-
-			return particle;
 		} else {
-			Particle particle = new ModLeavesParticle(clientWorld, d, e, f, provider, 0.07F, 10.0F, true, false, 2.0F, 0.021F);
 			particle.setColor(tinted.getRed(), tinted.getGreen(), tinted.getBlue());
-			return particle;
+		}
+	}
+
+	public static class Builder {
+		private final ClientWorld world;
+		private final SpriteProvider provider;
+		private final double x;
+		private final double y;
+		private final double z;
+		private float gravity = 0.07F;
+		private float initVelocityY = 0.021F;
+		private float size = 2.0F;
+
+		public Builder(ClientWorld world, SpriteProvider provider, double x, double y, double z) {
+			this.world = world;
+			this.provider = provider;
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+
+		public LeavesParticle build(boolean enableGrav, boolean enableSize, boolean enableInitVelocityY) {
+			float gravity = enableGrav ? this.gravity : 0.07F;
+			float size = enableSize ? this.size : 2.0F;
+			float initVelocityY = enableInitVelocityY ? this.initVelocityY : 0.021F;
+
+			return new LeavesParticle(world, x, y, z, provider, gravity, 10.0F, true, false, size, initVelocityY);
+		}
+
+		public Builder gravity(float gravity) {
+			this.gravity = gravity;
+			return this;
+		}
+
+		public Builder initVelocityY(float initVelocityY) {
+			this.initVelocityY = initVelocityY;
+			return this;
+		}
+
+		public Builder size(float size) {
+			this.size = size;
+			return this;
 		}
 	}
 }
