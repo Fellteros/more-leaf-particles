@@ -15,6 +15,7 @@
   "license": "CC-BY-4.0",
   "icon": "assets/more-leaf-particles/icon.png",
   "environment": "client",
+  "accessWidener": "more-leaf-particles.accesswidener",
   "entrypoints": {
     "client": [
       "net.fellter.moreLeafParticles.client.MoreLeafParticlesClient"
