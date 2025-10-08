@@ -13,7 +13,6 @@ import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.UntintedParticleLeavesBlock;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.particle.ParticleUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
@@ -40,15 +39,13 @@ public abstract class UntintedParticleLeavesBlockMixin extends LeavesBlock {
 			if (effect != null) {
 				original.call(world, pos, random, effect);
 			}
-
-			return;
-		}
-
-		if (this == Blocks.AZALEA_LEAVES) {
-			ParticleUtil.spawnParticle(world, pos, random, ModParticles.AZALEA_LEAVES);
-		} else if (this == Blocks.FLOWERING_AZALEA_LEAVES) {
-			ParticleUtil.spawnParticle(world, pos, random, ModParticles.FLOWERING_AZALEA_PARTICLES);
 		} else {
+			if (this == Blocks.AZALEA_LEAVES) {
+				effect = ModParticles.AZALEA_LEAVES;
+			} else if (this == Blocks.FLOWERING_AZALEA_LEAVES) {
+				effect = ModParticles.FLOWERING_AZALEA_PARTICLES;
+			}
+
 			original.call(world, pos, random, effect);
 		}
 	}
