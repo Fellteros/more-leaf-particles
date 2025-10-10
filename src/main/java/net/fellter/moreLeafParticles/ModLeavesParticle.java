@@ -197,21 +197,21 @@ public class ModLeavesParticle {
 			boolean useTint,
 			Color color
 	) {
-		if (!enableCustomColor) {
-			particle.setColor(tinted.getRed(), tinted.getGreen(), tinted.getBlue());
-			return;
-		}
-
 		float red = tinted.getRed();
 		float green = tinted.getGreen();
 		float blue = tinted.getBlue();
 
-		if (!useTint) {
+		if (!enableCustomColor) {
 			particle.setColor(red, green, blue);
+			return;
+		}
+
+		if (!useTint) {
+			particle.setColor((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255);
 		} else {
-			red += ((float) color.getRed() / 255);
-			green += ((float) color.getRed() / 255);
-			blue += ((float) color.getBlue() / 255);
+			red = ((red + (float) color.getRed() / 255) / 2);
+			green = ((green + (float) color.getRed() / 255) / 2);
+			blue = ((blue + (float) color.getBlue() / 255) / 2);
 
 			particle.setColor(red, green, blue);
 		}
