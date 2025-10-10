@@ -32,7 +32,7 @@ public final class LeavesParticleMixins {
 						.initVelocityY(ModConfig.oakInitialVelocity)
 						.size(ModConfig.oakSize)
 						.build(ModConfig.enableOakGravity, ModConfig.enableOakSize, ModConfig.enableOakInitialVelocity);
-				ModLeavesParticle.tintParticle(particle, tintedParticleEffect, ModConfig.enableSpruceCustomColor, ModConfig.useSpruceTint, ModConfig.spruceColor);
+				ModLeavesParticle.tintParticle(particle, tintedParticleEffect, ModConfig.enableOakCustomColor, ModConfig.useOakTint, ModConfig.oakColor);
 				return particle;
 			} else {
 				return original.call(tintedParticleEffect, clientWorld, d, e, f, g, h, i, random);

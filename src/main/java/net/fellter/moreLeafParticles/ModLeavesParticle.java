@@ -33,7 +33,12 @@ public class ModLeavesParticle {
 					.size(ModConfig.spruceSize)
 					.build(ModConfig.enableSpruceGravity, ModConfig.enableSpruceSize, ModConfig.enableSpruceInitialVelocity)
 					: (LeavesParticle) super.createParticle(tinted, clientWorld, d, e, f, g, h, i, random);
-			tintParticle(particle, tinted, ModConfig.enableSpruceCustomColor, ModConfig.useSpruceTint, ModConfig.spruceColor);
+			if (MoreLeafParticles.isYACLPresent()) {
+				tintParticle(particle, tinted, ModConfig.enableSpruceCustomColor, ModConfig.useSpruceTint, ModConfig.spruceColor);
+			} else {
+				assert particle != null;
+				particle.setColor(tinted.getRed(), tinted.getGreen(), tinted.getBlue());
+			}
 			return particle;
 		}
 	}
@@ -55,7 +60,12 @@ public class ModLeavesParticle {
 					.size(ModConfig.birchSize)
 					.build(ModConfig.enableBirchGravity, ModConfig.enableBirchSize, ModConfig.enableBirchInitialVelocity)
 					: (LeavesParticle) super.createParticle(tinted, clientWorld, d, e, f, g, h, i, random);
-			tintParticle(particle, tinted, ModConfig.enableBirchCustomColor, ModConfig.useBirchTint, ModConfig.birchColor);
+			if (MoreLeafParticles.isYACLPresent()) {
+				tintParticle(particle, tinted, ModConfig.enableBirchCustomColor, ModConfig.useBirchTint, ModConfig.birchColor);
+			} else {
+				assert particle != null;
+				particle.setColor(tinted.getRed(), tinted.getGreen(), tinted.getBlue());
+			}
 			return particle;
 		}
 	}
@@ -77,7 +87,12 @@ public class ModLeavesParticle {
 					.size(ModConfig.mangroveSize)
 					.build(ModConfig.enableMangroveGravity, ModConfig.enableMangroveSize, ModConfig.enableMangroveInitialVelocity)
 					: (LeavesParticle) super.createParticle(tinted, clientWorld, d, e, f, g, h, i, random);
-			tintParticle(particle, tinted, ModConfig.enableMangroveCustomColor, ModConfig.useMangroveTint, ModConfig.mangroveColor);
+			if (MoreLeafParticles.isYACLPresent()) {
+				tintParticle(particle, tinted, ModConfig.enableMangroveCustomColor, ModConfig.useMangroveTint, ModConfig.mangroveColor);
+			} else {
+				assert particle != null;
+				particle.setColor(tinted.getRed(), tinted.getGreen(), tinted.getBlue());
+			}
 			return particle;
 		}
 	}
@@ -99,7 +114,12 @@ public class ModLeavesParticle {
 					.size(ModConfig.jungleSize)
 					.build(ModConfig.enableJungleGravity, ModConfig.enableJungleSize, ModConfig.enableJungleInitialVelocity)
 					: (LeavesParticle) super.createParticle(tinted, clientWorld, d, e, f, g, h, i, random);
-			tintParticle(particle, tinted, ModConfig.enableSpruceCustomColor, ModConfig.useSpruceTint, ModConfig.spruceColor);
+			if (MoreLeafParticles.isYACLPresent()) {
+				tintParticle(particle, tinted, ModConfig.enableSpruceCustomColor, ModConfig.useSpruceTint, ModConfig.spruceColor);
+			} else {
+				assert particle != null;
+				particle.setColor(tinted.getRed(), tinted.getGreen(), tinted.getBlue());
+			}
 			return particle;
 		}
 	}
@@ -121,7 +141,12 @@ public class ModLeavesParticle {
 					.size(ModConfig.acaciaSize)
 					.build(ModConfig.enableAcaciaGravity, ModConfig.enableAcaciaSize, ModConfig.enableAcaciaInitialVelocity)
 					: new LeavesParticle(clientWorld, d, e, f, provider.getSprite(random), 0.07F, 10.0F, true, false, 1.66F, 0.021F);
-			tintParticle(particle, tinted, ModConfig.enableAcaciaCustomColor, ModConfig.useAcaciaTint, ModConfig.acaciaColor);
+			if (MoreLeafParticles.isYACLPresent()) {
+				tintParticle(particle, tinted, ModConfig.enableAcaciaCustomColor, ModConfig.useAcaciaTint, ModConfig.acaciaColor);
+			} else {
+				assert particle != null;
+				particle.setColor(tinted.getRed(), tinted.getGreen(), tinted.getBlue());
+			}
 			return particle;
 		}
 	}
@@ -143,7 +168,12 @@ public class ModLeavesParticle {
 					.size(ModConfig.darkOakSize)
 					.build(ModConfig.enableDarkOakGravity, ModConfig.enableDarkOakSize, ModConfig.enableDarkOakInitialVelocity)
 					: (LeavesParticle) super.createParticle(tinted, clientWorld, d, e, f, g, h, i, random);
-			tintParticle(particle, tinted, ModConfig.enableDarkOakCustomColor, ModConfig.useDarkOakTint, ModConfig.darkOakColor);
+			if (MoreLeafParticles.isYACLPresent()) {
+				tintParticle(particle, tinted, ModConfig.enableDarkOakCustomColor, ModConfig.useDarkOakTint, ModConfig.darkOakColor);
+			} else {
+				assert particle != null;
+				particle.setColor(tinted.getRed(), tinted.getGreen(), tinted.getBlue());
+			}
 			return particle;
 		}
 	}
@@ -197,21 +227,21 @@ public class ModLeavesParticle {
 			boolean useTint,
 			Color color
 	) {
-		if (!enableCustomColor) {
-			particle.setColor(tinted.getRed(), tinted.getGreen(), tinted.getBlue());
-			return;
-		}
-
 		float red = tinted.getRed();
 		float green = tinted.getGreen();
 		float blue = tinted.getBlue();
 
-		if (!useTint) {
+		if (!enableCustomColor) {
 			particle.setColor(red, green, blue);
+			return;
+		}
+
+		if (!useTint) {
+			particle.setColor((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255);
 		} else {
-			red += ((float) color.getRed() / 255);
-			green += ((float) color.getRed() / 255);
-			blue += ((float) color.getBlue() / 255);
+			red = ((red + (float) color.getRed() / 255) / 2);
+			green = ((green + (float) color.getRed() / 255) / 2);
+			blue = ((blue + (float) color.getBlue() / 255) / 2);
 
 			particle.setColor(red, green, blue);
 		}
