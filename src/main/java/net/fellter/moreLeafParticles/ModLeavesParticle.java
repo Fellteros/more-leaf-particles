@@ -115,7 +115,7 @@ public class ModLeavesParticle {
 					.build(ModConfig.enableJungleGravity, ModConfig.enableJungleSize, ModConfig.enableJungleInitialVelocity)
 					: (LeavesParticle) super.createParticle(tinted, clientWorld, d, e, f, g, h, i, random);
 			if (MoreLeafParticles.isYACLPresent()) {
-				tintParticle(particle, tinted, ModConfig.enableSpruceCustomColor, ModConfig.useSpruceTint, ModConfig.spruceColor);
+				tintParticle(particle, tinted, ModConfig.enableJungleCustomColor, ModConfig.useJungleTint, ModConfig.jungleColor);
 			} else {
 				assert particle != null;
 				particle.setColor(tinted.getRed(), tinted.getGreen(), tinted.getBlue());
