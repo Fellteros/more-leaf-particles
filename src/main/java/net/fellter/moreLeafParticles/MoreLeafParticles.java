@@ -15,7 +15,7 @@ public class MoreLeafParticles implements ModInitializer {
 	public void onInitialize() {
 		ModParticles.init();
 
-		if (FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3")) {
+		if (isYACLPresent()) {
 			ModConfig.initConfig();
 
 			if (!FabricLoader.getInstance().isModLoaded("modmenu")) {
@@ -23,7 +23,7 @@ public class MoreLeafParticles implements ModInitializer {
 				ModConfig.HANDLER.defaults();
 			}
 		} else if (FabricLoader.getInstance().isModLoaded("modmenu")) {
-			if (!FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3")) {
+			if (!isYACLPresent()) {
 				LOGGER.warn("Couldn't load YACL - install it to be able to use More Leaf Particles' config!");
 			} else {
 				ModConfig.initConfig();
