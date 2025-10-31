@@ -4,7 +4,6 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.fellter.moreLeafParticles.ModLeavesParticle;
 import net.fellter.moreLeafParticles.MoreLeafParticles;
-import net.fellter.moreLeafParticles.yacl.ModConfig;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,6 +16,8 @@ import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.particle.TintedParticleEffect;
 import net.minecraft.util.math.random.Random;
 
+import static net.fellter.moreLeafParticles.yacl.ModConfig.*;
+
 public final class LeavesParticleMixins {
 	@Mixin(LeavesParticle.TintedLeavesFactory.class)
 	public static class TintedLeavesFactoryMixin {
@@ -27,12 +28,13 @@ public final class LeavesParticleMixins {
 		@WrapMethod(method = "createParticle(Lnet/minecraft/particle/TintedParticleEffect;Lnet/minecraft/client/world/ClientWorld;DDDDDDLnet/minecraft/util/math/random/Random;)Lnet/minecraft/client/particle/Particle;")
 		private Particle fellter$modifyOak(TintedParticleEffect tintedParticleEffect, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i, Random random, Operation<Particle> original) {
 			if (MoreLeafParticles.isYACLPresent()) {
-				LeavesParticle particle = new ModLeavesParticle.Builder(clientWorld, spriteProvider, d, e, f)
-						.gravity(ModConfig.oakGravity)
-						.initVelocityY(ModConfig.oakInitialVelocity)
-						.size(ModConfig.oakSize)
-						.build(ModConfig.enableOakGravity, ModConfig.enableOakSize, ModConfig.enableOakInitialVelocity);
-				ModLeavesParticle.tintParticle(particle, tintedParticleEffect, ModConfig.enableOakCustomColor, ModConfig.useOakTint, ModConfig.oakColor);
+				float size = enableOakSize ? oakSize : 2.0F;
+				float gravity = enableOakGravity ? oakGravity : 0.07F;
+				float initVelocityY = enableOakInitialVelocity ? oakInitialVelocity : 0.021F;
+				float wind = enableOakWind ? oakWind : 10.0F;
+
+				LeavesParticle particle = new LeavesParticle(clientWorld, d, e, f, spriteProvider.getSprite(random), gravity, wind, true, oakFlowAway, size, initVelocityY);
+				ModLeavesParticle.tintParticle(particle, tintedParticleEffect, enableOakCustomColor, useOakTint, oakColor);
 				return particle;
 			} else {
 				return original.call(tintedParticleEffect, clientWorld, d, e, f, g, h, i, random);
@@ -49,11 +51,12 @@ public final class LeavesParticleMixins {
 		@WrapMethod(method = "createParticle(Lnet/minecraft/particle/SimpleParticleType;Lnet/minecraft/client/world/ClientWorld;DDDDDDLnet/minecraft/util/math/random/Random;)Lnet/minecraft/client/particle/Particle;")
 		private Particle fellter$modifyPaleOak(SimpleParticleType simpleParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i, Random random, Operation<Particle> original) {
 			if (MoreLeafParticles.isYACLPresent()) {
-				float size = ModConfig.enablePaleOakSize ? ModConfig.paleOakSize : 2.0F;
-				float gravity = ModConfig.enablePaleOakGravity ? ModConfig.paleOakGravity : 0.07F;
-				float initVelocityY = ModConfig.enablePaleOakInitialVelocity ? ModConfig.paleOakInitialVelocity : 0.021F;
+				float size = enablePaleOakSize ? paleOakSize : 2.0F;
+				float gravity = enablePaleOakGravity ? paleOakGravity : 0.07F;
+				float initVelocityY = enablePaleOakInitialVelocity ? paleOakInitialVelocity : 0.021F;
+				float wind = enablePaleOakWind ? paleOakWind : 10F;
 
-				return new LeavesParticle(clientWorld, d, e, f, spriteProvider.getSprite(random), gravity, 10.0F, true, false, size, initVelocityY);
+				return new LeavesParticle(clientWorld, d, e, f, spriteProvider.getSprite(random), gravity, wind, true, paleOakFlowAway, size, initVelocityY);
 			} else {
 				return original.call(simpleParticleType, clientWorld, d, e, f, g, h, i, random);
 			}
@@ -69,11 +72,12 @@ public final class LeavesParticleMixins {
 		@WrapMethod(method = "createParticle(Lnet/minecraft/particle/SimpleParticleType;Lnet/minecraft/client/world/ClientWorld;DDDDDDLnet/minecraft/util/math/random/Random;)Lnet/minecraft/client/particle/Particle;")
 		private Particle fellter$modifyCherry(SimpleParticleType simpleParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i, Random random, Operation<Particle> original) {
 			if (MoreLeafParticles.isYACLPresent()) {
-				float size = ModConfig.enableCherrySize ? ModConfig.cherrySize : 2.0F;
-				float gravity = ModConfig.enableCherryGravity ? ModConfig.cherryGravity : 0.07F;
-				float initVelocityY = ModConfig.enableCherryInitialVelocity ? ModConfig.cherryInitialVelocity : 0.021F;
+				float size = enableCherrySize ? cherrySize : 2.0F;
+				float gravity = enableCherryGravity ? cherryGravity : 0.07F;
+				float initVelocityY = enableCherryInitialVelocity ? cherryInitialVelocity : 0.021F;
+				float wind = enableCherryWind ? cherryWind : 10F;
 
-				return new LeavesParticle(clientWorld, d, e, f, spriteProvider.getSprite(random), gravity, 10.0F, true, false, size, initVelocityY);
+				return new LeavesParticle(clientWorld, d, e, f, spriteProvider.getSprite(random), gravity, wind, true, cherryFlowAway, size, initVelocityY);
 			} else {
 				return original.call(simpleParticleType, clientWorld, d, e, f, g, h, i, random);
 			}
