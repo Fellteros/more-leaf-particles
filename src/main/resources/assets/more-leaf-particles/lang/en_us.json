@@ -97,5 +97,11 @@
   "more-leaf-particles.option.enableInitVelocity.name": "Enable Initial Y Velocity",
   "more-leaf-particles.option.enableInitVelocity.desc": "If true, the initial Y velocity is set to the value specified below.",
   "more-leaf-particles.option.initVelocity.name": "Initial Y Velocity",
-  "more-leaf-particles.option.initVelocity.desc": "The initial Y velocity given to the particle."
+  "more-leaf-particles.option.initVelocity.desc": "The initial Y velocity given to the particle.",
+  "more-leaf-particles.option.wind.name": "Wind Factor",
+  "more-leaf-particles.option.wind.desc": "Describes how much is the particle affected by wind.",
+  "more-leaf-particles.option.flowAway.name": "Flow Away",
+  "more-leaf-particles.option.flowAway.desc": "If true, the particle will flow away instead of just descending down in circles.",
+  "more-leaf-particles.option.enableWind.name": "Enable Wind Factor",
+  "more-leaf-particles.option.enableWind.desc": "If true, the particle is affected by wind."
 }
