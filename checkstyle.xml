@@ -62,12 +62,12 @@
 	</module>
 
 	<module name="TreeWalker">
-        <!-- Allow "//CHECKSTYLE.OFF: <InspectionName>" and "//CHECKSTYLE.ON: <InspectionName>" pairs to toggle some inspections -->
-        <module name="SuppressionCommentFilter">
-            <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
-            <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
-            <property name="checkFormat" value="$1"/>
-        </module>
+		<!-- Allow "//CHECKSTYLE.OFF: <InspectionName>" and "//CHECKSTYLE.ON: <InspectionName>" pairs to toggle some inspections -->
+		<module name="SuppressionCommentFilter">
+			<property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
+			<property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
+			<property name="checkFormat" value="$1"/>
+		</module>
 
 		<!-- Ensure all imports are ship shape -->
 		<module name="IllegalImport"/>
@@ -169,21 +169,21 @@
 			<property name="tagOrder" value="@param,@return,@throws,@deprecated"/>
 		</module>
 
-        <!-- Prevent var for all cases other than new instance creation -->
-        <module name="MatchXpath">
-            <property name="query" value="//VARIABLE_DEF[./TYPE/IDENT[@text='var'] and not(./ASSIGN/EXPR/LITERAL_NEW)]"/>
-            <message key="matchxpath.match" value="var is only allowed before new instance creation"/>
-        </module>
+		<!-- Prevent var for all cases other than new instance creation -->
+		<module name="MatchXpath">
+			<property name="query" value="//VARIABLE_DEF[./TYPE/IDENT[@text='var'] and not(./ASSIGN/EXPR/LITERAL_NEW)]"/>
+			<message key="matchxpath.match" value="var is only allowed before new instance creation"/>
+		</module>
 
-        <!-- Prevent public records in API packages -->
-        <module name="MatchXpath">
-            <property name="query" value="//RECORD_DEF[./MODIFIERS/LITERAL_PUBLIC][//PACKAGE_DEF//DOT/IDENT[@text='api']]"/>
-            <message key="matchxpath.match" value="public records are not allowed in API packages"/>
-        </module>
+		<!-- Prevent public records in API packages -->
+		<module name="MatchXpath">
+			<property name="query" value="//RECORD_DEF[./MODIFIERS/LITERAL_PUBLIC][//PACKAGE_DEF//DOT/IDENT[@text='api']]"/>
+			<message key="matchxpath.match" value="public records are not allowed in API packages"/>
+		</module>
 
-        <!-- Prevent non-@Unique fields in Mixin classes -->
-        <module name="MatchXpath">
-            <property name="query" value="
+		<!-- Prevent non-@Unique fields in Mixin classes -->
+		<module name="MatchXpath">
+			<property name="query" value="
                 //OBJBLOCK/VARIABLE_DEF[
                     not(
                         ./MODIFIERS/ANNOTATION/IDENT[
@@ -197,13 +197,13 @@
                     ]
                 ]
             "/>
-            <message key="matchxpath.match" value="Mixin fields must be annotated with @Unique or @Shadow"/>
-        </module>
+			<message key="matchxpath.match" value="Mixin fields must be annotated with @Unique or @Shadow"/>
+		</module>
 
-        <!-- Prevent non-@Unique methods in Mixin classes -->
-        <!-- All Mixin and MixinExtras annotations must be listed here -->
-        <module name="MatchXpath">
-            <property name="query" value="
+		<!-- Prevent non-@Unique methods in Mixin classes -->
+		<!-- All Mixin and MixinExtras annotations must be listed here -->
+		<module name="MatchXpath">
+			<property name="query" value="
                 //METHOD_DEF[
                     not(
                         ./MODIFIERS/ANNOTATION/IDENT[
@@ -228,12 +228,12 @@
                     ]
                 ]
             "/>
-            <message key="matchxpath.match" value="Mixin methods must be annotated with @Unique or one of the Mixin annotations"/>
-        </module>
+			<message key="matchxpath.match" value="Mixin methods must be annotated with @Unique or one of the Mixin annotations"/>
+		</module>
 
-        <!-- Prevent @Inject local capture, @Local is preferred -->
-        <module name="MatchXpath">
-            <property name="query" value="
+		<!-- Prevent @Inject local capture, @Local is preferred -->
+		<module name="MatchXpath">
+			<property name="query" value="
                 //METHOD_DEF[
                     ./MODIFIERS/ANNOTATION[
                         ./IDENT[@text='Inject']
@@ -242,12 +242,17 @@
                     ]
                 ]
             "/>
-            <message key="matchxpath.match" value="Inject local capture is not allowed, use @Local instead"/>
-        </module>
+			<message key="matchxpath.match" value="Inject local capture is not allowed, use @Local instead"/>
+		</module>
 
-        <module name="MatchXpath">
-            <property name="query" value="//ANNOTATION/IDENT[@text='Debug']"/>
-            <message key="matchxpath.match" value="@Debug annotation is not allowed"/>
-        </module>
+		<module name="MatchXpath">
+			<property name="query" value="//LITERAL_ASSERT"/>
+			<message key="matchxpath.match" value="Avoid using 'assert'."/>
+		</module>
+
+		<module name="MatchXpath">
+			<property name="query" value="//ANNOTATION/IDENT[@text='Debug']"/>
+			<message key="matchxpath.match" value="@Debug annotation is not allowed"/>
+		</module>
 	</module>
 </module>
