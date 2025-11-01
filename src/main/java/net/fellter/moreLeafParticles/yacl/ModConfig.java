@@ -84,6 +84,15 @@ public class ModConfig {
 	@SerialEntry(value = "oak_gravity")
 	public static float oakGravity = 0.07F;
 
+	@SerialEntry(value = "oak_wind")
+	public static float oakWind = 10.0F;
+
+	@SerialEntry(value = "enable_oak_wind")
+	public static boolean enableOakWind = false;
+
+	@SerialEntry(value = "oak_flow_away")
+	public static boolean oakFlowAway = false;
+
 	@SerialEntry(value = "enable_oak_init_velocity")
 	public static boolean enableOakInitialVelocity = false;
 
@@ -114,6 +123,15 @@ public class ModConfig {
 
 	@SerialEntry(value = "dark_oak_gravity")
 	public static float darkOakGravity = 0.07F;
+
+	@SerialEntry(value = "dark_oak_wind")
+	public static float darkOakWind = 10F;
+
+	@SerialEntry(value = "enable_dark_oak_wind")
+	public static boolean enableDarkOakWind = false;
+
+	@SerialEntry(value = "dark_oak_flow_away")
+	public static boolean darkOakFlowAway = false;
 
 	@SerialEntry(value = "enable_dark_oak_init_velocity")
 	public static boolean enableDarkOakInitialVelocity = false;
@@ -146,6 +164,15 @@ public class ModConfig {
 	@SerialEntry(value = "spruce_gravity")
 	public static float spruceGravity = 0.07F;
 
+	@SerialEntry(value = "spruce_wind")
+	public static float spruceWind = 10F;
+
+	@SerialEntry(value = "enable_spruce_wind")
+	public static boolean enableSpruceWind = false;
+
+	@SerialEntry(value = "spruce_flow_away")
+	public static boolean spruceFlowAway = false;
+
 	@SerialEntry(value = "enable_spruce_init_velocity")
 	public static boolean enableSpruceInitialVelocity = false;
 
@@ -176,6 +203,15 @@ public class ModConfig {
 
 	@SerialEntry(value = "birch_gravity")
 	public static float birchGravity = 0.07F;
+
+	@SerialEntry(value = "birch_wind")
+	public static float birchWind = 10F;
+
+	@SerialEntry(value = "enable_birch_wind")
+	public static boolean enableBirchWind = false;
+
+	@SerialEntry(value = "birch_flow_away")
+	public static boolean birchFlowAway = false;
 
 	@SerialEntry(value = "enable_birch_init_velocity")
 	public static boolean enableBirchInitialVelocity = false;
@@ -208,6 +244,15 @@ public class ModConfig {
 	@SerialEntry(value = "mangrove_gravity")
 	public static float mangroveGravity = 0.07F;
 
+	@SerialEntry(value = "mangrove_wind")
+	public static float mangroveWind = 10F;
+
+	@SerialEntry(value = "enable_mangrove_wind")
+	public static boolean enableMangroveWind = false;
+
+	@SerialEntry(value = "mangrove_flow_away")
+	public static boolean mangroveFlowAway = false;
+
 	@SerialEntry(value = "enable_mangrove_init_velocity")
 	public static boolean enableMangroveInitialVelocity = false;
 
@@ -238,6 +283,15 @@ public class ModConfig {
 
 	@SerialEntry(value = "jungle_gravity")
 	public static float jungleGravity = 0.07F;
+
+	@SerialEntry(value = "jungle_wind")
+	public static float jungleWind = 10F;
+
+	@SerialEntry(value = "enable_jungle_wind")
+	public static boolean enableJungleWind = false;
+
+	@SerialEntry(value = "jungle_flow_away")
+	public static boolean jungleFlowAway = false;
 
 	@SerialEntry(value = "enable_jungle_init_velocity")
 	public static boolean enableJungleInitialVelocity = false;
@@ -270,6 +324,15 @@ public class ModConfig {
 	@SerialEntry(value = "acacia_gravity")
 	public static float acaciaGravity = 0.07F;
 
+	@SerialEntry(value = "acacia_wind")
+	public static float acaciaWind = 10F;
+
+	@SerialEntry(value = "enable_acacia_wind")
+	public static boolean enableAcaciaWind = false;
+
+	@SerialEntry(value = "acacia_flow_away")
+	public static boolean acaciaFlowAway = false;
+
 	@SerialEntry(value = "enable_acacia_init_velocity")
 	public static boolean enableAcaciaInitialVelocity = false;
 
@@ -291,6 +354,15 @@ public class ModConfig {
 
 	@SerialEntry(value = "azalea_gravity")
 	public static float azaleaGravity = 0.07F;
+
+	@SerialEntry(value = "azalea_wind")
+	public static float azaleaWind = 10F;
+
+	@SerialEntry(value = "enable_azalea_wind")
+	public static boolean enableAzaleaWind = false;
+
+	@SerialEntry(value = "azalea_flow_away")
+	public static boolean azaleaFlowAway = false;
 
 	@SerialEntry(value = "enable_azalea_init_velocity")
 	public static boolean enableAzaleaInitialVelocity = false;
@@ -314,6 +386,15 @@ public class ModConfig {
 	@SerialEntry(value = "pale_oak_gravity")
 	public static float paleOakGravity = 0.07F;
 
+	@SerialEntry(value = "pale_oak_wind")
+	public static float paleOakWind = 10F;
+
+	@SerialEntry(value = "enable_pale_oak_wind")
+	public static boolean enablePaleOakWind = false;
+
+	@SerialEntry(value = "pale_oak_flow_away")
+	public static boolean paleOakFlowAway = false;
+
 	@SerialEntry(value = "enable_pale_oak_init_velocity")
 	public static boolean enablePaleOakInitialVelocity = false;
 
@@ -336,6 +417,15 @@ public class ModConfig {
 	@SerialEntry(value = "cherry_gravity")
 	public static float cherryGravity = 0.07F;
 
+	@SerialEntry(value = "cherry_wind")
+	public static float cherryWind = 10F;
+
+	@SerialEntry(value = "enable_cherry_wind")
+	public static boolean enableCherryWind = false;
+
+	@SerialEntry(value = "cherry_flow_away")
+	public static boolean cherryFlowAway = false;
+
 	@SerialEntry(value = "enable_cherry_init_velocity")
 	public static boolean enableCherryInitialVelocity = false;
 
@@ -357,6 +447,15 @@ public class ModConfig {
 
 	@SerialEntry(value = "flowering_azalea_gravity")
 	public static float floweringAzaleaGravity = 0.07F;
+
+	@SerialEntry(value = "flowering_azalea_wind")
+	public static float floweringAzaleaWind = 10F;
+
+	@SerialEntry(value = "enable_flowering_azalea_wind")
+	public static boolean enableFloweringAzaleaWind = false;
+
+	@SerialEntry(value = "flowering_azalea_flow_away")
+	public static boolean floweringAzaleaFlowAway = false;
 
 	@SerialEntry(value = "enable_flowering_azalea_init_velocity")
 	public static boolean enableFloweringAzaleaInitialVelocity = false;

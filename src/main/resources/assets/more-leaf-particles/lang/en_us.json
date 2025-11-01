@@ -6,7 +6,7 @@
   "more-leaf-particles.oak.option.enable.desc": "If true, oak leaf particles will spawn.",
   "more-leaf-particles.oak.group.color.desc": "Options related to the color of oak leaf particles.",
   "more-leaf-particles.oak.group.physicalProps.desc": "Options related to physical properties of oak leaf particles.",
-  
+
   "more-leaf-particles.category.darkOak.name": "Dark Oak Leaves",
   "more-leaf-particles.darkOak.group.color.name": "Dark Oak Color Options",
   "more-leaf-particles.darkOak.group.physicalProps.name": "Dark Oak Physical Properties",
@@ -14,7 +14,7 @@
   "more-leaf-particles.darkOak.option.enable.desc": "If true, dark oak leaf particles will spawn.",
   "more-leaf-particles.darkOak.group.color.desc": "Options related to the color of dark oak leaf particles.",
   "more-leaf-particles.darkOak.group.physicalProps.desc": "Options related to physical properties of dark oak leaf particles.",
-  
+
   "more-leaf-particles.category.spruce.name": "Spruce Leaves",
   "more-leaf-particles.spruce.group.color.name": "Spruce Color Options",
   "more-leaf-particles.spruce.group.physicalProps.name": "Spruce Physical Properties",
@@ -22,7 +22,7 @@
   "more-leaf-particles.spruce.option.enable.desc": "If true, spruce leaf particles will look like spruce needles.",
   "more-leaf-particles.spruce.group.color.desc": "Options related to the color of spruce needle particles.",
   "more-leaf-particles.spruce.group.physicalProps.desc": "Options related to physical properties of spruce needle particles (size, velocity, gravity)",
-  
+
   "more-leaf-particles.category.birch.name": "Birch Leaves",
   "more-leaf-particles.birch.group.color.name": "Birch Color Options",
   "more-leaf-particles.birch.group.physicalProps.name": "Birch Physical Properties",
@@ -30,7 +30,7 @@
   "more-leaf-particles.birch.option.enable.desc": "If true, birch leaf particles will look like birch leaves.",
   "more-leaf-particles.birch.group.color.desc": "Options related to the color of birch leaf particles.",
   "more-leaf-particles.birch.group.physicalProps.desc": "Options related to physical properties of birch leaf particles.",
-  
+
   "more-leaf-particles.category.mangrove.name": "Mangrove Leaves",
   "more-leaf-particles.mangrove.group.color.name": "Mangrove Color Options",
   "more-leaf-particles.mangrove.group.physicalProps.name": "Mangrove Physical Properties",
@@ -38,7 +38,7 @@
   "more-leaf-particles.mangrove.option.enable.desc": "If true, mangrove leaf particles will look like mangrove leaves.",
   "more-leaf-particles.mangrove.group.color.desc": "Options related to the color of mangrove leaf particles.",
   "more-leaf-particles.mangrove.group.physicalProps.desc": "Options related to physical properties of mangrove leaf particles.",
-  
+
   "more-leaf-particles.category.jungle.name": "Jungle Leaves",
   "more-leaf-particles.jungle.group.color.name": "Jungle Color Options",
   "more-leaf-particles.jungle.group.physicalProps.name": "Jungle Physical Properties",
@@ -46,7 +46,7 @@
   "more-leaf-particles.jungle.option.enable.desc": "If true, jungle leaf particles will look like jungle leaves.",
   "more-leaf-particles.jungle.group.color.desc": "Options related to the color of jungle leaf particles.",
   "more-leaf-particles.jungle.group.physicalProps.desc": "Options related to physical properties of jungle leaf particles.",
-  
+
   "more-leaf-particles.category.acacia.name": "Acacia Leaves",
   "more-leaf-particles.acacia.group.color.name": "Acacia Color Options",
   "more-leaf-particles.acacia.group.physicalProps.name": "Acacia Physical Properties",
@@ -54,19 +54,19 @@
   "more-leaf-particles.acacia.option.enable.desc": "If true, acacia leaf particles will look like acacia leaves.",
   "more-leaf-particles.acacia.group.color.desc": "Options related to the color of acacia leaf particles.",
   "more-leaf-particles.acacia.group.physicalProps.desc": "Options related to physical properties of acacia leaf particles.",
-  
+
   "more-leaf-particles.category.azalea.name": "Azalea Leaves",
   "more-leaf-particles.azalea.group.physicalProps.name": "Azalea Physical Properties",
   "more-leaf-particles.azalea.option.enable.name": "Enable Azalea Leaf Particles",
   "more-leaf-particles.azalea.option.enable.desc": "If true, azalea leaf particles will look like azalea leaves.",
   "more-leaf-particles.azalea.group.physicalProps.desc": "Options related to physical properties of azalea leaf particles.",
-  
+
   "more-leaf-particles.category.cherry.name": "Cherry Leaves",
   "more-leaf-particles.cherry.group.physicalProps.name": "Cherry Physical Properties",
   "more-leaf-particles.cherry.option.enable.name": "Enable Cherry Leaf Particles",
   "more-leaf-particles.cherry.option.enable.desc": "If true, cherry leaf particles will look like cherry leaves.",
   "more-leaf-particles.cherry.group.physicalProps.desc": "Options related to physical properties of cherry leaf particles.",
-  
+
   "more-leaf-particles.category.floweringAzalea.name": "Flowering Azalea Leaves",
   "more-leaf-particles.floweringAzalea.group.physicalProps.name": "Flowering Azalea Physical Properties",
   "more-leaf-particles.floweringAzalea.option.enable.name": "Enable Flowering Azalea Leaf Particles",
@@ -97,5 +97,11 @@
   "more-leaf-particles.option.enableInitVelocity.name": "Enable Initial Y Velocity",
   "more-leaf-particles.option.enableInitVelocity.desc": "If true, the initial Y velocity is set to the value specified below.",
   "more-leaf-particles.option.initVelocity.name": "Initial Y Velocity",
-  "more-leaf-particles.option.initVelocity.desc": "The initial Y velocity given to the particle."
+  "more-leaf-particles.option.initVelocity.desc": "The initial Y velocity given to the particle.",
+  "more-leaf-particles.option.wind.name": "Wind Factor",
+  "more-leaf-particles.option.wind.desc": "Describes how much is the particle affected by wind.",
+  "more-leaf-particles.option.flowAway.name": "Flow Away",
+  "more-leaf-particles.option.flowAway.desc": "If true, the particle will flow away instead of just descending down in circles.",
+  "more-leaf-particles.option.enableWind.name": "Enable Wind Factor",
+  "more-leaf-particles.option.enableWind.desc": "If true, the particle is affected by wind."
 }
