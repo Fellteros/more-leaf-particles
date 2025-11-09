@@ -19,8 +19,8 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 @Mixin(TintedParticleLeavesBlock.class)
-public abstract class TintedParticleLeavesBlockMixin extends LeavesBlock {
-	public TintedParticleLeavesBlockMixin(float leafParticleChance, Settings settings) {
+abstract class TintedParticleLeavesBlockMixin extends LeavesBlock {
+	private TintedParticleLeavesBlockMixin(float leafParticleChance, Settings settings) {
 		super(leafParticleChance, settings);
 	}
 
