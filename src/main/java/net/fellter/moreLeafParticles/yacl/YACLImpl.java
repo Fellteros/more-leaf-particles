@@ -10,24 +10,24 @@ import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 
 import net.minecraft.text.Text;
 
-import net.fabricmc.loader.impl.util.StringUtil;
+import static net.fabricmc.loader.impl.util.StringUtil.capitalize;
 
 public class YACLImpl {
 	public static YetAnotherConfigLib create() {
 		return YetAnotherConfigLib.createBuilder()
 				.title(Text.translatable("more-leaf-particles.config.title"))
 				.categories(Arrays.asList(
-						createCategory("oak"),
-						createCategory("spruce"),
-						createCategory("birch"),
-						createCategory("jungle"),
-						createCategory("acacia"),
-						createCategory("darkOak"),
-						createCategory("mangrove"),
-						createUntintable("cherry"),
-						createUntintable("paleOak"),
-						createUntintable("azalea"),
-						createUntintable("floweringAzalea")
+						createCategory("oak", Text.translatable("more-leaf-particles.category.translation.oak"), Text.translatable("more-leaf-particles.leafType.leaf.singular"), Text.translatable("more-leaf-particles.leafType.leaf.plural")),
+						createCategory("spruce", Text.translatable("more-leaf-particles.category.translation.spruce"), Text.translatable("more-leaf-particles.leafType.needle.singular"), Text.translatable("more-leaf-particles.leafType.needle.plural")),
+						createCategory("birch", Text.translatable("more-leaf-particles.category.translation.birch"), Text.translatable("more-leaf-particles.leafType.leaf.singular"), Text.translatable("more-leaf-particles.leafType.leaf.plural")),
+						createCategory("jungle", Text.translatable("more-leaf-particles.category.translation.jungle"), Text.translatable("more-leaf-particles.leafType.leaf.singular"), Text.translatable("more-leaf-particles.leafType.leaf.plural")),
+						createCategory("acacia", Text.translatable("more-leaf-particles.category.translation.acacia"), Text.translatable("more-leaf-particles.leafType.leaf.singular"), Text.translatable("more-leaf-particles.leafType.leaf.plural")),
+						createCategory("darkOak", Text.translatable("more-leaf-particles.category.translation.darkOak"), Text.translatable("more-leaf-particles.leafType.leaf.singular"), Text.translatable("more-leaf-particles.leafType.leaf.plural")),
+						createCategory("mangrove", Text.translatable("more-leaf-particles.category.translation.mangrove"), Text.translatable("more-leaf-particles.leafType.leaf.singular"), Text.translatable("more-leaf-particles.leafType.leaf.plural")),
+						createUntintable("cherry", Text.translatable("more-leaf-particles.category.translation.cherry"), Text.translatable("more-leaf-particles.leafType.leaf.singular"), Text.translatable("more-leaf-particles.leafType.leaf.plural")),
+						createUntintable("paleOak", Text.translatable("more-leaf-particles.category.translation.paleOak"), Text.translatable("more-leaf-particles.leafType.leaf.singular"), Text.translatable("more-leaf-particles.leafType.leaf.plural")),
+						createUntintable("azalea", Text.translatable("more-leaf-particles.category.translation.azalea"), Text.translatable("more-leaf-particles.leafType.leaf.singular"), Text.translatable("more-leaf-particles.leafType.leaf.plural")),
+						createUntintable("floweringAzalea", Text.translatable("more-leaf-particles.category.translation.floweringAzalea"), Text.translatable("more-leaf-particles.leafType.leaf.singular"), Text.translatable("more-leaf-particles.leafType.leaves_and_petals"))
 				))
 				.build();
 	}
@@ -48,31 +48,34 @@ public class YACLImpl {
 		}
 	}
 
-	private static ConfigCategory createCategory(String name) {
-		name = StringUtil.capitalize(name);
-		final String finalName = name;
-		final String decapitalized = decapitalize(finalName);
-		boolean enabled = (boolean) getConfigField("enable%s".formatted(name));
+	private static ConfigCategory createCategory(String id, final Text translation, final Text singleLeafType, final Text pluralLeafType) {
+		boolean enabled = (boolean) getConfigField("enable%s".formatted(capitalize(id)));
 
 		return ConfigCategory.createBuilder()
-				.name(Text.translatable("more-leaf-particles.category.%s.name".formatted(decapitalized)))
+				.name(Text.translatable("more-leaf-particles.category.name", translation))
 
 				.option(boolOptWithTickBox(
-						Text.translatable("more-leaf-particles.%s.option.enable.name".formatted(decapitalized)),
-						Text.translatable("more-leaf-particles.%s.option.enable.desc".formatted(decapitalized))
+						Text.translatable("more-leaf-particles.option.enable.name", translation),
+						Text.translatable(
+								"more-leaf-particles.option.enable.desc",
+								translation.getString().toLowerCase(),
+								singleLeafType,
+								translation.getString().toLowerCase(),
+								pluralLeafType
+						)
 				)
 						.binding(
 								true,
-								() -> (Boolean) getConfigField("enable%s".formatted(finalName)),
+								() -> (Boolean) getConfigField("enable%s".formatted(capitalize(id))),
 								value -> {
-									setConfigField("enable%s".formatted(finalName), value);
+									setConfigField("enable%s".formatted(capitalize(id)), value);
 									ModConfig.HANDLER.save();
 								}
 						).build())
 
 				.groupIf(enabled, OptionGroup.createBuilder()
-						.name(Text.translatable("more-leaf-particles.%s.group.color.name".formatted(decapitalized)))
-						.description(OptionDescription.of(Text.translatable("more-leaf-particles.%s.group.color.desc".formatted(decapitalized))))
+						.name(Text.translatable("more-leaf-particles.group.color.name", translation))
+						.description(OptionDescription.of(Text.translatable("more-leaf-particles.group.color.desc", translation.getString().toLowerCase(), singleLeafType)))
 
 						.option(boolOptWithTickBox(
 								Text.translatable("more-leaf-particles.option.enableCustomColor.name"),
@@ -80,9 +83,9 @@ public class YACLImpl {
 						)
 								.binding(
 										false,
-										() -> (Boolean) getConfigField("enable%sCustomColor".formatted(finalName)),
+										() -> (Boolean) getConfigField("enable%sCustomColor".formatted(capitalize(id))),
 										value -> {
-											setConfigField("enable%sCustomColor".formatted(finalName), value);
+											setConfigField("enable%sCustomColor".formatted(capitalize(id)), value);
 											ModConfig.HANDLER.save();
 										})
 								.available(enabled)
@@ -94,13 +97,13 @@ public class YACLImpl {
 						)
 								.binding(
 										true,
-										() -> (Boolean) getConfigField("use%sTint".formatted(finalName)),
+										() -> (Boolean) getConfigField("use%sTint".formatted(capitalize(id))),
 										value -> {
-											setConfigField("use%sTint".formatted(finalName), value);
+											setConfigField("use%sTint".formatted(capitalize(id)), value);
 											ModConfig.HANDLER.save();
 										}
 								)
-								.available((Boolean) getConfigField("enable%sCustomColor".formatted(name)))
+								.available((Boolean) getConfigField("enable%sCustomColor".formatted(capitalize(id))))
 								.build())
 
 						.optionIf(enabled, Option.<Color>createBuilder()
@@ -108,25 +111,25 @@ public class YACLImpl {
 								.description(OptionDescription.of(Text.translatable("more-leaf-particles.option.color.desc")))
 								.binding(
 										new Color(0, 0, 0),
-										() -> (Color) getConfigField("%sColor".formatted(decapitalized)),
+										() -> (Color) getConfigField("%sColor".formatted(id)),
 										value -> {
-											setConfigField("%sColor".formatted(decapitalized), value);
+											setConfigField("%sColor".formatted(id), value);
 											ModConfig.HANDLER.save();
 										}
 								)
-								.available((Boolean) getConfigField("enable%sCustomColor".formatted(name)))
+								.available((Boolean) getConfigField("enable%sCustomColor".formatted(capitalize(id))))
 								.controller(ColorControllerBuilder::create)
 								.build())
 						.build())
 
-				.groupIf(enabled, generalPhysicalProperties(name, decapitalized))
+				.groupIf(enabled, generalPhysicalProperties(id, translation, singleLeafType))
 				.build();
 	}
 
-	private static OptionGroup generalPhysicalProperties(String name, String lowerCase) {
+	private static OptionGroup generalPhysicalProperties(String id, Text translation, final Text singleLeafType) {
 		return OptionGroup.createBuilder()
-				.name(Text.translatable("more-leaf-particles.%s.group.physicalProps.name".formatted(lowerCase)))
-				.description(OptionDescription.of(Text.translatable("more-leaf-particles.%s.group.physicalProps.desc".formatted(lowerCase))))
+				.name(Text.translatable("more-leaf-particles.group.physicalProps.name", translation))
+				.description(OptionDescription.of(Text.translatable("more-leaf-particles.group.physicalProps.desc", translation.getString().toLowerCase(), singleLeafType)))
 
 				.option(boolOptWithTickBox(
 						Text.translatable("more-leaf-particles.option.enableSize.name"),
@@ -134,9 +137,9 @@ public class YACLImpl {
 				)
 						.binding(
 								false,
-								() -> (Boolean) getConfigField("enable%sSize".formatted(name)),
+								() -> (Boolean) getConfigField("enable%sSize".formatted(capitalize(id))),
 								value -> {
-									setConfigField("enable%sSize".formatted(name), value);
+									setConfigField("enable%sSize".formatted(capitalize(id)), value);
 									ModConfig.HANDLER.save();
 								})
 						.build())
@@ -146,13 +149,13 @@ public class YACLImpl {
 						.description(OptionDescription.of(Text.translatable("more-leaf-particles.option.size.desc")))
 						.binding(
 								2.0F,
-								() -> (Float) getConfigField("%sSize".formatted(lowerCase)),
+								() -> (Float) getConfigField("%sSize".formatted(id)),
 								value -> {
-									setConfigField("%sSize".formatted(lowerCase), value);
+									setConfigField("%sSize".formatted(id), value);
 									ModConfig.HANDLER.save();
 								}
 						)
-						.available((Boolean) getConfigField("enable%sSize".formatted(name)))
+						.available((Boolean) getConfigField("enable%sSize".formatted(capitalize(id))))
 						.controller(FloatFieldControllerBuilder::create)
 						.build())
 
@@ -162,9 +165,9 @@ public class YACLImpl {
 				)
 						.binding(
 								false,
-								() -> (Boolean) getConfigField("enable%sGravity".formatted(name)),
+								() -> (Boolean) getConfigField("enable%sGravity".formatted(capitalize(id))),
 								value -> {
-									setConfigField("enable%sGravity".formatted(name), value);
+									setConfigField("enable%sGravity".formatted(capitalize(id)), value);
 									ModConfig.HANDLER.save();
 								}
 						)
@@ -175,13 +178,13 @@ public class YACLImpl {
 						.description(OptionDescription.of(Text.translatable("more-leaf-particles.option.gravity.desc")))
 						.binding(
 								0.07F,
-								() -> (Float) getConfigField("%sGravity".formatted(lowerCase)),
+								() -> (Float) getConfigField("%sGravity".formatted(id)),
 								value -> {
-									setConfigField("%sGravity".formatted(lowerCase), value);
+									setConfigField("%sGravity".formatted(id), value);
 									ModConfig.HANDLER.save();
 								}
 						)
-						.available((Boolean) getConfigField("enable%sGravity".formatted(name)))
+						.available((Boolean) getConfigField("enable%sGravity".formatted(capitalize(id))))
 						.controller(FloatFieldControllerBuilder::create)
 						.build())
 
@@ -191,9 +194,9 @@ public class YACLImpl {
 				)
 						.binding(
 								false,
-								() -> (Boolean) getConfigField("enable%sInitialVelocity".formatted(name)),
+								() -> (Boolean) getConfigField("enable%sInitialVelocity".formatted(capitalize(id))),
 								value -> {
-									setConfigField("enable%sInitialVelocity".formatted(name), value);
+									setConfigField("enable%sInitialVelocity".formatted(capitalize(id)), value);
 									ModConfig.HANDLER.save();
 								}
 						)
@@ -203,14 +206,14 @@ public class YACLImpl {
 						.name(Text.translatable("more-leaf-particles.option.initVelocity.name"))
 						.description(OptionDescription.of(Text.translatable("more-leaf-particles.option.initVelocity.desc")))
 						.binding(
-								0.07F,
-								() -> (Float) getConfigField("%sInitialVelocity".formatted(lowerCase)),
+								0.021F,
+								() -> (Float) getConfigField("%sInitialVelocity".formatted(id)),
 								value -> {
-									setConfigField("%sInitialVelocity".formatted(lowerCase), value);
+									setConfigField("%sInitialVelocity".formatted(id), value);
 									ModConfig.HANDLER.save();
 								}
 						)
-						.available((Boolean) getConfigField("enable%sInitialVelocity".formatted(name)))
+						.available((Boolean) getConfigField("enable%sInitialVelocity".formatted(capitalize(id))))
 						.controller(FloatFieldControllerBuilder::create)
 						.build())
 
@@ -220,9 +223,9 @@ public class YACLImpl {
 				)
 						.binding(
 								false,
-								() -> (Boolean) getConfigField("enable%sWind".formatted(name)),
+								() -> (Boolean) getConfigField("enable%sWind".formatted(capitalize(id))),
 								value -> {
-									setConfigField("enable%sWind".formatted(name), value);
+									setConfigField("enable%sWind".formatted(capitalize(id)), value);
 									ModConfig.HANDLER.save();
 								}
 						)
@@ -233,13 +236,13 @@ public class YACLImpl {
 						.description(OptionDescription.of(Text.translatable("more-leaf-particles.option.wind.desc")))
 						.binding(
 								10.0F,
-								() -> (Float) getConfigField("%sWind".formatted(lowerCase)),
+								() -> (Float) getConfigField("%sWind".formatted(id)),
 								value -> {
-									setConfigField("%sWind".formatted(lowerCase), value);
+									setConfigField("%sWind".formatted(id), value);
 									ModConfig.HANDLER.save();
 								}
 						)
-						.available((Boolean) getConfigField("enable%sWind".formatted(name)))
+						.available((Boolean) getConfigField("enable%sWind".formatted(capitalize(id))))
 						.controller(FloatFieldControllerBuilder::create)
 						.build())
 
@@ -250,9 +253,9 @@ public class YACLImpl {
 
 						.binding(
 								false,
-								() -> (Boolean) getConfigField("%sFlowAway".formatted(lowerCase)),
+								() -> (Boolean) getConfigField("%sFlowAway".formatted(id)),
 								value -> {
-									setConfigField("%sFlowAway".formatted(lowerCase), value);
+									setConfigField("%sFlowAway".formatted(id), value);
 									ModConfig.HANDLER.save();
 								}
 						)
@@ -260,29 +263,32 @@ public class YACLImpl {
 				.build();
 	}
 
-	private static ConfigCategory createUntintable(String name) {
-		name = StringUtil.capitalize(name);
-		final String finalName = name;
-		final String decapitalized = decapitalize(finalName);
-		boolean enabled = (boolean) getConfigField("enable%s".formatted(name));
+	private static ConfigCategory createUntintable(String id, final Text translation, final Text singleLeafType, final Text pluralLeafType) {
+		boolean enabled = (boolean) getConfigField("enable%s".formatted(capitalize(id)));
 
 		return ConfigCategory.createBuilder()
-				.name(Text.translatable("more-leaf-particles.category.%s.name".formatted(decapitalized)))
+				.name(Text.translatable("more-leaf-particles.category.name", translation))
 
 				.option(boolOptWithTickBox(
-						Text.translatable("more-leaf-particles.%s.option.enable.name".formatted(decapitalized)),
-						Text.translatable("more-leaf-particles.%s.option.enable.desc".formatted(decapitalized))
+						Text.translatable("more-leaf-particles.option.enable.name", translation),
+						Text.translatable(
+								"more-leaf-particles.option.enable.desc",
+								translation.getString().toLowerCase(),
+								singleLeafType,
+								translation.getString().toLowerCase(),
+								pluralLeafType
+						)
 				)
 						.binding(
 								true,
-								() -> (Boolean) getConfigField("enable%s".formatted(finalName)),
+								() -> (Boolean) getConfigField("enable%s".formatted(capitalize(id))),
 								value -> {
-									setConfigField("enable%s".formatted(finalName), value);
+									setConfigField("enable%s".formatted(capitalize(id)), value);
 									ModConfig.HANDLER.save();
 								}
 						).build())
 
-				.groupIf(enabled, generalPhysicalProperties(name, decapitalized))
+				.groupIf(enabled, generalPhysicalProperties(id, translation, singleLeafType))
 				.build();
 	}
 

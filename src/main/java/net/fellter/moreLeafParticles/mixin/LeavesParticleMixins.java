@@ -18,9 +18,9 @@ import net.minecraft.util.math.random.Random;
 
 import static net.fellter.moreLeafParticles.yacl.ModConfig.*;
 
-public final class LeavesParticleMixins {
+final class LeavesParticleMixins {
 	@Mixin(LeavesParticle.TintedLeavesFactory.class)
-	public static class TintedLeavesFactoryMixin {
+	abstract static class TintedLeavesFactoryMixin {
 		@Shadow
 		@Final
 		private SpriteProvider spriteProvider;
@@ -43,7 +43,7 @@ public final class LeavesParticleMixins {
 	}
 
 	@Mixin(LeavesParticle.PaleOakLeavesFactory.class)
-	public static class PaleOakLeavesFactoryMixin {
+	abstract static class PaleOakLeavesFactoryMixin {
 		@Shadow
 		@Final
 		private SpriteProvider spriteProvider;
@@ -64,7 +64,7 @@ public final class LeavesParticleMixins {
 	}
 
 	@Mixin(LeavesParticle.CherryLeavesFactory.class)
-	public static class CherryLeavesFactoryMixin {
+	abstract static class CherryLeavesFactoryMixin {
 		@Shadow
 		@Final
 		private SpriteProvider spriteProvider;
