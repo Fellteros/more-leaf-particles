@@ -1,0 +1,2 @@
+accessWidener   v2  named
+accessible method net/minecraft/client/particle/FallingLeavesParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;FFZZFF)V

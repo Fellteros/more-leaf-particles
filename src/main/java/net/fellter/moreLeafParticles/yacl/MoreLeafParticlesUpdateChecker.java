@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.SemanticVersion;
@@ -171,8 +171,8 @@ public class MoreLeafParticlesUpdateChecker implements UpdateChecker {
 		}
 
 		@Override
-		public @Nullable Text getUpdateMessage() {
-			return Text.translatable("modmenu.install_version", this.version + '+' + mcVersion);
+		public @Nullable Component getUpdateMessage() {
+			return Component.translatable("modmenu.install_version", this.version + '+' + mcVersion);
 		}
 
 		@Override

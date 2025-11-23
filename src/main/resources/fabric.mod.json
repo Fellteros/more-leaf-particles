@@ -15,7 +15,7 @@
   "license": "CC-BY-4.0",
   "icon": "assets/more-leaf-particles/icon.png",
   "environment": "client",
-  "accessWidener": "more-leaf-particles.accesswidener",
+  "accessWidener": "accesswideners/${aw_file}",
   "entrypoints": {
     "client": [
       "net.fellter.moreLeafParticles.client.MoreLeafParticlesClient"
@@ -33,7 +33,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": ["1.21.9", "1.21.10"],
+    "minecraft": "${compatible_with}",
     "java": ">=21"
   }
 }
