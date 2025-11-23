@@ -8,23 +8,23 @@ import net.fellter.moreLeafParticles.yacl.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.UntintedParticleLeavesBlock;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.UntintedParticleLeavesBlock;
 
 @Mixin(UntintedParticleLeavesBlock.class)
 abstract class UntintedParticleLeavesBlockMixin extends LeavesBlock {
-	private UntintedParticleLeavesBlockMixin(float leafParticleChance, Settings settings) {
+	private UntintedParticleLeavesBlockMixin(float leafParticleChance, Properties settings) {
 		super(leafParticleChance, settings);
 	}
 
-	@WrapOperation(method = "spawnLeafParticle", at = @At(value = "INVOKE", target = "Lnet/minecraft/particle/ParticleUtil;spawnParticle(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/random/Random;Lnet/minecraft/particle/ParticleEffect;)V"))
-	private void fellter$spawnLeafParticle(World world, BlockPos pos, Random random, ParticleEffect effect, Operation<Void> original) {
+	@WrapOperation(method = "spawnFallingLeavesParticle", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/ParticleUtils;spawnParticleBelow(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Lnet/minecraft/core/particles/ParticleOptions;)V"))
+	private void fellter$spawnLeafParticle(Level world, BlockPos pos, RandomSource random, ParticleOptions effect, Operation<Void> original) {
 		if (MoreLeafParticles.isYACLPresent()) {
 			if (this == Blocks.AZALEA_LEAVES) {
 				effect = ModConfig.enableAzalea ? ModParticles.AZALEA_LEAVES : null;

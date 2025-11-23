@@ -10,15 +10,15 @@ import dev.isxander.yacl3.config.v2.impl.ConfigClassHandlerImpl;
 import dev.isxander.yacl3.gui.YACLScreen;
 import net.fellter.moreLeafParticles.MoreLeafParticles;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 
 import net.fabricmc.loader.api.FabricLoader;
 
 public class ModConfig {
 	public static ConfigClassHandler<ModConfig> HANDLER = new ConfigClassHandlerImpl<>(
 			ModConfig.class,
-			Identifier.of(MoreLeafParticles.MOD_ID, "config"),
+			ResourceLocation.fromNamespaceAndPath(MoreLeafParticles.MOD_ID, "config"),
 			config -> GsonConfigSerializerBuilder.create(config)
 					.setPath(FabricLoader.getInstance().getConfigDir().resolve("more-leaf-particles.json5"))
 					.appendGsonBuilder(GsonBuilder::setPrettyPrinting)
@@ -28,28 +28,28 @@ public class ModConfig {
 		@Override
 		public void save() {
 			super.save();
-			MinecraftClient client = MinecraftClient.getInstance();
+			Minecraft client = Minecraft.getInstance();
 
-			if (client.currentScreen == null) {
+			if (client.screen == null) {
 				return;
 			}
 
-			if (client.currentScreen instanceof YACLScreen screen) {
+			if (client.screen instanceof YACLScreen screen) {
 				int index = screen.tabNavigationBar.getTabs().indexOf(screen.tabManager.getCurrentTab());
 				int scrollOffset = screen.tabNavigationBar.getScrollOffset();
-				client.currentScreen.close();
+				client.screen.onClose();
 
-				YACLScreen newScreen = (YACLScreen) YACLImpl.create().generateScreen(client.currentScreen);
-				newScreen.init(client, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight());
+				YACLScreen newScreen = (YACLScreen) YACLImpl.create().generateScreen(client.screen);
+				newScreen.init(/*? if <=1.21.10 {*/client ,/*?}*/ client.getWindow().getGuiScaledWidth(), client.getWindow().getGuiScaledHeight());
 
 				newScreen.tabNavigationBar.selectTab(index, false);
-				newScreen.tabNavigationBar.init();
+				newScreen.tabNavigationBar.arrangeElements();
 				newScreen.tabNavigationBar.setScrollOffset(scrollOffset);
 
 				client.setScreen(newScreen);
 			} else {
-				client.currentScreen.close();
-				client.setScreen(YACLImpl.create().generateScreen(client.currentScreen));
+				client.screen.onClose();
+				client.setScreen(YACLImpl.create().generateScreen(client.screen));
 			}
 		}
 	};

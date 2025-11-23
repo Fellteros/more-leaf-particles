@@ -8,39 +8,39 @@ import net.fellter.moreLeafParticles.yacl.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.TintedParticleLeavesBlock;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.particle.TintedParticleEffect;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 
 @Mixin(TintedParticleLeavesBlock.class)
 abstract class TintedParticleLeavesBlockMixin extends LeavesBlock {
-	private TintedParticleLeavesBlockMixin(float leafParticleChance, Settings settings) {
+	private TintedParticleLeavesBlockMixin(float leafParticleChance, Properties settings) {
 		super(leafParticleChance, settings);
 	}
 
-	@WrapOperation(method = "spawnLeafParticle", at = @At(value = "INVOKE", target = "Lnet/minecraft/particle/ParticleUtil;spawnParticle(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/random/Random;Lnet/minecraft/particle/ParticleEffect;)V"))
-	private void fellter$spawnLeafParticle(World world, BlockPos pos, Random random, ParticleEffect effect, Operation<Void> original) {
+	@WrapOperation(method = "spawnFallingLeavesParticle", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/ParticleUtils;spawnParticleBelow(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Lnet/minecraft/core/particles/ParticleOptions;)V"))
+	private void fellter$spawnLeafParticle(Level world, BlockPos pos, RandomSource random, ParticleOptions effect, Operation<Void> original) {
 		if (MoreLeafParticles.isYACLPresent()) {
 			if (this == Blocks.SPRUCE_LEAVES) {
-				effect = ModConfig.enableSpruce ? TintedParticleEffect.create(ModParticles.SPRUCE_NEEDLES, world.getBlockColor(pos)) : null;
+				effect = ModConfig.enableSpruce ? ColorParticleOption.create(ModParticles.SPRUCE_NEEDLES, world.getClientLeafTintColor(pos)) : null;
 			} else if (this == Blocks.BIRCH_LEAVES) {
-				effect = ModConfig.enableBirch ? TintedParticleEffect.create(ModParticles.BIRCH_LEAVES, world.getBlockColor(pos)) : null;
+				effect = ModConfig.enableBirch ? ColorParticleOption.create(ModParticles.BIRCH_LEAVES, world.getClientLeafTintColor(pos)) : null;
 			} else if (this == Blocks.MANGROVE_LEAVES) {
-				effect = ModConfig.enableMangrove ? TintedParticleEffect.create(ModParticles.MANGROVE_LEAVES, world.getBlockColor(pos)) : null;
+				effect = ModConfig.enableMangrove ? ColorParticleOption.create(ModParticles.MANGROVE_LEAVES, world.getClientLeafTintColor(pos)) : null;
 			} else if (this == Blocks.JUNGLE_LEAVES) {
-				effect = ModConfig.enableJungle ? TintedParticleEffect.create(ModParticles.JUNGLE_LEAVES, world.getBlockColor(pos)) : null;
+				effect = ModConfig.enableJungle ? ColorParticleOption.create(ModParticles.JUNGLE_LEAVES, world.getClientLeafTintColor(pos)) : null;
 			} else if (this == Blocks.ACACIA_LEAVES) {
-				effect = ModConfig.enableAcacia ? TintedParticleEffect.create(ModParticles.ACACIA_LEAVES, world.getBlockColor(pos)) : null;
+				effect = ModConfig.enableAcacia ? ColorParticleOption.create(ModParticles.ACACIA_LEAVES, world.getClientLeafTintColor(pos)) : null;
 			} else if (this == Blocks.DARK_OAK_LEAVES) {
-				effect = ModConfig.enableDarkOak ? TintedParticleEffect.create(ModParticles.DARK_OAK_LEAVES, world.getBlockColor(pos)) : null;
+				effect = ModConfig.enableDarkOak ? ColorParticleOption.create(ModParticles.DARK_OAK_LEAVES, world.getClientLeafTintColor(pos)) : null;
 			} else if (this == Blocks.OAK_LEAVES) {
-				effect = ModConfig.enableOak ? TintedParticleEffect.create(ParticleTypes.TINTED_LEAVES, world.getBlockColor(pos)) : null;
+				effect = ModConfig.enableOak ? ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, world.getClientLeafTintColor(pos)) : null;
 			}
 
 			if (effect != null) {
@@ -48,17 +48,17 @@ abstract class TintedParticleLeavesBlockMixin extends LeavesBlock {
 			}
 		} else {
 			if (this == Blocks.SPRUCE_LEAVES) {
-				effect = TintedParticleEffect.create(ModParticles.SPRUCE_NEEDLES, world.getBlockColor(pos));
+				effect = ColorParticleOption.create(ModParticles.SPRUCE_NEEDLES, world.getClientLeafTintColor(pos));
 			} else if (this == Blocks.BIRCH_LEAVES) {
-				effect = TintedParticleEffect.create(ModParticles.BIRCH_LEAVES, world.getBlockColor(pos));
+				effect = ColorParticleOption.create(ModParticles.BIRCH_LEAVES, world.getClientLeafTintColor(pos));
 			} else if (this == Blocks.MANGROVE_LEAVES) {
-				effect = TintedParticleEffect.create(ModParticles.MANGROVE_LEAVES, world.getBlockColor(pos));
+				effect = ColorParticleOption.create(ModParticles.MANGROVE_LEAVES, world.getClientLeafTintColor(pos));
 			} else if (this == Blocks.JUNGLE_LEAVES) {
-				effect = TintedParticleEffect.create(ModParticles.JUNGLE_LEAVES, world.getBlockColor(pos));
+				effect = ColorParticleOption.create(ModParticles.JUNGLE_LEAVES, world.getClientLeafTintColor(pos));
 			} else if (this == Blocks.ACACIA_LEAVES) {
-				effect = TintedParticleEffect.create(ModParticles.ACACIA_LEAVES, world.getBlockColor(pos));
+				effect = ColorParticleOption.create(ModParticles.ACACIA_LEAVES, world.getClientLeafTintColor(pos));
 			} else if (this == Blocks.DARK_OAK_LEAVES) {
-				effect = TintedParticleEffect.create(ModParticles.DARK_OAK_LEAVES, world.getBlockColor(pos));
+				effect = ColorParticleOption.create(ModParticles.DARK_OAK_LEAVES, world.getClientLeafTintColor(pos));
 			}
 
 			original.call(world, pos, random, effect);
