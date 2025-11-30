@@ -11,8 +11,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FallingLeavesParticle;
+//? if >1.21.8 {
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+//?} else {
+/*import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.TextureSheetParticle;
+*///?}
 import net.minecraft.util.Mth;
 
 @Mixin(FallingLeavesParticle.class)
