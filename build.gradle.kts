@@ -47,15 +47,15 @@ loom {
 
 stonecutter {
 	replacements.string {
-		direction = eval(stonecutter.current.version, ">=1.21.11")
+		direction = eval(minecraft, ">=1.21.11")
 		replace("ResourceLocation", "Identifier")
 	}
 	replacements.string("non_null_import") {
-		direction = eval(stonecutter.current.version, ">=1.21.11")
+		direction = eval(minecraft, ">=1.21.11")
 		replace("org.jetbrains.annotations.NotNull", "org.jspecify.annotations.NonNull")
 	}
 	replacements.string("not_null") {
-		direction = eval(stonecutter.current.version, ">=1.21.11")
+		direction = eval(minecraft, ">=1.21.11")
 		replace("NotNull", "NonNull")
 	}
 }
