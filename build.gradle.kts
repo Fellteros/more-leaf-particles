@@ -90,7 +90,10 @@ tasks.processResources {
 		"minecraft_version" to project.property("minecraft_version"),
 		"loader_version" to project.property("loader_version"),
 		"aw_file" to accesswidener,
-		"compatible_with" to project.property("compatible_with")
+		"compatible_with" to project.property("compatible_with"),
+		"modmenu_version" to project.property("modmenu_version"),
+		"yacl_version" to project.property("yacl_version"),
+		"particle_rain_version" to project.property("particle_rain_version")
 	)
 
 	filesMatching("fabric.mod.json") { expand(props) }
