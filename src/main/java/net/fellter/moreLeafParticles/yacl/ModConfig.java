@@ -59,6 +59,16 @@ public class ModConfig {
 		YACLImpl.create();
 	}
 
+	/* COMMON */
+	@SerialEntry("enable_particle_rain_wind")
+	public static boolean enableParticleRainWind = true;
+
+	@SerialEntry("particle_rain_wind_multiplier")
+	public static double particleRainWindMultiplier = 1.0;
+
+	@SerialEntry("ticks_to_blend")
+	public static int ticksToBlend = 20;
+
 	/* OAK */
 	@SerialEntry(value = "enable_oak")
 	public static boolean enableOak = true;

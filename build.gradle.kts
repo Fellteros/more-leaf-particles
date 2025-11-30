@@ -22,6 +22,17 @@ repositories {
 	maven("https://maven.terraformersmc.com/") {
 		name = "Terraformers"
 	}
+
+	exclusiveContent {
+		forRepository {
+			maven("https://api.modrinth.com/maven") {
+				name = "Modrinth"
+			}
+		}
+		filter {
+			includeGroup("maven.modrinth")
+		}
+	}
 }
 
 val minecraft = stonecutter.current.version
@@ -36,15 +47,15 @@ loom {
 
 stonecutter {
 	replacements.string {
-		direction = eval(stonecutter.current.version, ">=1.21.11")
+		direction = eval(minecraft, ">=1.21.11")
 		replace("ResourceLocation", "Identifier")
 	}
 	replacements.string("non_null_import") {
-		direction = eval(stonecutter.current.version, ">=1.21.11")
+		direction = eval(minecraft, ">=1.21.11")
 		replace("org.jetbrains.annotations.NotNull", "org.jspecify.annotations.NonNull")
 	}
 	replacements.string("not_null") {
-		direction = eval(stonecutter.current.version, ">=1.21.11")
+		direction = eval(minecraft, ">=1.21.11")
 		replace("NotNull", "NonNull")
 	}
 }
@@ -62,6 +73,9 @@ dependencies {
 
 	modCompileOnly("com.terraformersmc:modmenu:${property("modmenu_version").toString()}")
 	modLocalRuntime("com.terraformersmc:modmenu:${property("modmenu_version").toString()}")
+
+	modCompileOnly("maven.modrinth:particle-rain:${property("particle_rain_version").toString()}")
+	modLocalRuntime("maven.modrinth:particle-rain:${property("particle_rain_version").toString()}")
 }
 
 tasks.processResources {
@@ -76,7 +90,10 @@ tasks.processResources {
 		"minecraft_version" to project.property("minecraft_version"),
 		"loader_version" to project.property("loader_version"),
 		"aw_file" to accesswidener,
-		"compatible_with" to project.property("compatible_with")
+		"compatible_with" to project.property("compatible_with"),
+		"modmenu_version" to project.property("modmenu_version"),
+		"yacl_version" to project.property("yacl_version"),
+		"particle_rain_version" to project.property("particle_rain_version")
 	)
 
 	filesMatching("fabric.mod.json") { expand(props) }

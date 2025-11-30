@@ -32,8 +32,13 @@
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "fabric": "*",
+    "fabric-api": "*",
     "minecraft": "${compatible_with}",
     "java": ">=21"
+  },
+  "suggests": {
+    "modmenu": "${modmenu_version}",
+    "yet_another_config_lib_v3": "${yacl_version}",
+    "particlerain": "${particle_rain_version}"
   }
 }

@@ -4,9 +4,8 @@ import java.awt.*;
 import java.util.Arrays;
 
 import dev.isxander.yacl3.api.*;
-import dev.isxander.yacl3.api.controller.ColorControllerBuilder;
-import dev.isxander.yacl3.api.controller.FloatFieldControllerBuilder;
-import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
+import dev.isxander.yacl3.api.controller.*;
+import net.fellter.moreLeafParticles.MoreLeafParticles;
 
 import net.minecraft.network.chat.Component;
 
@@ -17,6 +16,7 @@ public class YACLImpl {
 		return YetAnotherConfigLib.createBuilder()
 				.title(Component.translatable("more-leaf-particles.config.title"))
 				.categories(Arrays.asList(
+						createCommonsCategory(),
 						createCategory("oak", Component.translatable("more-leaf-particles.category.translation.oak"), Component.translatable("more-leaf-particles.leafType.leaf.singular"), Component.translatable("more-leaf-particles.leafType.leaf.plural")),
 						createCategory("spruce", Component.translatable("more-leaf-particles.category.translation.spruce"), Component.translatable("more-leaf-particles.leafType.needle.singular"), Component.translatable("more-leaf-particles.leafType.needle.plural")),
 						createCategory("birch", Component.translatable("more-leaf-particles.category.translation.birch"), Component.translatable("more-leaf-particles.leafType.leaf.singular"), Component.translatable("more-leaf-particles.leafType.leaf.plural")),
@@ -46,6 +46,57 @@ public class YACLImpl {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private static ConfigCategory createCommonsCategory() {
+		return ConfigCategory.createBuilder()
+				.name(Component.translatable("more-leaf-particles.category.common.name"))
+				.group(OptionGroup.createBuilder()
+						.name(Component.translatable("more-leaf-particles.group.particleRain.name"))
+						.description(OptionDescription.of(Component.translatable("more-leaf-particles.group.particleRain.desc")))
+						.option(boolOptWithTickBox(
+								Component.translatable("more-leaf-particles.option.enablePartRainWind.name"),
+								Component.translatable("more-leaf-particles.option.enablePartRainWind.desc"))
+								.binding(
+										true,
+										() -> ModConfig.enableParticleRainWind,
+										value -> {
+											ModConfig.enableParticleRainWind = value;
+											ModConfig.HANDLER.save();
+										}
+								)
+								.available(MoreLeafParticles.isParticleRainPresent())
+								.build())
+						.option(Option.<Double>createBuilder()
+								.name(Component.translatable("more-leaf-particles.option.windMultiplier.name"))
+								.description(OptionDescription.of(Component.translatable("more-leaf-particles.option.windMultiplier.desc")))
+								.binding(
+										1.0,
+										() -> ModConfig.particleRainWindMultiplier,
+										value -> {
+											ModConfig.particleRainWindMultiplier = value;
+											ModConfig.HANDLER.save();
+										}
+								)
+								.available(MoreLeafParticles.isParticleRainPresent() && ModConfig.enableParticleRainWind)
+								.controller(DoubleFieldControllerBuilder::create)
+								.build())
+						.option(Option.<Integer>createBuilder()
+								.name(Component.translatable("more-leaf-particles.option.ticksToBlend.name"))
+								.description(OptionDescription.of(Component.translatable("more-leaf-particles.option.ticksToBlend.desc")))
+								.binding(
+										20,
+										() -> ModConfig.ticksToBlend,
+										value -> {
+											ModConfig.ticksToBlend = value;
+											ModConfig.HANDLER.save();
+										}
+								)
+								.controller(IntegerFieldControllerBuilder::create)
+								.available(MoreLeafParticles.isParticleRainPresent() && ModConfig.enableParticleRainWind)
+								.build())
+						.build())
+				.build();
 	}
 
 	private static ConfigCategory createCategory(String id, final Component translation, final Component singleLeafType, final Component pluralLeafType) {
@@ -229,6 +280,7 @@ public class YACLImpl {
 									ModConfig.HANDLER.save();
 								}
 						)
+						.available(!MoreLeafParticles.isParticleRainPresent())
 						.build())
 
 				.option(Option.<Float>createBuilder()
@@ -242,7 +294,7 @@ public class YACLImpl {
 									ModConfig.HANDLER.save();
 								}
 						)
-						.available((Boolean) getConfigField("enable%sWind".formatted(capitalize(id))))
+						.available((Boolean) getConfigField("enable%sWind".formatted(capitalize(id))) && !MoreLeafParticles.isParticleRainPresent())
 						.controller(FloatFieldControllerBuilder::create)
 						.build())
 
