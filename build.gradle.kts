@@ -22,6 +22,17 @@ repositories {
 	maven("https://maven.terraformersmc.com/") {
 		name = "Terraformers"
 	}
+
+	exclusiveContent {
+		forRepository {
+			maven("https://api.modrinth.com/maven") {
+				name = "Modrinth"
+			}
+		}
+		filter {
+			includeGroup("maven.modrinth")
+		}
+	}
 }
 
 val minecraft = stonecutter.current.version
@@ -62,6 +73,9 @@ dependencies {
 
 	modCompileOnly("com.terraformersmc:modmenu:${property("modmenu_version").toString()}")
 	modLocalRuntime("com.terraformersmc:modmenu:${property("modmenu_version").toString()}")
+
+	modCompileOnly("maven.modrinth:particle-rain:${property("particle_rain_version").toString()}")
+	modLocalRuntime("maven.modrinth:particle-rain:${property("particle_rain_version").toString()}")
 }
 
 tasks.processResources {
