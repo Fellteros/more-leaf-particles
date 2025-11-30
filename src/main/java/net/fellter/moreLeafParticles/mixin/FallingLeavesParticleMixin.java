@@ -14,7 +14,6 @@ import net.minecraft.client.particle.FallingLeavesParticle;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Mth;
-//?}
 
 @Mixin(FallingLeavesParticle.class)
 public class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSheetParticle*//*?} else {*/SingleQuadParticle/*?}*/ {
