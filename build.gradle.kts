@@ -1,5 +1,6 @@
 plugins {
 	id("fabric-loom") version "1.13-SNAPSHOT"
+	id("me.modmuss50.mod-publish-plugin") version "1.1.0"
 }
 
 version = property("mod_version").toString()
@@ -45,6 +46,10 @@ loom {
 	accessWidenerPath = rootProject.file("src/main/resources/accesswideners/$accesswidener")
 }
 
+tasks.test {
+	useJUnit()
+}
+
 stonecutter {
 	replacements.string {
 		direction = eval(minecraft, ">=1.21.11")
@@ -65,6 +70,7 @@ dependencies {
 	minecraft("com.mojang:minecraft:${property("minecraft_version").toString()}")
 	mappings(loom.officialMojangMappings())
 	modImplementation("net.fabricmc:fabric-loader:${property("loader_version").toString()}")
+	testImplementation("net.fabricmc:fabric-loader-junit:${property("loader_version")}")
 
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version").toString()}")
 
@@ -118,20 +124,38 @@ tasks.jar {
 	}
 }
 
-// configure the maven publication
-//publishing {
-//    publications {
-//        create("mavenJava", MavenPublication) {
-//            artifactId = project.archives_base_name
-//            from components.java
-//        }
-//    }
-//
-//    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-//    repositories {
-//        // Add repositories to publish to here.
-//        // Notice: This block does NOT have the same function as the block in the top level.
-//        // The repositories here will be used for publishing your artifact, not for
-//        // retrieving dependencies.
-//    }
-//}
+publishMods {
+	dryRun = false
+	val modVersion = project.property("mod_version").toString()
+
+	file = project.file("build/libs/more_leaf_particles-${modVersion}.jar")
+	additionalFiles.from("build/libs/more_leaf_particles-${modVersion}-sources.jar")
+	modLoaders.add("fabric")
+	type = STABLE
+	changelog = rootProject.file("src/main/resources/changelogs/${modVersion.split("+")[0]}.md").readText(Charsets.UTF_8).replace("\${mcVersion}", minecraft)
+
+	modrinth {
+		projectId = "HwWDzPBa"
+		accessToken = providers.environmentVariable("modrinth")
+		displayName = "More Leaf Particles $modVersion"
+		version = modVersion
+
+		minecraftVersionRange {
+			val versions = property("version_range").toString().trim().split(",")
+
+			start = versions.first().trim()
+			end = versions.last().trim()
+		}
+
+		requires("fabric-api")
+		optional("modmenu", "yacl", "particle-rain")
+	}
+
+	github {
+		repository = "Fellteros/more-leaf-particles"
+		accessToken = providers.environmentVariable("github.pat")
+		commitish = "out"
+		tagName = "release/$modVersion"
+		displayName = modVersion
+	}
+}
