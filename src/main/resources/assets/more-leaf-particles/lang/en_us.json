@@ -46,5 +46,14 @@
   "more-leaf-particles.leafType.leaves_and_petals": "leaves and petals",
   "more-leaf-particles.category.translation.paleOak": "Pale Oak",
   "more-leaf-particles.category.translation.azalea": "Azalea",
-  "more-leaf-particles.category.translation.floweringAzalea": "Flowering Azalea"
+  "more-leaf-particles.category.translation.floweringAzalea": "Flowering Azalea",
+  "more-leaf-particles.category.common.name": "Common Properties",
+  "more-leaf-particles.option.windMultiplier.name": "Wind Multiplier",
+  "more-leaf-particles.option.windMultiplier.desc": "Determines how much the Particle Rain's wind system affects all leaf particles.",
+  "more-leaf-particles.group.particleRain.name": "Particle Rain",
+  "more-leaf-particles.group.particleRain.desc": "Options related to the features of the Particle Rain mod when loaded.",
+  "more-leaf-particles.option.enablePartRainWind.name": "Enable Particle Rain Wind",
+  "more-leaf-particles.option.enablePartRainWind.desc": "When enabled, all leaf particles will be affected by Particle Rain's wind system.",
+  "more-leaf-particles.option.ticksToBlend.name": "Ticks To Blend",
+  "more-leaf-particles.option.ticksToBlend.desc": "Determines how long it takes for the leaf particle to be fully affected by wind. 1 second is 20 ticks."
 }

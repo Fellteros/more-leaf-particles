@@ -34,4 +34,8 @@ public class MoreLeafParticles implements ModInitializer {
 	public static boolean isYACLPresent() {
 		return FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3");
 	}
+
+	public static boolean isParticleRainPresent() {
+		return FabricLoader.getInstance().isModLoaded("particlerain");
+	}
 }
