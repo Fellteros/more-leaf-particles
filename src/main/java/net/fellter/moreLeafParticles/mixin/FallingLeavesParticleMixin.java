@@ -21,7 +21,7 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.util.Mth;
 
 @Mixin(FallingLeavesParticle.class)
-public class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSheetParticle*//*?} else {*/SingleQuadParticle/*?}*/ {
+abstract class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSheetParticle*//*?} else {*/SingleQuadParticle/*?}*/ {
 	@Unique
 	private static double weatherMultiplier = 0.0;
 
