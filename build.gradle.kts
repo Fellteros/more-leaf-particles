@@ -47,7 +47,7 @@ loom {
 }
 
 tasks.test {
-	useJUnit()
+	useJUnitPlatform()
 }
 
 stonecutter {
@@ -155,7 +155,7 @@ publishMods {
 		repository = "Fellteros/more-leaf-particles"
 		accessToken = providers.environmentVariable("github.pat")
 		commitish = "out"
-		tagName = "release/$modVersion"
+		tagName = modVersion
 		displayName = modVersion
 	}
 }
