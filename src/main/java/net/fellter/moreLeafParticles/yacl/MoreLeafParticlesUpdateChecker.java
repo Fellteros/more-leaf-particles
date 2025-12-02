@@ -24,7 +24,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.SemanticVersion;
 import net.fabricmc.loader.api.Version;
 
-@ApiStatus.Experimental
 public class MoreLeafParticlesUpdateChecker implements UpdateChecker {
 	public static final Logger LOGGER = LoggerFactory.getLogger("Mod Menu/More Leaf Particles Update Checker");
 	private static final URI PROJECT_URI = URI.create("https://api.modrinth.com/v2/project/HwWDzPBa");
@@ -44,7 +43,6 @@ public class MoreLeafParticlesUpdateChecker implements UpdateChecker {
 		return result;
 	}
 
-	//why tf is this impossible to debug
 	private static UpdateInfo check() throws IOException, InterruptedException {
 		HttpRequest.Builder request = HttpRequest.newBuilder().GET().uri(PROJECT_URI);
 		HttpResponse<String> response = HttpUtil.request(request, HttpResponse.BodyHandlers.ofString());
@@ -63,16 +61,17 @@ public class MoreLeafParticlesUpdateChecker implements UpdateChecker {
 			return null;
 		}
 
-		JsonArray data;
+		JsonElement data;
 
 		try {
-			data = JsonParser.parseString(response.body()).getAsJsonArray();
+			data = JsonParser.parseString(response.body());
 		} catch (JsonSyntaxException e) {
+			LOGGER.warn("Tried to parse malformed JSON data, aborting check.");
 			return null;
 		}
 
 		//Get all version ids. Implicitly not null, since at least one version is always available
-		JsonArray versions = getVersions(data.getAsJsonObject()).orElse(new JsonArray());
+		JsonArray versions = getVersions(data.getAsJsonObject());
 
 		SemanticVersion match = null;
 		String versionId = null;
@@ -89,8 +88,8 @@ public class MoreLeafParticlesUpdateChecker implements UpdateChecker {
 			return null;
 		}
 
-		for (String version : versions.asList().stream().map(JsonElement::toString).toList()) {
-			URI versionURI = URI.create("https://api.modrinth.com/v2/version/" + version);
+		for (String version : versions.asList().stream().map(element -> stripQuotes(element.toString())).toList()) {
+			URI versionURI = URI.create("https://api.modrinth.com/v2/version/" + version.replace("\"", ""));
 			HttpRequest.Builder versionRequest = HttpRequest.newBuilder().GET().uri(versionURI);
 			HttpResponse<String> versionResponse = HttpUtil.request(versionRequest, HttpResponse.BodyHandlers.ofString());
 
@@ -101,24 +100,21 @@ public class MoreLeafParticlesUpdateChecker implements UpdateChecker {
 
 			JsonElement versionData = JsonParser.parseString(versionResponse.body());
 
-			if (!versionData.isJsonArray()) {
-				return null;
-			}
-
 			JsonElement versionNumber = versionData.getAsJsonObject().get("version_number");
 			JsonElement id = versionData.getAsJsonObject().get("id");
 			List<JsonElement> gameVersions = versionData.getAsJsonObject().get("game_versions").getAsJsonArray().asList();
 
 			//skip to next version if it isn't for the current Minecraft version
-			if (!gameVersions.stream().map(JsonElement::toString).toList().contains(currentMcVer.getFriendlyString())) {
+			if (!gameVersions.stream().map(element -> stripQuotes(element.toString())).toList().contains(currentMcVer.getFriendlyString())) {
 				continue;
 			}
 
 			SemanticVersion parsedModVer;
 
 			try {
-				parsedModVer = SemanticVersion.parse(versionNumber.toString().split("\\+")[0]);
+				parsedModVer = SemanticVersion.parse(stripQuotes(versionNumber.toString()).split("\\+")[0]);
 			} catch (Exception e) {
+				LOGGER.info("Couldn't parse mod version");
 				continue;
 			}
 
@@ -133,26 +129,29 @@ public class MoreLeafParticlesUpdateChecker implements UpdateChecker {
 			return null;
 		}
 
-		LOGGER.info("Updates available for More Leaf Particles");
 		return new MoreLeafParticlesUpdateInfo(match.getFriendlyString(), currentMcVer.getFriendlyString(), versionId);
 	}
 
 	private static Version getCurrentVersion() {
-		return FabricLoader.getInstance().getModContainer(MoreLeafParticles.MOD_ID).get().getMetadata().getVersion();
+		var	mod = FabricLoader.getInstance().getModContainer(MoreLeafParticles.MOD_ID);
+
+		if(mod.isPresent()) {
+			return mod.get().getMetadata().getVersion();
+		} else {
+			throw new NullPointerException();
+		}
 	}
 
-	private static Optional<JsonArray> getVersions(JsonObject object) {
+	private static JsonArray getVersions(JsonObject object) {
 		if (!object.has("versions")) {
-			return Optional.empty();
+			throw new NullPointerException("No versions could be found.");
 		}
 
-		JsonElement value = object.get("versions");
+		return object.get("versions").getAsJsonArray();
+	}
 
-		if (!value.isJsonPrimitive() || !value.isJsonArray()) {
-			return Optional.empty();
-		}
-
-		return Optional.of(value.getAsJsonArray());
+	private static String stripQuotes(String toStrip) {
+		return toStrip.replace("\"", "");
 	}
 
 	private static boolean isNewer(Version self, Version other) {
@@ -165,9 +164,9 @@ public class MoreLeafParticlesUpdateChecker implements UpdateChecker {
 		private final String id;
 
 		private MoreLeafParticlesUpdateInfo(String modVersion, String mcVersion, String id) {
-			this.version = modVersion;
-			this.mcVersion = mcVersion;
-			this.id = id;
+			this.version = stripQuotes(modVersion);
+			this.mcVersion = stripQuotes(mcVersion);
+			this.id = stripQuotes(id);
 		}
 
 		@Override
