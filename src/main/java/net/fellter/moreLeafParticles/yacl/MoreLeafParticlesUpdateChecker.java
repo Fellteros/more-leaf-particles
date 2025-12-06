@@ -13,7 +13,6 @@ import com.terraformersmc.modmenu.api.UpdateChecker;
 import com.terraformersmc.modmenu.api.UpdateInfo;
 import com.terraformersmc.modmenu.util.HttpUtil;
 import net.fellter.moreLeafParticles.MoreLeafParticles;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,7 +134,7 @@ public class MoreLeafParticlesUpdateChecker implements UpdateChecker {
 	private static Version getCurrentVersion() {
 		var	mod = FabricLoader.getInstance().getModContainer(MoreLeafParticles.MOD_ID);
 
-		if(mod.isPresent()) {
+		if (mod.isPresent()) {
 			return mod.get().getMetadata().getVersion();
 		} else {
 			throw new NullPointerException();
