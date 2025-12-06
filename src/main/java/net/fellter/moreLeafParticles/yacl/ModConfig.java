@@ -73,6 +73,9 @@ public class ModConfig {
 	@SerialEntry(value = "enable_oak")
 	public static boolean enableOak = true;
 
+	@SerialEntry(value = "oak_multiplier")
+	public static int oakMultiplier = 1;
+
 	@SerialEntry(value = "enable_oak_size")
 	public static boolean enableOakSize = false;
 
@@ -112,6 +115,9 @@ public class ModConfig {
 	/* DARK OAK */
 	@SerialEntry(value = "enable_dark_oak")
 	public static boolean enableDarkOak = true;
+
+	@SerialEntry(value = "dark_oak_multiplier")
+	public static int darkOakMultiplier = 1;
 
 	@SerialEntry(value = "enable_dark_oak_size")
 	public static boolean enableDarkOakSize = false;
@@ -153,6 +159,9 @@ public class ModConfig {
 	@SerialEntry(value = "enable_spruce")
 	public static boolean enableSpruce = true;
 
+	@SerialEntry(value = "spruce_multiplier")
+	public static int spruceMultiplier = 1;
+
 	@SerialEntry(value = "enable_spruce_size")
 	public static boolean enableSpruceSize = false;
 
@@ -192,6 +201,9 @@ public class ModConfig {
 	/* BIRCH */
 	@SerialEntry(value = "enable_birch")
 	public static boolean enableBirch = true;
+
+	@SerialEntry(value = "birch_multiplier")
+	public static int birchMultiplier = 1;
 
 	@SerialEntry(value = "enable_birch_size")
 	public static boolean enableBirchSize = false;
@@ -233,6 +245,9 @@ public class ModConfig {
 	@SerialEntry(value = "enable_mangrove")
 	public static boolean enableMangrove = true;
 
+	@SerialEntry(value = "mangrove_multiplier")
+	public static int mangroveMultiplier = 1;
+
 	@SerialEntry(value = "enable_mangrove_size")
 	public static boolean enableMangroveSize = false;
 
@@ -272,6 +287,9 @@ public class ModConfig {
 	/* JUNGLE */
 	@SerialEntry(value = "enable_jungle")
 	public static boolean enableJungle = true;
+
+	@SerialEntry(value = "jungle_multiplier")
+	public static int jungleMultiplier = 1;
 
 	@SerialEntry(value = "enable_jungle_size")
 	public static boolean enableJungleSize = false;
@@ -313,6 +331,9 @@ public class ModConfig {
 	@SerialEntry(value = "enable_acacia")
 	public static boolean enableAcacia = true;
 
+	@SerialEntry(value = "acacia_multiplier")
+	public static int acaciaMultiplier = 1;
+
 	@SerialEntry(value = "enable_acacia_size")
 	public static boolean enableAcaciaSize = false;
 
@@ -353,6 +374,9 @@ public class ModConfig {
 	@SerialEntry(value = "enable_azalea")
 	public static boolean enableAzalea = true;
 
+	@SerialEntry(value = "azalea_multiplier")
+	public static int azaleaMultiplier = 1;
+
 	@SerialEntry(value = "enable_azalea_size")
 	public static boolean enableAzaleaSize = false;
 
@@ -383,6 +407,9 @@ public class ModConfig {
 	/* PALE OAK */
 	@SerialEntry(value = "enable_pale_oak")
 	public static boolean enablePaleOak = true;
+
+	@SerialEntry(value = "pale_oak_multiplier")
+	public static int paleOakMultiplier = 1;
 
 	@SerialEntry(value = "enable_pale_oak_size")
 	public static boolean enablePaleOakSize = false;
@@ -415,6 +442,9 @@ public class ModConfig {
 	@SerialEntry(value = "enable_cherry")
 	public static boolean enableCherry = true;
 
+	@SerialEntry(value = "cherry_multiplier")
+	public static int cherryMultiplier = 1;
+
 	@SerialEntry(value = "enable_cherry_size")
 	public static boolean enableCherrySize = false;
 
@@ -445,6 +475,9 @@ public class ModConfig {
 	/* FLOWERING AZALEA */
 	@SerialEntry(value = "enable_flowering_azalea")
 	public static boolean enableFloweringAzalea = true;
+
+	@SerialEntry(value = "flowering_azalea_multiplier")
+	public static int floweringAzaleaMultiplier = 1;
 
 	@SerialEntry(value = "enable_flowering_azalea_size")
 	public static boolean enableFloweringAzaleaSize = false;

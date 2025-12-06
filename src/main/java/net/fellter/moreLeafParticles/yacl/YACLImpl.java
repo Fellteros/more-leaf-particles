@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.*;
+import dev.isxander.yacl3.gui.controllers.slider.IntegerSliderController;
+import dev.isxander.yacl3.impl.controller.IntegerSliderControllerBuilderImpl;
 import net.fellter.moreLeafParticles.MoreLeafParticles;
 
 import net.minecraft.network.chat.Component;
@@ -123,6 +125,25 @@ public class YACLImpl {
 									ModConfig.HANDLER.save();
 								}
 						).build())
+
+				.option(Option.<Integer>createBuilder()
+						.name(Component.translatable("more-leaf-particles.option.probability.name", translation))
+						.description(OptionDescription.of(Component.translatable("more-leaf-particles.option.probability.desc")))
+						.binding(
+								1,
+								() -> (int) getConfigField("%sMultiplier".formatted(id)),
+								value -> {
+									setConfigField("%sMultiplier".formatted(id), value);
+									ModConfig.HANDLER.save();
+								}
+						)
+						.customController(doubleOption -> new IntegerSliderControllerBuilderImpl(doubleOption) {
+							@Override
+							public Controller<Integer> build() {
+								return IntegerSliderController.createInternal(doubleOption, 0, 100, 1, value -> Component.literal(value + "%"));
+							}
+						}.build())
+						.build())
 
 				.groupIf(enabled, OptionGroup.createBuilder()
 						.name(Component.translatable("more-leaf-particles.group.color.name", translation))
@@ -339,6 +360,25 @@ public class YACLImpl {
 									ModConfig.HANDLER.save();
 								}
 						).build())
+
+				.option(Option.<Integer>createBuilder()
+						.name(Component.translatable("more-leaf-particles.option.probability.name", translation))
+						.description(OptionDescription.of(Component.translatable("more-leaf-particles.option.probability.desc")))
+						.binding(
+								1,
+								() -> (int) getConfigField("%sMultiplier".formatted(id)),
+								value -> {
+									setConfigField("%sMultiplier".formatted(id), value);
+									ModConfig.HANDLER.save();
+								}
+						)
+						.customController(doubleOption -> new IntegerSliderControllerBuilderImpl(doubleOption) {
+							@Override
+							public Controller<Integer> build() {
+								return IntegerSliderController.createInternal(doubleOption, 0, 100, 1, value -> Component.literal(value + "%"));
+							}
+						}.build())
+						.build())
 
 				.groupIf(enabled, generalPhysicalProperties(id, translation, singleLeafType))
 				.build();

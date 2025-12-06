@@ -64,14 +64,11 @@ abstract class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSh
 
 	//? if <=1.21.8 {
 	/*@Unique
-	public @NotNull ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
-	}
+	abstract public @NotNull ParticleRenderType getRenderType();
 	*///?} else {
 	@Unique
 	@Override
-	public @NotNull Layer getLayer() {
-		return Layer.OPAQUE;
-	}//?}
+	abstract public @NotNull Layer getLayer();
+	//?}
 }
 
