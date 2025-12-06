@@ -1,5 +1,5 @@
 plugins {
-	id("fabric-loom") version "1.13-SNAPSHOT"
+	id("fabric-loom") version "1.14.+"
 	id("me.modmuss50.mod-publish-plugin") version "1.1.0"
 }
 
@@ -132,7 +132,9 @@ publishMods {
 	additionalFiles.from("build/libs/more_leaf_particles-${modVersion}-sources.jar")
 	modLoaders.add("fabric")
 	type = STABLE
-	changelog = rootProject.file("src/main/resources/changelogs/${modVersion.split("+")[0]}.md").readText(Charsets.UTF_8).replace("\${mcVersion}", minecraft)
+	changelog = expand(rootProject.file("src/main/resources/changelogs/${modVersion.split("+")[0]}.md"), mapOf(
+		"mcVersion" to minecraft
+	))
 
 	modrinth {
 		projectId = "HwWDzPBa"
@@ -158,4 +160,14 @@ publishMods {
 		tagName = modVersion
 		displayName = modVersion
 	}
+}
+
+fun expand(file: File, properties: Map<String, *>): String {
+	var body: String = file.readText(Charsets.UTF_8)
+
+	for ((string, sth) in properties) {
+		body = body.replace($$"${$$string}", sth.toString())
+	}
+
+	return body
 }
