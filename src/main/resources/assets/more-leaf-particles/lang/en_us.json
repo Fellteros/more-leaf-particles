@@ -55,5 +55,7 @@
   "more-leaf-particles.option.enablePartRainWind.name": "Enable Particle Rain Wind",
   "more-leaf-particles.option.enablePartRainWind.desc": "When enabled, all leaf particles will be affected by Particle Rain's wind system.",
   "more-leaf-particles.option.ticksToBlend.name": "Ticks To Blend",
-  "more-leaf-particles.option.ticksToBlend.desc": "Determines how long it takes for the leaf particle to be fully affected by wind. 1 second is 20 ticks."
+  "more-leaf-particles.option.ticksToBlend.desc": "Determines how long it takes for the leaf particle to be fully affected by wind. 1 second is 20 ticks.",
+  "more-leaf-particles.option.probability.name": "%s Particle Spawn Probability",
+  "more-leaf-particles.option.probability.desc": "Determines how probable it is for the leaves block to emit a particle every tick."
 }
