@@ -38,12 +38,12 @@ repositories {
 
 val minecraft = stonecutter.current.version
 val accesswidener = when {
-	stonecutter.eval(minecraft, ">=1.21.10") -> "1.21.10.aw"
-	else -> "pre-1.21.8.aw"
+	stonecutter.eval(minecraft, ">=1.21.10") -> "1.21.10.ct"
+	else -> "pre-1.21.8.ct"
 }
 
 loom {
-	accessWidenerPath = rootProject.file("src/main/resources/accesswideners/$accesswidener")
+	accessWidenerPath = rootProject.file("src/main/resources/classtweakers/$accesswidener")
 }
 
 tasks.test {
