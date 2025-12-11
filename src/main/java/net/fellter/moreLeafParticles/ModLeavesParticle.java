@@ -5,7 +5,7 @@ package net.fellter.moreLeafParticles;
 
 import java.awt.*;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -30,7 +30,7 @@ public class ModLeavesParticle {
 		}
 
 		@Override
-		public @NotNull Particle createParticle(@NotNull ColorParticleOption tinted, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NotNull RandomSource random/*?}*/) {
+		public @NonNull Particle createParticle(@NonNull ColorParticleOption tinted, @NonNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NonNull RandomSource random/*?}*/) {
 			FallingLeavesParticle particle;
 
 			if (MoreLeafParticles.isYACLPresent()) {
@@ -59,7 +59,7 @@ public class ModLeavesParticle {
 		}
 
 		@Override
-		public @NotNull Particle createParticle(@NotNull ColorParticleOption tinted, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NotNull RandomSource random/*?}*/) {
+		public @NonNull Particle createParticle(@NonNull ColorParticleOption tinted, @NonNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NonNull RandomSource random/*?}*/) {
 			FallingLeavesParticle particle;
 
 			if (MoreLeafParticles.isYACLPresent()) {
@@ -88,7 +88,7 @@ public class ModLeavesParticle {
 		}
 
 		@Override
-		public @NotNull Particle createParticle(@NotNull ColorParticleOption tinted, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NotNull RandomSource random/*?}*/) {
+		public @NonNull Particle createParticle(@NonNull ColorParticleOption tinted, @NonNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NonNull RandomSource random/*?}*/) {
 			FallingLeavesParticle particle;
 
 			if (MoreLeafParticles.isYACLPresent()) {
@@ -117,7 +117,7 @@ public class ModLeavesParticle {
 		}
 
 		@Override
-		public @NotNull Particle createParticle(@NotNull ColorParticleOption tinted, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NotNull RandomSource random/*?}*/) {
+		public @NonNull Particle createParticle(@NonNull ColorParticleOption tinted, @NonNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NonNull RandomSource random/*?}*/) {
 			FallingLeavesParticle particle;
 
 			if (MoreLeafParticles.isYACLPresent()) {
@@ -146,7 +146,7 @@ public class ModLeavesParticle {
 		}
 
 		@Override
-		public @NotNull Particle createParticle(@NotNull ColorParticleOption tinted, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NotNull RandomSource random/*?}*/) {
+		public @NonNull Particle createParticle(@NonNull ColorParticleOption tinted, @NonNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NonNull RandomSource random/*?}*/) {
 			FallingLeavesParticle particle;
 
 			if (MoreLeafParticles.isYACLPresent()) {
@@ -175,7 +175,7 @@ public class ModLeavesParticle {
 		}
 
 		@Override
-		public @NotNull Particle createParticle(@NotNull ColorParticleOption tinted, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NotNull RandomSource random/*?}*/) {
+		public @NonNull Particle createParticle(@NonNull ColorParticleOption tinted, @NonNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? if >=1.21.10 {*/, @NonNull RandomSource random/*?}*/) {
 			FallingLeavesParticle particle;
 
 			if (MoreLeafParticles.isYACLPresent()) {
@@ -195,7 +195,7 @@ public class ModLeavesParticle {
 		}
 	}
 
-	public static class AzaleaLeavesFactory implements ParticleProvider<@NotNull SimpleParticleType> {
+	public static class AzaleaLeavesFactory implements ParticleProvider<@NonNull SimpleParticleType> {
 		private final SpriteSet provider;
 
 		public AzaleaLeavesFactory(SpriteSet provider) {
@@ -203,7 +203,7 @@ public class ModLeavesParticle {
 		}
 
 		@Override
-		public @Nullable Particle createParticle(SimpleParticleType parameters, @NotNull ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ/*? if >=1.21.10 {*/, @NotNull RandomSource random/*?}*/) {
+		public @Nullable Particle createParticle(SimpleParticleType parameters, @NonNull ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ/*? if >=1.21.10 {*/, @NonNull RandomSource random/*?}*/) {
 			if (MoreLeafParticles.isYACLPresent()) {
 				float size = enableAzaleaSize ? azaleaSize : 2.0F;
 				float initVelocityY = enableAzaleaInitialVelocity ? azaleaInitialVelocity : 0.021F;
@@ -217,7 +217,7 @@ public class ModLeavesParticle {
 		}
 	}
 
-	public static class FloweringAzaleaLeavesFactory implements ParticleProvider<@NotNull SimpleParticleType> {
+	public static class FloweringAzaleaLeavesFactory implements ParticleProvider<@NonNull SimpleParticleType> {
 		private final SpriteSet provider;
 
 		public FloweringAzaleaLeavesFactory(SpriteSet provider) {
@@ -225,7 +225,7 @@ public class ModLeavesParticle {
 		}
 
 		@Override
-		public @Nullable Particle createParticle(SimpleParticleType parameters, @NotNull ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ/*? if >=1.21.10 {*/, @NotNull RandomSource random/*?}*/) {
+		public @Nullable Particle createParticle(SimpleParticleType parameters, @NonNull ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ/*? if >=1.21.10 {*/, @NonNull RandomSource random/*?}*/) {
 			if (MoreLeafParticles.isYACLPresent()) {
 				float size = enableFloweringAzaleaSize ? floweringAzaleaSize : 2.0F;
 				float initVelocityY = enableFloweringAzaleaInitialVelocity ? floweringAzaleaInitialVelocity : 0.021F;

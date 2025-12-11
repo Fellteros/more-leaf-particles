@@ -11,14 +11,14 @@ import dev.isxander.yacl3.gui.YACLScreen;
 import net.fellter.moreLeafParticles.MoreLeafParticles;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import net.fabricmc.loader.api.FabricLoader;
 
 public class ModConfig {
 	public static ConfigClassHandler<ModConfig> HANDLER = new ConfigClassHandlerImpl<>(
 			ModConfig.class,
-			ResourceLocation.fromNamespaceAndPath(MoreLeafParticles.MOD_ID, "config"),
+			Identifier.fromNamespaceAndPath(MoreLeafParticles.MOD_ID, "config"),
 			config -> GsonConfigSerializerBuilder.create(config)
 					.setPath(FabricLoader.getInstance().getConfigDir().resolve("more-leaf-particles.json5"))
 					.appendGsonBuilder(GsonBuilder::setPrettyPrinting)
@@ -35,12 +35,15 @@ public class ModConfig {
 			}
 
 			if (client.screen instanceof YACLScreen screen) {
-				int index = screen.tabNavigationBar.getTabs().indexOf(screen.tabManager.getCurrentTab());
+				var currentTab = screen.tabManager.getCurrentTab();
+
+				int index = currentTab != null ? screen.tabNavigationBar.getTabs().indexOf(currentTab) : 0;
+
 				int scrollOffset = screen.tabNavigationBar.getScrollOffset();
 				client.screen.onClose();
 
 				YACLScreen newScreen = (YACLScreen) YACLImpl.create().generateScreen(client.screen);
-				newScreen.init(/*? if <=1.21.10 {*/client ,/*?}*/ client.getWindow().getGuiScaledWidth(), client.getWindow().getGuiScaledHeight());
+				newScreen.init(/*? if <=1.21.10 {*//*client ,*//*?}*/ client.getWindow().getGuiScaledWidth(), client.getWindow().getGuiScaledHeight());
 
 				newScreen.tabNavigationBar.selectTab(index, false);
 				newScreen.tabNavigationBar.arrangeElements();
