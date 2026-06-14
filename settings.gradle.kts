@@ -27,3 +27,5 @@ stonecutter {
 		vcsVersion = "26.1"
 	}
 }
+
+rootProject.name = "More Leaf Particles"
