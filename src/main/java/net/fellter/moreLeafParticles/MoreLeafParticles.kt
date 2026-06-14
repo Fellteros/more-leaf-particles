@@ -1,41 +1,35 @@
-package net.fellter.moreLeafParticles;
+package net.fellter.moreLeafParticles
 
-import net.fellter.moreLeafParticles.yacl.ModConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.fabricmc.api.ModInitializer
+import net.fabricmc.loader.api.FabricLoader
+import net.fellter.moreLeafParticles.config.ModConfig
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
+class MoreLeafParticles : ModInitializer {
+	override fun onInitialize() {
+		ModParticles.init()
 
-public class MoreLeafParticles implements ModInitializer {
-	public static final String MOD_ID = "more-leaf-particles";
-	public static final Logger LOGGER = LoggerFactory.getLogger("More Leaf Particles");
+		if (isYACLPresent) {
+			ModConfig.initConfig()
 
-	@Override
-	public void onInitialize() {
-		ModParticles.init();
-
-		if (isYACLPresent()) {
-			ModConfig.initConfig();
-
-			if (!FabricLoader.getInstance().isModLoaded("modmenu")) {
-				LOGGER.warn("Couldn't load ModMenu - install it to be able to configurate More Leaf Particles via the Modmenu config screen!");
-				ModConfig.HANDLER.defaults();
+			if (!isModMenuPresent) {
+				LOGGER.warn("Couldn't load ModMenu - install it to be able to configure More Leaf Particles via the Modmenu config screen!")
+				ModConfig.HANDLER.defaults()
 			}
-		} else if (FabricLoader.getInstance().isModLoaded("modmenu")) {
-			if (!isYACLPresent()) {
-				LOGGER.warn("Couldn't load YACL - install it to be able to use More Leaf Particles' config!");
-			} else {
-				ModConfig.initConfig();
-			}
+		} else if (isModMenuPresent) {
+			LOGGER.warn("Couldn't load YACL - install it to be able to use More Leaf Particles' config!")
 		}
 	}
 
-	public static boolean isYACLPresent() {
-		return FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3");
-	}
+	companion object {
+		const val MOD_ID: String = "more-leaf-particles"
+		val LOGGER: Logger = LoggerFactory.getLogger("More Leaf Particles")
 
-	public static boolean isParticleRainPresent() {
-		return FabricLoader.getInstance().isModLoaded("particlerain");
+		@JvmStatic val isModMenuPresent: Boolean = FabricLoader.getInstance().isModLoaded("modmenu")
+
+		@JvmStatic val isYACLPresent: Boolean = FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3")
+
+		@JvmStatic val isParticleRainPresent: Boolean = FabricLoader.getInstance().isModLoaded("particlerain")
 	}
 }
