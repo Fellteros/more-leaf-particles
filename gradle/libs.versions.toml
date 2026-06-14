@@ -1,0 +1,15 @@
+[versions]
+stonecutter = "0.9.5"
+mod-publish = "2.0.0"
+fabric-loader = "0.19.3"
+fabric-kotlin = "1.13.12+kotlin.2.4.0"
+kotlin = "2.4.0"
+
+[libraries]
+fabric-loader = { group = "net.fabricmc", name = "fabric-loader", version.ref = "fabric-loader" }
+fabric-loader-junit = { group = "net.fabricmc", name = "fabric-loader-junit", version.ref = "fabric-loader" }
+fabric-language-kotlin = { group = "net.fabricmc", name = "fabric-language-kotlin", version.ref = "fabric-kotlin" }
+
+[plugins]
+stonecutter = { id = "dev.kikugie.stonecutter", version.ref = "stonecutter" }
+mod-publish-plugin = { id = "me.modmuss50.mod-publish-plugin", version.ref = "mod-publish" }
