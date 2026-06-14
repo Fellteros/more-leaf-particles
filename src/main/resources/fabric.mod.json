@@ -21,7 +21,10 @@
       "net.fellter.moreLeafParticles.client.MoreLeafParticlesClient"
     ],
     "main": [
-      "net.fellter.moreLeafParticles.MoreLeafParticles"
+      {
+        "adapter": "kotlin",
+        "value": "net.fellter.moreLeafParticles.MoreLeafParticles"
+      }
     ],
     "modmenu": [
       "net.fellter.moreLeafParticles.config.ModMenuImpl"
