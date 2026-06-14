@@ -151,7 +151,7 @@ publishMods {
 
 	modrinth {
 		projectId = "HwWDzPBa"
-		accessToken = providers.environmentVariable("modrinth")
+		accessToken = providers.environmentVariable("MODRINTH_PAT")
 		displayName = "More Leaf Particles $fullModVersion"
 		version = fullModVersion
 
@@ -166,7 +166,7 @@ publishMods {
 
 	github {
 		repository = "Fellteros/more-leaf-particles"
-		accessToken = providers.environmentVariable("github.pat")
+		accessToken = providers.environmentVariable("GITHUB_PAT")
 		commitish = "out"
 		tagName = fullModVersion
 		displayName = fullModVersion
