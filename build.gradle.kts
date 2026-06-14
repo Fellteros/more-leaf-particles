@@ -171,3 +171,11 @@ fun expand(file: File, properties: Map<String, *>): String {
 
 	return body
 }
+
+inline fun <reified T : Any> getArrayOrEmpty(vararg name: String): Array<T> {
+	return sc.properties.rawOrNull(*name)?.asList()?.map { it.to<T>() }?.toTypedArray() ?: arrayOf()
+}
+
+fun StonecutterBuildExtension.property(name: String): String {
+	return this.properties[name]
+}
