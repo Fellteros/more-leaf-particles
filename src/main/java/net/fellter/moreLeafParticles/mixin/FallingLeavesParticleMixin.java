@@ -38,7 +38,7 @@ abstract class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSh
 			var wind = Class.forName("pigcart.particlerain.config.ConfigData").getDeclaredField("wind").get(config);
 			var windClass = Class.forName("pigcart.particlerain.config.ConfigData$WindOptions");
 			float frequency = (float) windClass.getDeclaredField("gustFrequency").get(wind);
-			float shift = (int) Class.forName("pigcart.particlerain.ParticleRain").getDeclaredField("clientTicks").get(null) +
+			float shift = /*? if <=1.21.5 {*//*(int) Class.forName("pigcart.particlerain.ParticleRain").getDeclaredField("clientTicks").get(null) + *//*?}*/
 					(float) windClass.getDeclaredField("modulationSpeed").get(wind);
 			float variance = (float) windClass.getDeclaredField("strengthVariance").get(wind);
 			float strength = (float) windClass.getDeclaredField("strength").get(wind);
