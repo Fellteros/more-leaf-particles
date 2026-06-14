@@ -1,7 +1,7 @@
 package net.fellter.moreLeafParticles.mixin;
 
 import net.fellter.moreLeafParticles.MoreLeafParticles;
-import net.fellter.moreLeafParticles.yacl.ModConfig;
+import net.fellter.moreLeafParticles.config.ModConfig;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+@SuppressWarnings("unused")
 @Mixin(LeavesBlock.class)
 abstract class LeavesBlockMixin extends Block {
 	@Final
@@ -27,7 +28,7 @@ abstract class LeavesBlockMixin extends Block {
 	}
 
 	@Inject(method = "makeFallingLeavesParticles", at = @At("HEAD"))
-	private void fellter$modifyParticleProbability(Level level, BlockPos blockPos, RandomSource randomSource, BlockState blockState, BlockPos blockPos2, CallbackInfo ci) {
+	private void fellter$modifyParticleProbability(Level level, BlockPos pos, RandomSource random, BlockState belowState, BlockPos below, CallbackInfo ci) {
 		if (MoreLeafParticles.isYACLPresent()) {
 			if (this == Blocks.OAK_LEAVES) {
 				this.leafParticleChance = (float) ModConfig.oakMultiplier / 100;

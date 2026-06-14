@@ -1,8 +1,7 @@
 package net.fellter.moreLeafParticles.mixin;
 
 import net.fellter.moreLeafParticles.MoreLeafParticles;
-import net.fellter.moreLeafParticles.yacl.ModConfig;
-import org.jetbrains.annotations.NotNull;
+import net.fellter.moreLeafParticles.config.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,12 +13,12 @@ import net.minecraft.client.particle.FallingLeavesParticle;
 //? if >1.21.8 {
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-//?} else {
-/*import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.TextureSheetParticle;
-*///?}
+//?} else
+//import net.minecraft.client.particle.TextureSheetParticle;
+
 import net.minecraft.util.Mth;
 
+@SuppressWarnings("unused")
 @Mixin(FallingLeavesParticle.class)
 abstract class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSheetParticle*//*?} else {*/SingleQuadParticle/*?}*/ {
 	@Unique
@@ -38,7 +37,7 @@ abstract class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSh
 			var wind = Class.forName("pigcart.particlerain.config.ConfigData").getDeclaredField("wind").get(config);
 			var windClass = Class.forName("pigcart.particlerain.config.ConfigData$WindOptions");
 			float frequency = (float) windClass.getDeclaredField("gustFrequency").get(wind);
-			float shift = (int) Class.forName("pigcart.particlerain.ParticleRain").getDeclaredField("clientTicks").get(null) +
+			float shift = /*? if <=1.21.5 {*//*(int) Class.forName("pigcart.particlerain.ParticleRain").getDeclaredField("clientTicks").get(null) + *//*?}*/
 					(float) windClass.getDeclaredField("modulationSpeed").get(wind);
 			float variance = (float) windClass.getDeclaredField("strengthVariance").get(wind);
 			float strength = (float) windClass.getDeclaredField("strength").get(wind);
@@ -61,14 +60,5 @@ abstract class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSh
 			}
 		}
 	}
-
-	//? if <=1.21.8 {
-	/*@Unique
-	abstract public @NotNull ParticleRenderType getRenderType();
-	*///?} else {
-	@Unique
-	@Override
-	abstract public @NotNull Layer getLayer();
-	//?}
 }
 

@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fellter.moreLeafParticles.ModParticles;
 import net.fellter.moreLeafParticles.MoreLeafParticles;
-import net.fellter.moreLeafParticles.yacl.ModConfig;
+import net.fellter.moreLeafParticles.config.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.UntintedParticleLeavesBlock;
 
+@SuppressWarnings("unused")
 @Mixin(UntintedParticleLeavesBlock.class)
 abstract class UntintedParticleLeavesBlockMixin extends LeavesBlock {
 	private UntintedParticleLeavesBlockMixin(float leafParticleChance, Properties settings) {
@@ -24,7 +25,7 @@ abstract class UntintedParticleLeavesBlockMixin extends LeavesBlock {
 	}
 
 	@WrapOperation(method = "spawnFallingLeavesParticle", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/ParticleUtils;spawnParticleBelow(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Lnet/minecraft/core/particles/ParticleOptions;)V"))
-	private void fellter$spawnLeafParticle(Level world, BlockPos pos, RandomSource random, ParticleOptions effect, Operation<Void> original) {
+	private void fellter$spawnLeafParticle(Level level, BlockPos blockPos, RandomSource randomSource, ParticleOptions effect, Operation<Void> original) {
 		if (MoreLeafParticles.isYACLPresent()) {
 			if (this == Blocks.AZALEA_LEAVES) {
 				effect = ModConfig.enableAzalea ? ModParticles.AZALEA_LEAVES : null;
@@ -37,7 +38,7 @@ abstract class UntintedParticleLeavesBlockMixin extends LeavesBlock {
 			}
 
 			if (effect != null) {
-				original.call(world, pos, random, effect);
+				original.call(level, blockPos, randomSource, effect);
 			}
 		} else {
 			if (this == Blocks.AZALEA_LEAVES) {
@@ -46,7 +47,7 @@ abstract class UntintedParticleLeavesBlockMixin extends LeavesBlock {
 				effect = ModParticles.FLOWERING_AZALEA_PARTICLES;
 			}
 
-			original.call(world, pos, random, effect);
+			original.call(level, blockPos, randomSource, effect);
 		}
 	}
 }

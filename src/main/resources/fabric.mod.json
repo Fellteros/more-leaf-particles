@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "more-leaf-particles",
-  "version": "${version}",
+  "version": "${mod_version}",
   "name": "More Leaf Particles",
   "description": "Changes the default leaf particle's texture based on the leaves that it originates from.",
   "authors": [
@@ -15,16 +15,19 @@
   "license": "CC-BY-4.0",
   "icon": "assets/more-leaf-particles/icon.png",
   "environment": "client",
-  "accessWidener": "classtweakers/${aw_file}",
+  "accessWidener": "classtweakers/${aw_path}",
   "entrypoints": {
     "client": [
       "net.fellter.moreLeafParticles.client.MoreLeafParticlesClient"
     ],
     "main": [
-      "net.fellter.moreLeafParticles.MoreLeafParticles"
+      {
+        "adapter": "kotlin",
+        "value": "net.fellter.moreLeafParticles.MoreLeafParticles"
+      }
     ],
     "modmenu": [
-      "net.fellter.moreLeafParticles.yacl.ModMenuImpl"
+      "net.fellter.moreLeafParticles.config.ModMenuImpl"
     ]
   },
   "mixins": [
@@ -37,8 +40,8 @@
     "java": ">=21"
   },
   "suggests": {
-    "modmenu": "${modmenu_version}",
-    "yet_another_config_lib_v3": "${yacl_version}",
-    "particlerain": "${particle_rain_version}"
+    "modmenu": "${deps_modmenu}",
+    "yet_another_config_lib_v3": "${deps_yacl}",
+    "particlerain": "${deps_particleRain}"
   }
 }
