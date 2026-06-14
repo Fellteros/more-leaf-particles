@@ -1,49 +1,74 @@
+@file:Suppress("AvoidDuplicateDependencies")
+
+import dev.kikugie.stonecutter.build.StonecutterBuildExtension
+
+
 plugins {
-	id("fabric-loom") version "1.14.+"
-	id("me.modmuss50.mod-publish-plugin") version "1.1.0"
+	id("dev.kikugie.loom-back-compat")
+	alias(libs.plugins.mod.publish.plugin)
+	kotlin("jvm") version libs.versions.kotlin
 }
 
-version = property("mod_version").toString()
-group = property("maven_group").toString()
+version = "${sc.property("mod.version")}+${sc.property("minecraft.version")}"
+group = sc.property("maven_group")
+
+val accesswidener = when {
+	sc.current.parsed >= "26.1" -> "26.1.ct"
+	sc.current.parsed >= "1.21.9" -> "1.21.9-1.21.11.ct"
+	else -> "1.21.5-1.21.8.ct"
+}
 
 base {
-	archivesName = property("archives_base_name").toString()
+	archivesName = sc.property("archives_base_name")
 }
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
-	maven("https://maven.isxander.dev/releases") {
-		name = "Xander Maven"
-	}
-
-	maven("https://maven.terraformersmc.com/") {
-		name = "Terraformers"
-	}
+	maven("https://maven.isxander.dev/releases") { name = "Xander Maven" }
+	maven("https://maven.terraformersmc.com/") { name = "TerraformersMC" }
 
 	exclusiveContent {
 		forRepository {
-			maven("https://api.modrinth.com/maven") {
-				name = "Modrinth"
-			}
+			maven("https://api.modrinth.com/maven") { name = "Modrinth" }
 		}
+
 		filter {
 			includeGroup("maven.modrinth")
 		}
 	}
 }
 
-val minecraft = stonecutter.current.version
-val accesswidener = when {
-	stonecutter.eval(minecraft, ">=1.21.10") -> "1.21.10.ct"
-	else -> "pre-1.21.8.ct"
+dependencies {
+	fun fapiModule(vararg modules: String) {
+		for (it in modules) modImplementation(fabricApi.module(it, sc.properties["deps.fabricApi"]))
+	}
+
+	minecraft("com.mojang:minecraft:${sc.property("minecraft.version")}")
+	loomx.applyMojangMappings()
+
+	modImplementation(libs.fabric.loader)
+	testImplementation(libs.fabric.loader.junit)
+	modImplementation(libs.fabric.language.kotlin)
+
+//	modImplementation("net.fabricmc.fabric-api:fabric-api:${sc.property("deps.fabricApi")}")
+	fapiModule("fabric-particles-v1")
+
+	modCompileOnly("dev.isxander:yet-another-config-lib:${sc.property("deps.yacl")}")
+	modLocalRuntime("dev.isxander:yet-another-config-lib:${sc.property("deps.yacl")}")
+
+	modCompileOnly("com.terraformersmc:modmenu:${sc.property("deps.modmenu")}")
+	modLocalRuntime("com.terraformersmc:modmenu:${sc.property("deps.modmenu")}")
+
+	modCompileOnly("maven.modrinth:particle-rain:${sc.property("deps.particleRain")}")
+	modLocalRuntime("maven.modrinth:particle-rain:${sc.property("deps.particleRain")}")
 }
 
 loom {
 	accessWidenerPath = rootProject.file("src/main/resources/classtweakers/$accesswidener")
+
+	runConfigs.configureEach {
+		generateRunConfig = true
+		runDirectory.set(File(rootProject.rootDir, "run"))
+	}
 }
 
 tasks.test {
@@ -51,67 +76,53 @@ tasks.test {
 }
 
 stonecutter {
-	replacements.string {
-		direction = eval(minecraft, ">=1.21.11")
+	replacements.string(current.parsed >= "1.21.11") {
+		replace("org.jetbrains.annotations.NotNull", "org.jspecify.annotations.NonNull")
+		replace("NotNull", "NonNull")
 		replace("ResourceLocation", "Identifier")
 	}
-	replacements.string("non_null_import") {
-		direction = eval(minecraft, ">=1.21.11")
-		replace("org.jetbrains.annotations.NotNull", "org.jspecify.annotations.NonNull")
-	}
-	replacements.string("not_null") {
-		direction = eval(minecraft, ">=1.21.11")
-		replace("NotNull", "NonNull")
-	}
-}
-
-dependencies {
-	// To change the versions see the gradle.properties file
-	minecraft("com.mojang:minecraft:${property("minecraft_version").toString()}")
-	mappings(loom.officialMojangMappings())
-	modImplementation("net.fabricmc:fabric-loader:${property("loader_version").toString()}")
-	testImplementation("net.fabricmc:fabric-loader-junit:${property("loader_version")}")
-
-	modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version").toString()}")
-
-	modCompileOnly("dev.isxander:yet-another-config-lib:${property("yacl_version").toString()}")
-	modLocalRuntime("dev.isxander:yet-another-config-lib:${property("yacl_version").toString()}")
-
-	modCompileOnly("com.terraformersmc:modmenu:${property("modmenu_version").toString()}")
-	modLocalRuntime("com.terraformersmc:modmenu:${property("modmenu_version").toString()}")
-
-	modCompileOnly("maven.modrinth:particle-rain:${property("particle_rain_version").toString()}")
-	modLocalRuntime("maven.modrinth:particle-rain:${property("particle_rain_version").toString()}")
 }
 
 tasks.processResources {
+	fun computeCompatibleVersions(): String {
+		val allAvailableRanges: MutableList<String> = (getArrayOrEmpty<String>("additional", "versions") + sc.property("minecraft.version")).toMutableList()
+		val versions = allAvailableRanges.map(sc.semantics::parse).sorted()
+
+		return if (versions.isEmpty()) {
+			throw NullPointerException("At least one version is needed to compute a version range!")
+		} else if (versions.size == 1) {
+			versions.first().value
+		} else {
+			">=${versions.first().value} <=${versions.last().value}"
+		}
+	}
+
 	filteringCharset = "UTF-8"
 
-	inputs.property("version", project.property("version"))
-	inputs.property("minecraft_version", project.property("minecraft_version"))
-	inputs.property("loader_version", project.property("loader_version"))
-
-	val props = mapOf(
-		"version" to project.property("version"),
-		"minecraft_version" to project.property("minecraft_version"),
-		"loader_version" to project.property("loader_version"),
-		"aw_file" to accesswidener,
-		"compatible_with" to project.property("compatible_with"),
-		"modmenu_version" to project.property("modmenu_version"),
-		"yacl_version" to project.property("yacl_version"),
-		"particle_rain_version" to project.property("particle_rain_version")
+	inputs.properties(
+		"mod_version" to version,
+		"minecraft_version" to sc.property("minecraft.version"),
+		"loader_version" to libs.versions.fabric.loader.get(),
+		"aw_path" to accesswidener,
+		"compatible_with" to computeCompatibleVersions(),
+		"deps_modmenu" to sc.property("deps.modmenu"),
+		"deps_yacl" to sc.property("deps.yacl"),
+		"deps_particleRain" to sc.property("deps.particleRain")
 	)
 
-	filesMatching("fabric.mod.json") { expand(props) }
+	filesMatching("fabric.mod.json") {
+		expand(inputs.properties)
+	}
 }
 
-val targetJavaVersion = 21
+val targetJavaVersion = 25
 
 java {
 	val javaVersion = JavaVersion.toVersion(targetJavaVersion)
 	if (JavaVersion.current() < javaVersion) {
 		toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
 	}
+
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
 	// If you remove this line, sources will not be generated.
@@ -126,28 +137,28 @@ tasks.jar {
 
 publishMods {
 	dryRun = false
-	val modVersion = project.property("mod_version").toString()
+	val fullModVersion = project.version.toString()
 
-	file = project.file("build/libs/more_leaf_particles-${modVersion}.jar")
-	additionalFiles.from("build/libs/more_leaf_particles-${modVersion}-sources.jar")
+	file = project.file("build/libs/more_leaf_particles-${fullModVersion}.jar")
+	additionalFiles.from("build/libs/more_leaf_particles-${fullModVersion}-sources.jar")
 	modLoaders.add("fabric")
 	type = STABLE
-	changelog = expand(rootProject.file("src/main/resources/changelogs/${modVersion.split("+")[0]}.md"), mapOf(
-		"mcVersion" to minecraft
-	))
+	changelog = expandProperties(
+		rootProject.file("src/main/resources/changelogs/${sc.properties.get<String>("mod.version")}.md"), mapOf(
+			"mcVersion" to sc.current.version
+		)
+	)
 
 	modrinth {
 		projectId = "HwWDzPBa"
 		accessToken = providers.environmentVariable("modrinth")
-		displayName = "More Leaf Particles $modVersion"
-		version = modVersion
+		displayName = "More Leaf Particles $fullModVersion"
+		version = fullModVersion
 
-		minecraftVersionRange {
-			val versions = property("version_range").toString().trim().split(",")
+		val versions = sc.properties.rawOrNull("additional", "versions")?.asList()?.map { it.asPrimitive().toString() } ?: listOf()
+		val compatibleVersions = (versions + sc.property("minecraft.version")).joinToString()
 
-			start = versions.first().trim()
-			end = versions.last().trim()
-		}
+		minecraftVersionList(compatibleVersions)
 
 		requires("fabric-api")
 		optional("modmenu", "yacl", "particle-rain")
@@ -157,13 +168,19 @@ publishMods {
 		repository = "Fellteros/more-leaf-particles"
 		accessToken = providers.environmentVariable("github.pat")
 		commitish = "out"
-		tagName = modVersion
-		displayName = modVersion
+		tagName = fullModVersion
+		displayName = fullModVersion
 	}
 }
 
-fun expand(file: File, properties: Map<String, *>): String {
-	var body: String = file.readText(Charsets.UTF_8)
+fun expandProperties(file: File?, properties: Map<String, *>): String {
+	if (file == null) return ""
+
+	var body: String = try {
+		file.readText(Charsets.UTF_8)
+	} catch (_: Exception) {
+		return ""
+	}
 
 	for ((string, sth) in properties) {
 		body = body.replace($$"${$$string}", sth.toString())
