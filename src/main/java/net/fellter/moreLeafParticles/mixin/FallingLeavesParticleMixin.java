@@ -13,12 +13,12 @@ import net.minecraft.client.particle.FallingLeavesParticle;
 //? if >1.21.8 {
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-//?} else {
-/*import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.TextureSheetParticle;
-*///?}
+//?} else
+//import net.minecraft.client.particle.TextureSheetParticle;
+
 import net.minecraft.util.Mth;
 
+@SuppressWarnings("unused")
 @Mixin(FallingLeavesParticle.class)
 abstract class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSheetParticle*//*?} else {*/SingleQuadParticle/*?}*/ {
 	@Unique
@@ -60,14 +60,5 @@ abstract class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSh
 			}
 		}
 	}
-
-	//? if <=1.21.8 {
-	/*@Unique
-	abstract public @NotNull ParticleRenderType getRenderType();
-	*///?} else {
-	@Unique
-	@Override
-	abstract public @NotNull Layer getLayer();
-	//?}
 }
 
