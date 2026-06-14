@@ -1,4 +1,4 @@
-package net.fellter.moreLeafParticles.yacl;
+package net.fellter.moreLeafParticles.config;
 
 import java.awt.*;
 

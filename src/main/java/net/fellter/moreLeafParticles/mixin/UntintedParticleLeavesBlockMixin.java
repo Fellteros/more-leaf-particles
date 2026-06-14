@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fellter.moreLeafParticles.ModParticles;
 import net.fellter.moreLeafParticles.MoreLeafParticles;
-import net.fellter.moreLeafParticles.yacl.ModConfig;
+import net.fellter.moreLeafParticles.config.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 

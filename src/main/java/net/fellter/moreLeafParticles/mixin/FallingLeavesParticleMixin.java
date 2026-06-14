@@ -1,8 +1,7 @@
 package net.fellter.moreLeafParticles.mixin;
 
 import net.fellter.moreLeafParticles.MoreLeafParticles;
-import net.fellter.moreLeafParticles.yacl.ModConfig;
-import org.jetbrains.annotations.NotNull;
+import net.fellter.moreLeafParticles.config.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
