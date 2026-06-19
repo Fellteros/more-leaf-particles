@@ -49,7 +49,6 @@ dependencies {
 	testImplementation(libs.fabric.loader.junit)
 	modImplementation(libs.fabric.language.kotlin)
 
-//	modImplementation("net.fabricmc.fabric-api:fabric-api:${sc.property("deps.fabricApi")}")
 	fapiModule("fabric-particles-v1")
 
 	modCompileOnly("dev.isxander:yet-another-config-lib:${sc.property("deps.yacl")}")
@@ -91,9 +90,9 @@ tasks.processResources {
 		return if (versions.isEmpty()) {
 			throw NullPointerException("At least one version is needed to compute a version range!")
 		} else if (versions.size == 1) {
-			versions.first().value
+			versions.first().toString()
 		} else {
-			">=${versions.first().value} <=${versions.last().value}"
+			">=${versions.first()} <=${versions.last()}"
 		}
 	}
 
