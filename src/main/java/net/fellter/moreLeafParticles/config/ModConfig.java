@@ -25,37 +25,39 @@ public class ModConfig {
 					.setJson5(true)
 					.build()
 	) {
+		//~ if >=26.2 'client.setScreen' -> 'client.gui.setScreen', 'client.screen' -> 'client.gui.screen()' {
 		@Override
 		public void save() {
 			super.save();
 			Minecraft client = Minecraft.getInstance();
 
-			if (client.screen == null) {
+			if (client.gui.screen() == null) {
 				return;
 			}
 
-			if (client.screen instanceof YACLScreen screen) {
+			if (client.gui.screen() instanceof YACLScreen screen) {
 				var currentTab = screen.tabManager.getCurrentTab();
 
 				int index = currentTab != null ? screen.tabNavigationBar.getTabs().indexOf(currentTab) : 0;
 
 				int scrollOffset = screen.tabNavigationBar.getScrollOffset();
-				client.screen.onClose();
+				client.gui.screen().onClose();
 
-				YACLScreen newScreen = (YACLScreen) YACLImpl.create().generateScreen(client.screen);
-				newScreen.init(/*? if <=1.21.10 {*//*client ,*//*?}*/ client.getWindow().getGuiScaledWidth(), client.getWindow().getGuiScaledHeight());
+				YACLScreen newScreen = (YACLScreen) YACLImpl.create().generateScreen(client.gui.screen());
+				newScreen.init(/*? if <=1.21.10 {*//*client, *//*?}*/ client.getWindow().getGuiScaledWidth(), client.getWindow().getGuiScaledHeight());
 
 				newScreen.tabNavigationBar.selectTab(index, false);
-				newScreen.tabNavigationBar.arrangeElements();
+				newScreen.tabNavigationBar.arrangeElements(/*? if >=26.2 {*/client.gui.screen().width/*?}*/);
 				newScreen.tabNavigationBar.setScrollOffset(scrollOffset);
 
-				client.setScreen(newScreen);
+				client.gui.setScreen(newScreen);
 			} else {
-				client.screen.onClose();
-				client.setScreen(YACLImpl.create().generateScreen(client.screen));
+				client.gui.screen().onClose();
+				client.gui.setScreen(YACLImpl.create().generateScreen(client.gui.screen()));
 			}
 		}
 	};
+	//~}
 
 	public static void initConfig() {
 		ModConfig.HANDLER.load();
