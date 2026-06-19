@@ -9,7 +9,7 @@ pluginManagement {
 
 plugins {
 	id("dev.kikugie.loom-back-compat") version "0.3"
-	id("dev.kikugie.stonecutter") version "0.9.5"
+	id("dev.kikugie.stonecutter") version "0.10-alpha.2"
 }
 
 stonecutter {
@@ -19,10 +19,11 @@ stonecutter {
 			"1.21.8",
 			"1.21.10",
 			"1.21.11",
-			"26.1"
+			"26.1",
+			"26.2"
 		)
 
-		vcsVersion = "26.1"
+		vcsVersion = "26.2"
 	}
 }
 
