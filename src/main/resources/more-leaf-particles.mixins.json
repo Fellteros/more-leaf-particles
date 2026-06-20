@@ -7,7 +7,9 @@
   "package": "net.fellter.moreLeafParticles.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ColorParticleOptionMixin",
     "LeavesBlockMixin",
+    "SimpleParticleTypeMixin",
     "TintedParticleLeavesBlockMixin",
     "UntintedParticleLeavesBlockMixin"
   ],

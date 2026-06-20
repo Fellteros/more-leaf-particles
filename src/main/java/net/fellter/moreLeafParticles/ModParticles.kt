@@ -19,15 +19,17 @@ object ModParticles {
 	@JvmField val FLOWERING_AZALEA_PARTICLES: SimpleParticleType = registerSimple("flowering_azalea_particles")
 
 	private fun register(name: String): ParticleType<ColorParticleOption> {
-		val type = FabricParticleTypes.complex(ColorParticleOption::codec, ColorParticleOption::streamCodec)
-		Registry.register(BuiltInRegistries.PARTICLE_TYPE, Identifier.fromNamespaceAndPath(MoreLeafParticles.MOD_ID, name), type)
-		return type
+		return Registry.register(
+			BuiltInRegistries.PARTICLE_TYPE, Identifier.fromNamespaceAndPath(MoreLeafParticles.MOD_ID, name),
+			FabricParticleTypes.complex(ColorParticleOption::codec, ColorParticleOption::streamCodec)
+		)
 	}
 
 	private fun registerSimple(name: String): SimpleParticleType {
-		val type = FabricParticleTypes.simple(false)
-		Registry.register(BuiltInRegistries.PARTICLE_TYPE, Identifier.fromNamespaceAndPath(MoreLeafParticles.MOD_ID, name), type)
-		return type
+		return Registry.register(
+			BuiltInRegistries.PARTICLE_TYPE, Identifier.fromNamespaceAndPath(MoreLeafParticles.MOD_ID, name),
+			FabricParticleTypes.simple(false)
+		)
 	}
 
 	@JvmStatic fun init() {}
