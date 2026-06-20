@@ -1,6 +1,7 @@
 @file:Suppress("AvoidDuplicateDependencies")
 
 import dev.kikugie.stonecutter.build.StonecutterBuildExtension
+import dev.kikugie.stonecutter.data.deserialization.SCElement
 
 
 plugins {
@@ -84,7 +85,7 @@ stonecutter {
 
 tasks.processResources {
 	fun computeCompatibleVersions(): String {
-		val allAvailableRanges: MutableList<String> = (getArrayOrEmpty<String>("additional", "versions") + sc.property("minecraft.version")).toMutableList()
+		val allAvailableRanges: MutableList<String> = (sc.getArrayOrEmpty<String>("additional", "versions", conversion = { it.asPrimitive().toString() }) + sc.property("minecraft.version")).toMutableList()
 		val versions = allAvailableRanges.map(sc.semantics::parse).sorted()
 
 		return if (versions.isEmpty()) {
@@ -164,7 +165,7 @@ publishMods {
 		displayName = "More Leaf Particles $fullModVersion"
 		version = fullModVersion
 
-		val versions = sc.properties.rawOrNull("additional", "versions")?.asList()?.map { it.asPrimitive().toString() } ?: listOf()
+		val versions = sc.getArrayOrEmpty<String>("additional", "versions", conversion = { it.asPrimitive().toString() }).toList()
 		val compatibleVersions = (versions + sc.property("minecraft.version")).joinToString()
 
 		minecraftVersionList(compatibleVersions)
@@ -198,8 +199,8 @@ fun expandProperties(file: File?, properties: Map<String, *>): String {
 	return body
 }
 
-inline fun <reified T : Any> getArrayOrEmpty(vararg name: String): Array<T> {
-	return sc.properties.rawOrNull(*name)?.asList()?.map { it.to<T>() }?.toTypedArray() ?: arrayOf()
+inline fun <reified T : Any> StonecutterBuildExtension.getArrayOrEmpty(vararg name: String, noinline conversion: ((SCElement) -> T)? = null): Array<T> {
+	return properties.rawOrNull(*name)?.asList()?.map { conversion?.invoke(it) ?: it.to<T>() }?.toTypedArray() ?: arrayOf()
 }
 
 fun StonecutterBuildExtension.property(name: String): String {
