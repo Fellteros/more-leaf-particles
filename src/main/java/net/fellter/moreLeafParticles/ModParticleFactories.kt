@@ -3,7 +3,7 @@ package net.fellter.moreLeafParticles
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fellter.moreLeafParticles.MoreLeafParticles.Companion.isYACLPresent
-import net.fellter.moreLeafParticles.config.ModConfig
+import net.fellter.moreLeafParticles.config.ConfigFields
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.particle.*
 import net.minecraft.core.particles.ColorParticleOption

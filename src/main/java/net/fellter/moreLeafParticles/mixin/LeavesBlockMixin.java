@@ -1,7 +1,7 @@
 package net.fellter.moreLeafParticles.mixin;
 
 import net.fellter.moreLeafParticles.MoreLeafParticles;
-import net.fellter.moreLeafParticles.config.ModConfig;
+import net.fellter.moreLeafParticles.config.ConfigFields;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -31,27 +31,27 @@ abstract class LeavesBlockMixin extends Block {
 	private void fellter$modifyParticleProbability(Level level, BlockPos pos, RandomSource random, BlockState belowState, BlockPos below, CallbackInfo ci) {
 		if (MoreLeafParticles.isYACLPresent()) {
 			if (this == Blocks.OAK_LEAVES) {
-				this.leafParticleChance = (float) ModConfig.oakMultiplier / 100;
+				this.leafParticleChance = (float) ConfigFields.oakMultiplier / 100;
 			} else if (this == Blocks.SPRUCE_LEAVES) {
-				this.leafParticleChance = (float) ModConfig.spruceMultiplier / 100;
+				this.leafParticleChance = (float) ConfigFields.spruceMultiplier / 100;
 			} else if (this == Blocks.BIRCH_LEAVES) {
-				this.leafParticleChance = (float) ModConfig.birchMultiplier / 100;
+				this.leafParticleChance = (float) ConfigFields.birchMultiplier / 100;
 			} else if (this == Blocks.JUNGLE_LEAVES) {
-				this.leafParticleChance = (float) ModConfig.jungleMultiplier / 100;
+				this.leafParticleChance = (float) ConfigFields.jungleMultiplier / 100;
 			} else if (this == Blocks.ACACIA_LEAVES) {
-				this.leafParticleChance = (float) ModConfig.acaciaMultiplier / 100;
+				this.leafParticleChance = (float) ConfigFields.acaciaMultiplier / 100;
 			} else if (this == Blocks.DARK_OAK_LEAVES) {
-				this.leafParticleChance = (float) ModConfig.darkOakMultiplier / 100;
+				this.leafParticleChance = (float) ConfigFields.darkOakMultiplier / 100;
 			} else if (this == Blocks.MANGROVE_LEAVES) {
-				this.leafParticleChance = (float) ModConfig.mangroveMultiplier / 100;
+				this.leafParticleChance = (float) ConfigFields.mangroveMultiplier / 100;
 			} else if (this == Blocks.CHERRY_LEAVES) {
-				this.leafParticleChance = (float) ModConfig.cherryMultiplier / 100;
+				this.leafParticleChance = (float) ConfigFields.cherryMultiplier / 100;
 			} else if (this == Blocks.PALE_OAK_LEAVES) {
-				this.leafParticleChance = (float) ModConfig.paleOakMultiplier / 100;
+				this.leafParticleChance = (float) ConfigFields.paleOakMultiplier / 100;
 			} else if (this == Blocks.AZALEA_LEAVES) {
-				this.leafParticleChance = (float) ModConfig.azaleaMultiplier / 100;
+				this.leafParticleChance = (float) ConfigFields.azaleaMultiplier / 100;
 			} else if (this == Blocks.FLOWERING_AZALEA_LEAVES) {
-				this.leafParticleChance = (float) ModConfig.floweringAzaleaMultiplier / 100;
+				this.leafParticleChance = (float) ConfigFields.floweringAzaleaMultiplier / 100;
 			}
 		}
 	}

@@ -17,7 +17,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
 import static net.fellter.moreLeafParticles.ModParticleFactoriesKt.tintParticle;
-import static net.fellter.moreLeafParticles.config.ModConfig.*;
+import static net.fellter.moreLeafParticles.config.ConfigFields.*;
 
 @SuppressWarnings("unused")
 final class LeavesParticleMixins {

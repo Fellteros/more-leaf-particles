@@ -128,6 +128,16 @@ java {
 	withSourcesJar()
 }
 
+kotlin {
+	compilerOptions {
+		freeCompilerArgs.addAll(
+			"-Xreturn-value-checker=check",
+			"-Xcontext-parameters",
+			"-Xexplicit-context-arguments"
+		)
+	}
+}
+
 tasks.jar {
 	from("LICENSE") {
 		rename { "${it}_${property("archives_base_name")}" }

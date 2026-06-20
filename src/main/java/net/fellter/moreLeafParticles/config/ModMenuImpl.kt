@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screens.Screen
 class ModMenuImpl : ModMenuApi {
 	override fun getModConfigScreenFactory(): ConfigScreenFactory<*> {
 		return if (isYACLPresent)
-			ConfigScreenFactory { parentScreen: Screen -> YACLImpl.create().generateScreen(parentScreen) }
+			ConfigScreenFactory { parentScreen -> ModConfig.create().generateScreen(parentScreen) }
 		else
 			super.getModConfigScreenFactory()
 	}
