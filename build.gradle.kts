@@ -68,6 +68,12 @@ loom {
 	runConfigs.configureEach {
 		generateRunConfig = true
 		runDirectory.set(File(rootProject.rootDir, "run"))
+		jvmArguments.addAll(
+			"-javaagent:${gradle.gradleUserHomeDir}/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/41c4a3984a80f4679e759fb9f495587acc5cdac7/sponge-mixin-0.17.3+mixin.0.8.7.jar"
+		)
+		programArguments.add(
+			"-XX:+AllowEnhancedClassRedefinition"
+		)
 	}
 }
 
