@@ -1,2 +1,5 @@
 classTweaker   v1  named
 accessible method net/minecraft/client/particle/FallingLeavesParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;FFZZFF)V
+inject-interface net/minecraft/client/particle/FallingLeavesParticle net/fellter/moreLeafParticles/interfaces/Parentable<Lnet/minecraft/world/level/block/Block;>
+inject-interface net/minecraft/core/particles/ColorParticleOption net/fellter/moreLeafParticles/interfaces/Parentable<Lnet/minecraft/world/level/block/Block;>
+inject-interface net/minecraft/core/particles/SimpleParticleType net/fellter/moreLeafParticles/interfaces/Parentable<Lnet/minecraft/world/level/block/Block;>

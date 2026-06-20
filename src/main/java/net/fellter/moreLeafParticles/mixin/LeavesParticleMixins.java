@@ -30,13 +30,25 @@ final class LeavesParticleMixins {
 		@WrapMethod(method = "createParticle(Lnet/minecraft/core/particles/ColorParticleOption;Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDD" /*? if >1.21.8 {*/ + "Lnet/minecraft/util/RandomSource;" /*?}*/ + ")Lnet/minecraft/client/particle/Particle;")
 		private Particle fellter$modifyOak(ColorParticleOption options, ClientLevel level, double x, double y, double z, double xAux, double yAux, double zAux, /*? if >1.21.8 {*/ RandomSource random, /*?}*/ Operation<Particle> original) {
 			if (MoreLeafParticles.isYACLPresent()) {
-				float size = enableOakSize ? oakSize : 2.0F;
-				float gravity = enableOakGravity ? oakGravity : 0.07F;
-				float initVelocityY = enableOakInitialVelocity ? oakInitialVelocity : 0.021F;
-				float wind = enableOakWind ? oakWind : 10.0F;
-
-				FallingLeavesParticle particle = new FallingLeavesParticle(level, x, y, z, /*? if <=1.21.8 {*//*sprites*//*?} else {*/ sprites.get(random) /*?}*/, gravity, wind, true, oakFlowAway, size, initVelocityY);
-				tintParticle(particle, options, enableOakCustomColor, useOakTint, oakColor);
+				FallingLeavesParticle particle = new FallingLeavesParticle(
+						level,
+						x, y, z,
+						/*? if <=1.21.8 {*//*sprites*//*?} else {*/ sprites.get(random) /*?}*/,
+						oakGravity,
+						oakWind,
+						true,
+						oakFlowAway,
+						oakSize,
+						oakInitialVelocity
+				);
+				tintParticle(
+						particle,
+						options,
+						enableOakCustomColor,
+						useOakTint,
+						oakColor
+				);
+				particle.more_leaf_particles$setParent(options.more_leaf_particles$getParent());
 				return particle;
 			} else {
 				return original.call(options, level, x, y, z, xAux, yAux, zAux/*? if >=1.21.10 {*/, random/*?}*/);
@@ -53,12 +65,18 @@ final class LeavesParticleMixins {
 		@WrapMethod(method = "createParticle(Lnet/minecraft/core/particles/SimpleParticleType;Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDD" /*? if >1.21.8 {*/ + "Lnet/minecraft/util/RandomSource;" /*?}*/ + ")Lnet/minecraft/client/particle/Particle;")
 		private Particle fellter$modifyPaleOak(SimpleParticleType options, ClientLevel level, double x, double y, double z, double xAux, double yAux, double zAux, /*? if >1.21.8 {*/ RandomSource random, /*?}*/ Operation<Particle> original) {
 			if (MoreLeafParticles.isYACLPresent()) {
-				float size = enablePaleOakSize ? paleOakSize : 2.0F;
-				float gravity = enablePaleOakGravity ? paleOakGravity : 0.07F;
-				float initVelocityY = enablePaleOakInitialVelocity ? paleOakInitialVelocity : 0.021F;
-				float wind = enablePaleOakWind ? paleOakWind : 10F;
-
-				return new FallingLeavesParticle(level, x, y, z, /*? <=1.21.8 {*//*sprites*//*?} else {*/ sprites.get(random) /*?}*/, gravity, wind, true, paleOakFlowAway, size, initVelocityY);
+				FallingLeavesParticle particle = new FallingLeavesParticle(
+						level, x, y, z,
+						/*? <=1.21.8 {*//*sprites*//*?} else {*/ sprites.get(random) /*?}*/,
+						paleOakGravity,
+						paleOakWind,
+						true,
+						paleOakFlowAway,
+						paleOakSize,
+						paleOakInitialVelocity
+				);
+				particle.more_leaf_particles$setParent(options.more_leaf_particles$getParent());
+				return particle;
 			} else {
 				return original.call(options, level, x, y, z, xAux, yAux, zAux/*? if >=1.21.10 {*/, random/*?}*/);
 			}
@@ -74,12 +92,19 @@ final class LeavesParticleMixins {
 		@WrapMethod(method = "createParticle(Lnet/minecraft/core/particles/SimpleParticleType;Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDD" /*? if >1.21.8 {*/ + "Lnet/minecraft/util/RandomSource;" /*?}*/ + ")Lnet/minecraft/client/particle/Particle;")
 		private Particle fellter$modifyCherry(SimpleParticleType options, ClientLevel level, double x, double y, double z, double xAux, double yAux, double zAux, /*? if >1.21.8 {*/ RandomSource random, /*?}*/ Operation<Particle> original) {
 			if (MoreLeafParticles.isYACLPresent()) {
-				float size = enableCherrySize ? cherrySize : 2.0F;
-				float gravity = enableCherryGravity ? cherryGravity : 0.07F;
-				float initVelocityY = enableCherryInitialVelocity ? cherryInitialVelocity : 0.021F;
-				float wind = enableCherryWind ? cherryWind : 10F;
-
-				return new FallingLeavesParticle(level, x, y, z, /*? <=1.21.8 {*//*sprites*//*?} else {*/ sprites.get(random) /*?}*/, gravity, wind, true, cherryFlowAway, size, initVelocityY);
+				FallingLeavesParticle particle = new FallingLeavesParticle(
+						level,
+						x, y, z,
+						/*? <=1.21.8 {*//*sprites*//*?} else {*/ sprites.get(random) /*?}*/,
+						cherryGravity,
+						cherryWind,
+						true,
+						cherryFlowAway,
+						cherrySize,
+						cherryInitialVelocity
+				);
+				particle.more_leaf_particles$setParent(options.more_leaf_particles$getParent());
+				return particle;
 			} else {
 				return original.call(options, level, x, y, z, xAux, yAux, zAux/*? if >=1.21.10 {*/, random/*?}*/);
 			}

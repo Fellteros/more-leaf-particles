@@ -84,6 +84,7 @@ tasks.test {
 stonecutter {
 	replacements.string(current.parsed >= "1.21.11") {
 		replace("org.jetbrains.annotations.NotNull", "org.jspecify.annotations.NonNull")
+		replace("org.jetbrains.annotations.Nullable", "org.jspecify.annotations.Nullable")
 		replace("NotNull", "NonNull")
 		replace("ResourceLocation", "Identifier")
 	}
