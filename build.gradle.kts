@@ -11,7 +11,6 @@ plugins {
 }
 
 version = "${sc.property("mod.version")}+${sc.property("minecraft.version")}"
-group = sc.property("maven_group")
 
 val accesswidener = when {
 	sc.current.parsed >= "26.1" -> "26.1.ct"
