@@ -1,0 +1,11 @@
+{
+  "net/minecraft/client/particle/FallingLeavesParticle": [
+    "net/fellter/more_leaf_particles/interfaces/Parentable<net.minecraft.world.level.block.Block>"
+  ],
+  "net/minecraft/core/particles/ColorParticleOption": [
+    "net/fellter/more_leaf_particles/interfaces/Parentable<net.minecraft.world.level.block.Block>"
+  ],
+  "net/minecraft/core/particles/SimpleParticleType": [
+    "net/fellter/more_leaf_particles/interfaces/Parentable<net.minecraft.world.level.block.Block>"
+  ]
+}
