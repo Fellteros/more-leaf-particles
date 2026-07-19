@@ -1,4 +1,10 @@
-mod.version = "2.1.1"
+###############
+### GENERAL ###
+###############
+
+mod.id = "more_leaf_particles"
+mod.version = "3.0.0"
+mod.name = "More Leaf Particles"
 
 loomx.loom_version = "1.17-SNAPSHOT"
 
