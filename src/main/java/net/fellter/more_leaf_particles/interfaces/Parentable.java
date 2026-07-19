@@ -1,4 +1,4 @@
-package net.fellter.moreLeafParticles.interfaces;
+package net.fellter.more_leaf_particles.interfaces;
 
 import org.jspecify.annotations.Nullable;
 

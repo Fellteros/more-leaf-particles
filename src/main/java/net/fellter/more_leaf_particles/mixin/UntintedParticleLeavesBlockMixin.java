@@ -1,11 +1,11 @@
-package net.fellter.moreLeafParticles.mixin;
+package net.fellter.more_leaf_particles.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.fellter.moreLeafParticles.ModParticles;
-import net.fellter.moreLeafParticles.MoreLeafParticles;
-import net.fellter.moreLeafParticles.config.ConfigFields;
-import net.fellter.moreLeafParticles.interfaces.Parentable;
+import net.fellter.more_leaf_particles.ModParticles;
+import net.fellter.more_leaf_particles.MoreLeafParticles;
+import net.fellter.more_leaf_particles.config.ConfigFields;
+import net.fellter.more_leaf_particles.interfaces.Parentable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -30,9 +30,9 @@ abstract class UntintedParticleLeavesBlockMixin extends LeavesBlock {
 	private void fellter$spawnLeafParticle(Level level, BlockPos blockPos, RandomSource randomSource, ParticleOptions effect, Operation<Void> original) {
 		if (MoreLeafParticles.isYACLPresent()) {
 			if (this == Blocks.AZALEA_LEAVES) {
-				effect = ConfigFields.enableAzalea ? ModParticles.AZALEA_LEAVES : null;
+				effect = ConfigFields.enableAzalea ? ModParticles.AZALEA_LEAVES/*? if neoforge {*//*.get()*//*?}*/ : null;
 			} else if (this == Blocks.FLOWERING_AZALEA_LEAVES) {
-				effect = ConfigFields.enableFloweringAzalea ? ModParticles.FLOWERING_AZALEA_PARTICLES : null;
+				effect = ConfigFields.enableFloweringAzalea ? ModParticles.FLOWERING_AZALEA_PARTICLES/*? if neoforge {*//*.get()*//*?}*/ : null;
 			} else if (this == Blocks.CHERRY_LEAVES) {
 				effect = ConfigFields.enableCherry ? ParticleTypes.CHERRY_LEAVES : null;
 			} else if (this == Blocks.PALE_OAK_LEAVES) {
@@ -45,9 +45,9 @@ abstract class UntintedParticleLeavesBlockMixin extends LeavesBlock {
 			}
 		} else {
 			if (this == Blocks.AZALEA_LEAVES) {
-				effect = ModParticles.AZALEA_LEAVES;
+				effect = ModParticles.AZALEA_LEAVES/*? if neoforge {*//*.get()*//*?}*/;
 			} else if (this == Blocks.FLOWERING_AZALEA_LEAVES) {
-				effect = ModParticles.FLOWERING_AZALEA_PARTICLES;
+				effect = ModParticles.FLOWERING_AZALEA_PARTICLES/*? if neoforge {*//*.get()*//*?}*/;
 			}
 
 			((Parentable<Block>) effect).more_leaf_particles$setParent(this);

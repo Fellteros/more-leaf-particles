@@ -1,10 +1,10 @@
-package net.fellter.moreLeafParticles.config
+package net.fellter.more_leaf_particles.config
 
+//? if fabric {
 import com.terraformersmc.modmenu.api.ConfigScreenFactory
 import com.terraformersmc.modmenu.api.ModMenuApi
 import com.terraformersmc.modmenu.api.UpdateChecker
-import net.fellter.moreLeafParticles.MoreLeafParticles.Companion.isYACLPresent
-import net.minecraft.client.gui.screens.Screen
+import net.fellter.more_leaf_particles.MoreLeafParticles.Companion.isYACLPresent
 
 class ModMenuImpl : ModMenuApi {
 	override fun getModConfigScreenFactory(): ConfigScreenFactory<*> {
@@ -16,3 +16,4 @@ class ModMenuImpl : ModMenuApi {
 
 	override fun getUpdateChecker(): UpdateChecker = MoreLeafParticlesUpdateChecker()
 }
+//?}

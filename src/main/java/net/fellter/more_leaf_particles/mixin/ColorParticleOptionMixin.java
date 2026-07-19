@@ -1,6 +1,6 @@
-package net.fellter.moreLeafParticles.mixin;
+package net.fellter.more_leaf_particles.mixin;
 
-import net.fellter.moreLeafParticles.interfaces.Parentable;
+import net.fellter.more_leaf_particles.interfaces.Parentable;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

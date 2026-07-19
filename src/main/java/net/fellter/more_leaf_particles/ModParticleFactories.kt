@@ -1,9 +1,11 @@
-package net.fellter.moreLeafParticles
+package net.fellter.more_leaf_particles
 
+//? if fabric {
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
-import net.fellter.moreLeafParticles.MoreLeafParticles.Companion.isYACLPresent
-import net.fellter.moreLeafParticles.config.ConfigFields
+//?}
+import net.fellter.more_leaf_particles.MoreLeafParticles.Companion.isYACLPresent
+import net.fellter.more_leaf_particles.config.ConfigFields
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.particle.*
 import net.minecraft.core.particles.ColorParticleOption

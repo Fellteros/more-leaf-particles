@@ -1,10 +1,10 @@
-package net.fellter.moreLeafParticles.mixin;
+package net.fellter.more_leaf_particles.mixin;
 
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
-import net.fellter.moreLeafParticles.MoreLeafParticles;
-import net.fellter.moreLeafParticles.config.ConfigFields;
-import net.fellter.moreLeafParticles.interfaces.Parentable;
+import net.fellter.more_leaf_particles.MoreLeafParticles;
+import net.fellter.more_leaf_particles.config.ConfigFields;
+import net.fellter.more_leaf_particles.interfaces.Parentable;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.Blocks;
 abstract class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSheetParticle*//*?} else {*/SingleQuadParticle/*?}*/ implements Parentable<Block> {
 	@Shadow
 	private float rotSpeed;
+
 	@Unique
 	private static double weatherMultiplier = 0.0;
 
@@ -49,6 +50,7 @@ abstract class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSh
 		return parent;
 	}
 
+	//? if fabric || <= 1.21.8 {
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/particle/FallingLeavesParticle;move(DDD)V"))
 	private void fellter$modifyCoords(CallbackInfo ci) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
 		if (MoreLeafParticles.isParticleRainPresent() && ConfigFields.enableParticleRainWind) {
@@ -81,6 +83,7 @@ abstract class FallingLeavesParticleMixin extends /*? if <=1.21.8 {*//*TextureSh
 			}
 		}
 	}
+	//?}
 
 	@Definition(id = "rotSpeed", field = "Lnet/minecraft/client/particle/FallingLeavesParticle;rotSpeed:F")
 	@Expression("this.rotSpeed")

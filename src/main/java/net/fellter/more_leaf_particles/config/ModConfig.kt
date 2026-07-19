@@ -1,4 +1,4 @@
-package net.fellter.moreLeafParticles.config
+package net.fellter.more_leaf_particles.config
 
 import com.google.gson.GsonBuilder
 import dev.isxander.yacl3.api.*
@@ -10,28 +10,31 @@ import dev.isxander.yacl3.gui.YACLScreen
 import dev.isxander.yacl3.gui.controllers.slider.IntegerSliderController
 import dev.isxander.yacl3.impl.controller.FloatFieldControllerBuilderImpl
 import dev.isxander.yacl3.impl.controller.IntegerSliderControllerBuilderImpl
+//? if fabric
 import net.fabricmc.loader.api.FabricLoader
-import net.fellter.moreLeafParticles.MoreLeafParticles
-import net.fellter.moreLeafParticles.config.ConfigExtensions.binding
-import net.fellter.moreLeafParticles.config.ConfigExtensions.category
-import net.fellter.moreLeafParticles.config.ConfigExtensions.color
-import net.fellter.moreLeafParticles.config.ConfigExtensions.colorOptions
-import net.fellter.moreLeafParticles.config.ConfigExtensions.description
-import net.fellter.moreLeafParticles.config.ConfigExtensions.enable
-import net.fellter.moreLeafParticles.config.ConfigExtensions.enableColor
-import net.fellter.moreLeafParticles.config.ConfigExtensions.flowAway
-import net.fellter.moreLeafParticles.config.ConfigExtensions.gravity
-import net.fellter.moreLeafParticles.config.ConfigExtensions.initialVelocity
-import net.fellter.moreLeafParticles.config.ConfigExtensions.physicalProperties
-import net.fellter.moreLeafParticles.config.ConfigExtensions.probability
-import net.fellter.moreLeafParticles.config.ConfigExtensions.rotate
-import net.fellter.moreLeafParticles.config.ConfigExtensions.size
-import net.fellter.moreLeafParticles.config.ConfigExtensions.useTint
-import net.fellter.moreLeafParticles.config.ConfigExtensions.wind
+import net.fellter.more_leaf_particles.MoreLeafParticles
+import net.fellter.more_leaf_particles.config.ConfigExtensions.binding
+import net.fellter.more_leaf_particles.config.ConfigExtensions.category
+import net.fellter.more_leaf_particles.config.ConfigExtensions.color
+import net.fellter.more_leaf_particles.config.ConfigExtensions.colorOptions
+import net.fellter.more_leaf_particles.config.ConfigExtensions.description
+import net.fellter.more_leaf_particles.config.ConfigExtensions.enable
+import net.fellter.more_leaf_particles.config.ConfigExtensions.enableColor
+import net.fellter.more_leaf_particles.config.ConfigExtensions.flowAway
+import net.fellter.more_leaf_particles.config.ConfigExtensions.gravity
+import net.fellter.more_leaf_particles.config.ConfigExtensions.initialVelocity
+import net.fellter.more_leaf_particles.config.ConfigExtensions.physicalProperties
+import net.fellter.more_leaf_particles.config.ConfigExtensions.probability
+import net.fellter.more_leaf_particles.config.ConfigExtensions.rotate
+import net.fellter.more_leaf_particles.config.ConfigExtensions.size
+import net.fellter.more_leaf_particles.config.ConfigExtensions.useTint
+import net.fellter.more_leaf_particles.config.ConfigExtensions.wind
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.components.tabs.Tab
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.Identifier
+//? if neoforge
+//import net.neoforged.fml.loading.FMLLoader
 import java.awt.Color
 import kotlin.reflect.KMutableProperty0
 import kotlin.reflect.KProperty0
@@ -42,7 +45,11 @@ object ModConfig {
 		Identifier.fromNamespaceAndPath(MoreLeafParticles.MOD_ID, "config"),
 		{ config ->
 			GsonConfigSerializerBuilder.create(config)
-				.setPath(FabricLoader.getInstance().configDir.resolve("more-leaf-particles.json5"))
+				//? if fabric {
+				.setPath(FabricLoader.getInstance().configDir.resolve("more_leaf_particles.json5"))
+				//?} else if neoforge {
+				/*.setPath(FMLLoader/*? if < 1.21.10 {*//*.getGamePath()*//*?} else {*/.getCurrent().gameDir/*?}*/.resolve("config/more_leaf_particles.json5"))
+				*///?}
 				.appendGsonBuilder(GsonBuilder::setPrettyPrinting)
 				.setJson5(true)
 				.build()
@@ -71,7 +78,7 @@ object ModConfig {
 
 				newScreen.tabNavigationBar.selectTab(index, false)
 				newScreen.tabNavigationBar.arrangeElements(/*? if >=26.2 {*/client.gui.screen()!!.width/*?}*/)
-				newScreen.tabNavigationBar.setScrollOffset(scrollOffset)
+				newScreen.tabNavigationBar.scrollOffset = scrollOffset
 
 				client.gui.setScreen(newScreen)
 			} else {
@@ -84,18 +91,19 @@ object ModConfig {
 
 	fun create(): YetAnotherConfigLib {
 		return YetAnotherConfigLib.createBuilder()
-			.title(Component.translatable("more-leaf-particles.config.title"))
+			.title(Component.translatable("more_leaf_particles.config.title"))
 			.category(
 				ConfigCategory.createBuilder()
-					.name(Component.translatable("more-leaf-particles.category.common.name"))
+					.name(Component.translatable("more_leaf_particles.category.common.name"))
+					//? if fabric || <= 1.21.8 {
 					.group(
 						OptionGroup.createBuilder()
-							.name(Component.translatable("more-leaf-particles.group.particleRain.name"))
-							.description(Component.translatable("more-leaf-particles.group.particleRain.desc"))
+							.name(Component.translatable("more_leaf_particles.group.particleRain.name"))
+							.description(Component.translatable("more_leaf_particles.group.particleRain.desc"))
 							.option(
 								tickBoxOption(
-									Component.translatable("more-leaf-particles.option.enablePartRainWind.name"),
-									Component.translatable("more-leaf-particles.option.enablePartRainWind.desc"),
+									Component.translatable("more_leaf_particles.option.enablePartRainWind.name"),
+									Component.translatable("more_leaf_particles.option.enablePartRainWind.desc"),
 								)
 									.binding(true, ConfigFields::enableParticleRainWind)
 									.available(MoreLeafParticles.isParticleRainPresent)
@@ -103,8 +111,8 @@ object ModConfig {
 							)
 							.option(
 								Option.createBuilder<Double>()
-									.name(Component.translatable("more-leaf-particles.option.windMultiplier.name"))
-									.description(Component.translatable("more-leaf-particles.option.windMultiplier.desc"))
+									.name(Component.translatable("more_leaf_particles.option.windMultiplier.name"))
+									.description(Component.translatable("more_leaf_particles.option.windMultiplier.desc"))
 									.binding(1.0, ConfigFields::particleRainWindMultiplier)
 									.available(MoreLeafParticles.isParticleRainPresent && ConfigFields::enableParticleRainWind.get())
 									.controller(DoubleFieldControllerBuilder::create)
@@ -112,8 +120,8 @@ object ModConfig {
 							)
 							.option(
 								Option.createBuilder<Int>()
-									.name(Component.translatable("more-leaf-particles.option.ticksToBlend.name"))
-									.description(Component.translatable("more-leaf-particles.option.ticksToBlend.desc"))
+									.name(Component.translatable("more_leaf_particles.option.ticksToBlend.name"))
+									.description(Component.translatable("more_leaf_particles.option.ticksToBlend.desc"))
 									.binding(20, ConfigFields::ticksToBlend)
 									.available(MoreLeafParticles.isParticleRainPresent && ConfigFields::enableParticleRainWind.get())
 									.controller(IntegerFieldControllerBuilder::create)
@@ -121,9 +129,10 @@ object ModConfig {
 							)
 							.build()
 					)
+					//?}
 					.build()
 			)
-			.category(Component.translatable("more-leaf-particles.category.translation.oak")) {
+			.category(Component.translatable("more_leaf_particles.category.translation.oak")) {
 				enable(ConfigFields::enableOak)
 				probability(ConfigFields::oakMultiplier)
 
@@ -142,7 +151,7 @@ object ModConfig {
 					flowAway(ConfigFields::oakFlowAway)
 				}
 			}
-			.category(Component.translatable("more-leaf-particles.category.translation.spruce")) {
+			.category(Component.translatable("more_leaf_particles.category.translation.spruce")) {
 				enable(ConfigFields::enableSpruce)
 				probability(ConfigFields::spruceMultiplier)
 
@@ -161,7 +170,7 @@ object ModConfig {
 					flowAway(ConfigFields::spruceFlowAway)
 				}
 			}
-			.category(Component.translatable("more-leaf-particles.category.translation.birch")) {
+			.category(Component.translatable("more_leaf_particles.category.translation.birch")) {
 				enable(ConfigFields::enableBirch)
 				probability(ConfigFields::birchMultiplier)
 
@@ -180,7 +189,7 @@ object ModConfig {
 					flowAway(ConfigFields::birchFlowAway)
 				}
 			}
-			.category(Component.translatable("more-leaf-particles.category.translation.jungle")) {
+			.category(Component.translatable("more_leaf_particles.category.translation.jungle")) {
 				enable(ConfigFields::enableJungle)
 				probability(ConfigFields::jungleMultiplier)
 
@@ -199,7 +208,7 @@ object ModConfig {
 					flowAway(ConfigFields::jungleFlowAway)
 				}
 			}
-			.category(Component.translatable("more-leaf-particles.category.translation.acacia")) {
+			.category(Component.translatable("more_leaf_particles.category.translation.acacia")) {
 				enable(ConfigFields::enableAcacia)
 				probability(ConfigFields::acaciaMultiplier)
 
@@ -218,7 +227,7 @@ object ModConfig {
 					flowAway(ConfigFields::acaciaFlowAway)
 				}
 			}
-			.category(Component.translatable("more-leaf-particles.category.translation.darkOak")) {
+			.category(Component.translatable("more_leaf_particles.category.translation.darkOak")) {
 				enable(ConfigFields::enableDarkOak)
 				probability(ConfigFields::darkOakMultiplier)
 
@@ -237,7 +246,7 @@ object ModConfig {
 					flowAway(ConfigFields::darkOakFlowAway)
 				}
 			}
-			.category(Component.translatable("more-leaf-particles.category.translation.mangrove")) {
+			.category(Component.translatable("more_leaf_particles.category.translation.mangrove")) {
 				enable(ConfigFields::enableMangrove)
 				probability(ConfigFields::mangroveMultiplier)
 
@@ -256,7 +265,7 @@ object ModConfig {
 					flowAway(ConfigFields::mangroveFlowAway)
 				}
 			}
-			.category(Component.translatable("more-leaf-particles.category.translation.cherry")) {
+			.category(Component.translatable("more_leaf_particles.category.translation.cherry")) {
 				enable(ConfigFields::enableCherry)
 				probability(ConfigFields::cherryMultiplier)
 
@@ -269,7 +278,7 @@ object ModConfig {
 					flowAway(ConfigFields::cherryFlowAway)
 				}
 			}
-			.category(Component.translatable("more-leaf-particles.category.translation.paleOak")) {
+			.category(Component.translatable("more_leaf_particles.category.translation.paleOak")) {
 				enable(ConfigFields::enablePaleOak)
 				probability(ConfigFields::paleOakMultiplier)
 
@@ -282,7 +291,7 @@ object ModConfig {
 					flowAway(ConfigFields::paleOakFlowAway)
 				}
 			}
-			.category(Component.translatable("more-leaf-particles.category.translation.azalea")) {
+			.category(Component.translatable("more_leaf_particles.category.translation.azalea")) {
 				enable(ConfigFields::enableAzalea)
 				probability(ConfigFields::azaleaMultiplier)
 
@@ -295,7 +304,7 @@ object ModConfig {
 					flowAway(ConfigFields::azaleaFlowAway)
 				}
 			}
-			.category(Component.translatable("more-leaf-particles.category.translation.floweringAzalea")) {
+			.category(Component.translatable("more_leaf_particles.category.translation.floweringAzalea")) {
 				enable(ConfigFields::enableFloweringAzalea)
 				probability(ConfigFields::floweringAzaleaMultiplier)
 
@@ -336,8 +345,8 @@ private object ConfigExtensions {
 	fun ConfigCategory.Builder.enable(prop: KMutableProperty0<Boolean>) {
 		this.option(
 			tickBoxOption(
-				Component.translatable("more-leaf-particles.option.enable.name", name),
-				Component.translatable("more-leaf-particles.option.enable.desc")
+				Component.translatable("more_leaf_particles.option.enable.name", name),
+				Component.translatable("more_leaf_particles.option.enable.desc")
 			)
 				.binding(true, prop)
 				.build()
@@ -348,8 +357,8 @@ private object ConfigExtensions {
 	fun ConfigCategory.Builder.probability(prop: KMutableProperty0<Int>) {
 		this.option(
 			Option.createBuilder<Int>()
-				.name(Component.translatable("more-leaf-particles.option.probability.name", name))
-				.description(Component.translatable("more-leaf-particles.option.probability.desc"))
+				.name(Component.translatable("more_leaf_particles.option.probability.name", name))
+				.description(Component.translatable("more_leaf_particles.option.probability.desc"))
 				.binding(1, prop)
 				.controller { option ->
 					object : IntegerSliderControllerBuilderImpl(option) {
@@ -367,8 +376,8 @@ private object ConfigExtensions {
 		context<Component, Unit>(name) {
 			this.group(
 				OptionGroup.createBuilder()
-					.name(Component.translatable("more-leaf-particles.group.physicalProps.name", name))
-					.description(Component.translatable("more-leaf-particles.group.physicalProps.desc", name))
+					.name(Component.translatable("more_leaf_particles.group.physicalProps.name", name))
+					.description(Component.translatable("more_leaf_particles.group.physicalProps.desc", name))
 					.apply { this.init() }
 					.build()
 			)
@@ -378,8 +387,8 @@ private object ConfigExtensions {
 	fun OptionGroup.Builder.size(prop: KMutableProperty0<Float>, defValue: Float = 2.0F) {
 		this.option(
 			Option.createBuilder<Float>()
-				.name(Component.translatable("more-leaf-particles.option.size.name"))
-				.description(Component.translatable("more-leaf-particles.option.size.desc"))
+				.name(Component.translatable("more_leaf_particles.option.size.name"))
+				.description(Component.translatable("more_leaf_particles.option.size.desc"))
 				.binding(defValue, prop)
 				.controller(FloatFieldControllerBuilder::create)
 				.build()
@@ -389,8 +398,8 @@ private object ConfigExtensions {
 	fun OptionGroup.Builder.rotate(prop: KMutableProperty0<Boolean>) {
 		this.option(
 			tickBoxOption(
-				Component.translatable("more-leaf-particles.option.rotate.name"),
-				Component.translatable("more-leaf-particles.option.rotate.desc")
+				Component.translatable("more_leaf_particles.option.rotate.name"),
+				Component.translatable("more_leaf_particles.option.rotate.desc")
 			)
 				.binding(true, prop)
 				.build()
@@ -400,10 +409,10 @@ private object ConfigExtensions {
 	fun OptionGroup.Builder.gravity(prop: KMutableProperty0<Float>) {
 		this.option(
 			Option.createBuilder<Float>()
-				.name(Component.translatable("more-leaf-particles.option.gravity.name"))
-				.description(Component.translatable("more-leaf-particles.option.gravity.desc"))
+				.name(Component.translatable("more_leaf_particles.option.gravity.name"))
+				.description(Component.translatable("more_leaf_particles.option.gravity.desc"))
 				.binding(0.07F, prop)
-				.controller{ option ->
+				.controller { option ->
 					FloatFieldControllerBuilderImpl(option).formatValue {
 						Component.literal(String.format("%,.2f", it).replace("[\u00a0\u202F]", " "))
 					}
@@ -415,8 +424,8 @@ private object ConfigExtensions {
 	fun OptionGroup.Builder.initialVelocity(prop: KMutableProperty0<Float>) {
 		this.option(
 			Option.createBuilder<Float>()
-				.name(Component.translatable("more-leaf-particles.option.initVelocity.name"))
-				.description(Component.translatable("more-leaf-particles.option.initVelocity.desc"))
+				.name(Component.translatable("more_leaf_particles.option.initVelocity.name"))
+				.description(Component.translatable("more_leaf_particles.option.initVelocity.desc"))
 				.binding(0.021F, prop)
 				.controller { option ->
 					FloatFieldControllerBuilderImpl(option).formatValue {
@@ -431,8 +440,8 @@ private object ConfigExtensions {
 		this.option(
 			Option.createBuilder<Float>()
 				.available(!MoreLeafParticles.isParticleRainPresent)
-				.name(Component.translatable("more-leaf-particles.option.wind.name"))
-				.description(Component.translatable("more-leaf-particles.option.wind.desc"))
+				.name(Component.translatable("more_leaf_particles.option.wind.name"))
+				.description(Component.translatable("more_leaf_particles.option.wind.desc"))
 				.binding(10F, prop)
 				.controller(FloatFieldControllerBuilder::create)
 				.build()
@@ -442,8 +451,8 @@ private object ConfigExtensions {
 	fun OptionGroup.Builder.flowAway(prop: KMutableProperty0<Boolean>) {
 		this.option(
 			tickBoxOption(
-				Component.translatable("more-leaf-particles.option.flowAway.name"),
-				Component.translatable("more-leaf-particles.option.flowAway.desc")
+				Component.translatable("more_leaf_particles.option.flowAway.name"),
+				Component.translatable("more_leaf_particles.option.flowAway.desc")
 			)
 				.binding(false, prop)
 				.build()
@@ -456,8 +465,8 @@ private object ConfigExtensions {
 			this.groupIf(
 				condition,
 				OptionGroup.createBuilder()
-					.name(Component.translatable("more-leaf-particles.group.color.name", name))
-					.description(Component.translatable("more-leaf-particles.group.color.desc", name))
+					.name(Component.translatable("more_leaf_particles.group.color.name", name))
+					.description(Component.translatable("more_leaf_particles.group.color.desc", name))
 					.apply { this.init() }
 					.build()
 			)
@@ -472,8 +481,8 @@ private object ConfigExtensions {
 	fun OptionGroup.Builder.enableColor(prop: KMutableProperty0<Boolean>) {
 		this.option(
 			tickBoxOption(
-				Component.translatable("more-leaf-particles.option.enableCustomColor.name"),
-				Component.translatable("more-leaf-particles.option.enableCustomColor.desc")
+				Component.translatable("more_leaf_particles.option.enableCustomColor.name"),
+				Component.translatable("more_leaf_particles.option.enableCustomColor.desc")
 			)
 				.binding(false, prop)
 				.build()
@@ -484,8 +493,8 @@ private object ConfigExtensions {
 	fun OptionGroup.Builder.useTint(prop: KMutableProperty0<Boolean>) {
 		this.option(
 			tickBoxOption(
-				Component.translatable("more-leaf-particles.option.useTint.name"),
-				Component.translatable("more-leaf-particles.option.useTint.desc")
+				Component.translatable("more_leaf_particles.option.useTint.name"),
+				Component.translatable("more_leaf_particles.option.useTint.desc")
 			)
 				.binding(false, prop)
 				.build()
@@ -496,8 +505,8 @@ private object ConfigExtensions {
 	fun OptionGroup.Builder.color(prop: KMutableProperty0<Color>, available: KMutableProperty0<Boolean>) {
 		this.option(
 			Option.createBuilder<Color>()
-				.name(Component.translatable("more-leaf-particles.option.color.name"))
-				.description(Component.translatable("more-leaf-particles.option.color.desc"))
+				.name(Component.translatable("more_leaf_particles.option.color.name"))
+				.description(Component.translatable("more_leaf_particles.option.color.desc"))
 				.available(available.get())
 				.binding(Color(0, 0, 0), prop)
 				.controller(ColorControllerBuilder::create)

@@ -1,11 +1,11 @@
-package net.fellter.moreLeafParticles.mixin;
+package net.fellter.more_leaf_particles.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.fellter.moreLeafParticles.ModParticles;
-import net.fellter.moreLeafParticles.MoreLeafParticles;
-import net.fellter.moreLeafParticles.config.ConfigFields;
-import net.fellter.moreLeafParticles.interfaces.Parentable;
+import net.fellter.more_leaf_particles.ModParticles;
+import net.fellter.more_leaf_particles.MoreLeafParticles;
+import net.fellter.more_leaf_particles.config.ConfigFields;
+import net.fellter.more_leaf_particles.interfaces.Parentable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -31,17 +31,17 @@ abstract class TintedParticleLeavesBlockMixin extends LeavesBlock {
 	private void fellter$spawnLeafParticle(Level level, BlockPos blockPos, RandomSource randomSource, ParticleOptions effect, Operation<Void> original) {
 		if (MoreLeafParticles.isYACLPresent()) {
 			if (this == Blocks.SPRUCE_LEAVES) {
-				effect = ConfigFields.enableSpruce ? ColorParticleOption.create(ModParticles.SPRUCE_NEEDLES, level.getClientLeafTintColor(blockPos)) : null;
+				effect = ConfigFields.enableSpruce ? ColorParticleOption.create(ModParticles.SPRUCE_NEEDLES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos)) : null;
 			} else if (this == Blocks.BIRCH_LEAVES) {
-				effect = ConfigFields.enableBirch ? ColorParticleOption.create(ModParticles.BIRCH_LEAVES, level.getClientLeafTintColor(blockPos)) : null;
+				effect = ConfigFields.enableBirch ? ColorParticleOption.create(ModParticles.BIRCH_LEAVES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos)) : null;
 			} else if (this == Blocks.MANGROVE_LEAVES) {
-				effect = ConfigFields.enableMangrove ? ColorParticleOption.create(ModParticles.MANGROVE_LEAVES, level.getClientLeafTintColor(blockPos)) : null;
+				effect = ConfigFields.enableMangrove ? ColorParticleOption.create(ModParticles.MANGROVE_LEAVES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos)) : null;
 			} else if (this == Blocks.JUNGLE_LEAVES) {
-				effect = ConfigFields.enableJungle ? ColorParticleOption.create(ModParticles.JUNGLE_LEAVES, level.getClientLeafTintColor(blockPos)) : null;
+				effect = ConfigFields.enableJungle ? ColorParticleOption.create(ModParticles.JUNGLE_LEAVES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos)) : null;
 			} else if (this == Blocks.ACACIA_LEAVES) {
-				effect = ConfigFields.enableAcacia ? ColorParticleOption.create(ModParticles.ACACIA_LEAVES, level.getClientLeafTintColor(blockPos)) : null;
+				effect = ConfigFields.enableAcacia ? ColorParticleOption.create(ModParticles.ACACIA_LEAVES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos)) : null;
 			} else if (this == Blocks.DARK_OAK_LEAVES) {
-				effect = ConfigFields.enableDarkOak ? ColorParticleOption.create(ModParticles.DARK_OAK_LEAVES, level.getClientLeafTintColor(blockPos)) : null;
+				effect = ConfigFields.enableDarkOak ? ColorParticleOption.create(ModParticles.DARK_OAK_LEAVES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos)) : null;
 			} else if (this == Blocks.OAK_LEAVES) {
 				effect = ConfigFields.enableOak ? ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, level.getClientLeafTintColor(blockPos)) : null;
 			}
@@ -52,17 +52,17 @@ abstract class TintedParticleLeavesBlockMixin extends LeavesBlock {
 			}
 		} else {
 			if (this == Blocks.SPRUCE_LEAVES) {
-				effect = ColorParticleOption.create(ModParticles.SPRUCE_NEEDLES, level.getClientLeafTintColor(blockPos));
+				effect = ColorParticleOption.create(ModParticles.SPRUCE_NEEDLES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos));
 			} else if (this == Blocks.BIRCH_LEAVES) {
-				effect = ColorParticleOption.create(ModParticles.BIRCH_LEAVES, level.getClientLeafTintColor(blockPos));
+				effect = ColorParticleOption.create(ModParticles.BIRCH_LEAVES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos));
 			} else if (this == Blocks.MANGROVE_LEAVES) {
-				effect = ColorParticleOption.create(ModParticles.MANGROVE_LEAVES, level.getClientLeafTintColor(blockPos));
+				effect = ColorParticleOption.create(ModParticles.MANGROVE_LEAVES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos));
 			} else if (this == Blocks.JUNGLE_LEAVES) {
-				effect = ColorParticleOption.create(ModParticles.JUNGLE_LEAVES, level.getClientLeafTintColor(blockPos));
+				effect = ColorParticleOption.create(ModParticles.JUNGLE_LEAVES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos));
 			} else if (this == Blocks.ACACIA_LEAVES) {
-				effect = ColorParticleOption.create(ModParticles.ACACIA_LEAVES, level.getClientLeafTintColor(blockPos));
+				effect = ColorParticleOption.create(ModParticles.ACACIA_LEAVES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos));
 			} else if (this == Blocks.DARK_OAK_LEAVES) {
-				effect = ColorParticleOption.create(ModParticles.DARK_OAK_LEAVES, level.getClientLeafTintColor(blockPos));
+				effect = ColorParticleOption.create(ModParticles.DARK_OAK_LEAVES/*? if neoforge {*//*.get()*//*?}*/, level.getClientLeafTintColor(blockPos));
 			}
 
 			((Parentable<Block>) effect).more_leaf_particles$setParent(this);

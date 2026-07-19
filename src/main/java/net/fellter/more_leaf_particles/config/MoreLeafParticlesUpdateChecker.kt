@@ -1,5 +1,6 @@
-package net.fellter.moreLeafParticles.config
+package net.fellter.more_leaf_particles.config
 
+//? if fabric {
 import com.google.gson.*
 import com.terraformersmc.modmenu.api.UpdateChannel
 import com.terraformersmc.modmenu.api.UpdateChecker
@@ -8,7 +9,7 @@ import com.terraformersmc.modmenu.util.HttpUtil
 import net.fabricmc.loader.api.FabricLoader
 import net.fabricmc.loader.api.SemanticVersion
 import net.fabricmc.loader.api.Version
-import net.fellter.moreLeafParticles.MoreLeafParticles
+import net.fellter.more_leaf_particles.MoreLeafParticles
 import net.minecraft.network.chat.Component
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -95,7 +96,7 @@ class MoreLeafParticlesUpdateChecker : UpdateChecker {
 			val currentMcVer: SemanticVersion?
 
 			try {
-				val split: Array<String?> = currentVersion.friendlyString.split("\\+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+				val split: Array<String> = currentVersion.friendlyString.split("\\+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 				currentModVer = SemanticVersion.parse(split[0])
 				currentMcVer = SemanticVersion.parse(split[1])
 			} catch (_: Exception) {
@@ -103,7 +104,7 @@ class MoreLeafParticlesUpdateChecker : UpdateChecker {
 				return null
 			}
 
-			for (version in versions.asList().stream().map { element: JsonElement? -> stripQuotes(element.toString()) }.toList()) {
+			for (version in versions.asList().stream().map { element -> stripQuotes(element.toString()) }.toList()) {
 				val versionURI = URI.create("https://api.modrinth.com/v2/version/" + version.replace("\"", ""))
 				val versionRequest = HttpRequest.newBuilder().GET().uri(versionURI)
 				val versionResponse = HttpUtil.request(versionRequest, HttpResponse.BodyHandlers.ofString())
@@ -120,26 +121,26 @@ class MoreLeafParticlesUpdateChecker : UpdateChecker {
 				val gameVersions = versionData.getAsJsonObject().get("game_versions").getAsJsonArray().asList()
 
 				//skip to next version if it isn't for the current Minecraft version
-				if (!gameVersions.stream().map { element: JsonElement? -> stripQuotes(element.toString()) }.toList().contains(currentMcVer.friendlyString)) {
+				if (!gameVersions.stream().map { element -> stripQuotes(element.toString()) }.toList().contains(currentMcVer.friendlyString)) {
 					continue
 				}
 
 				val parsedModVer: SemanticVersion?
 
 				try {
-					parsedModVer = SemanticVersion.parse(stripQuotes(versionNumber.toString()).split("\\+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
+					parsedModVer = SemanticVersion.parse(stripQuotes(versionNumber.toString()).split("\\+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().first())
 				} catch (_: Exception) {
 					LOGGER.info("Couldn't parse mod version")
 					continue
 				}
 
-				if (match == null || isNewer(parsedModVer, match)) {
+				if (match == null || parsedModVer > (match as Version)) {
 					match = parsedModVer
 					versionId = id.toString()
 				}
 			}
 
-			if (match == null || !isNewer(match, currentModVer) || versionId == null) {
+			if (match == null || match <= (currentModVer as Version) || versionId == null) {
 				LOGGER.info("More Leaf Particles is up to date.")
 				return null
 			}
@@ -158,20 +159,17 @@ class MoreLeafParticlesUpdateChecker : UpdateChecker {
 				}
 			}
 
-		private fun getVersions(`object`: JsonObject): JsonArray {
-			if (!`object`.has("versions")) {
+		private fun getVersions(jsonObject: JsonObject): JsonArray {
+			if (!jsonObject.has("versions")) {
 				throw NullPointerException("No versions could be found.")
 			}
 
-			return `object`.get("versions").getAsJsonArray()
+			return jsonObject.get("versions").getAsJsonArray()
 		}
 
 		private fun stripQuotes(toStrip: String): String {
 			return toStrip.replace("\"", "")
 		}
-
-		private fun isNewer(self: Version, other: Version): Boolean {
-			return self > other
-		}
 	}
 }
+//?}

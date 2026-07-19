@@ -1,7 +1,7 @@
-package net.fellter.moreLeafParticles.mixin;
+package net.fellter.more_leaf_particles.mixin;
 
-import net.fellter.moreLeafParticles.MoreLeafParticles;
-import net.fellter.moreLeafParticles.config.ConfigFields;
+import net.fellter.more_leaf_particles.MoreLeafParticles;
+import net.fellter.more_leaf_particles.config.ConfigFields;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

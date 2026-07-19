@@ -1,8 +1,8 @@
-package net.fellter.moreLeafParticles.mixin;
+package net.fellter.more_leaf_particles.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import net.fellter.moreLeafParticles.MoreLeafParticles;
+import net.fellter.more_leaf_particles.MoreLeafParticles;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,8 +16,8 @@ import net.minecraft.core.particles.SimpleParticleType;
 //? if >1.21.8
 import net.minecraft.util.RandomSource;
 
-import static net.fellter.moreLeafParticles.ModParticleFactoriesKt.tintParticle;
-import static net.fellter.moreLeafParticles.config.ConfigFields.*;
+import static net.fellter.more_leaf_particles.ModParticleFactoriesKt.tintParticle;
+import static net.fellter.more_leaf_particles.config.ConfigFields.*;
 
 @SuppressWarnings("unused")
 final class LeavesParticleMixins {
