@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "more-leaf-particles",
+  "id": "more_leaf_particles",
   "version": "${mod_version}",
   "name": "More Leaf Particles",
-  "description": "Changes the default leaf particle's texture based on the leaves that it originates from.",
+  "description": "Mod changing the default leaf particle's texture based on the leaves that it originates from.",
   "authors": [
     "Fellter"
   ],
@@ -13,25 +13,28 @@
     "sources": "https://github.com/Fellteros/more-leaf-particles"
   },
   "license": "CC-BY-4.0",
-  "icon": "assets/more-leaf-particles/icon.png",
+  "icon": "assets/more_leaf_particles/icon.png",
   "environment": "client",
   "accessWidener": "classtweakers/${aw_path}",
   "entrypoints": {
     "client": [
-      "net.fellter.moreLeafParticles.client.MoreLeafParticlesClient"
+      {
+        "adapter": "kotlin",
+        "value": "net.fellter.more_leaf_particles.client.MoreLeafParticlesClient"
+      }
     ],
     "main": [
       {
         "adapter": "kotlin",
-        "value": "net.fellter.moreLeafParticles.MoreLeafParticles"
+        "value": "net.fellter.more_leaf_particles.MoreLeafParticles"
       }
     ],
     "modmenu": [
-      "net.fellter.moreLeafParticles.config.ModMenuImpl"
+      "net.fellter.more_leaf_particles.config.ModMenuImpl"
     ]
   },
   "mixins": [
-    "more-leaf-particles.mixins.json"
+    "more_leaf_particles.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",

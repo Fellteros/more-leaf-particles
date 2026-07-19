@@ -1,10 +1,24 @@
-mod.version = "2.1.1"
+###############
+### GENERAL ###
+###############
+
+mod.id = "more_leaf_particles"
+mod.version = "3.0.0"
+mod.name = "More Leaf Particles"
 
 loomx.loom_version = "1.17-SNAPSHOT"
+
+[neoforge]
+klf.version = "2.12.1-k2.4.0"
+
+##############
+### 1.21.5 ###
+##############
 
 ["1.21.5"]
 minecraft.version = "1.21.5"
 
+[fabric."1.21.5"]
 # Dependencies
 deps.fabricApi = "0.128.2+1.21.5"
 
@@ -13,30 +27,67 @@ deps.yacl = "3.8.2+1.21.5-fabric"
 deps.modmenu = "14.0.2"
 deps.particleRain = "v4-beta.7+1.21.5-fabric"
 
+[neoforge."1.21.5"]
+deps.neoLoader = "21.5.97"
+deps.klf = "3.0"
+parchment.version = "2025.06.15"
+
+deps.yacl = "3.8.2+1.21.5-neoforge"
+deps.particleRain = "v4-beta.7+1.21.5-neoforge"
+
+##############
+### 1.21.8 ###
+##############
+
 ["1.21.8"]
 minecraft.version = "1.21.8"
-
 additional.versions = ["1.21.7", "1.21.6"]
 
+[fabric."1.21.8"]
 deps.fabricApi = "0.136.1+1.21.8"
 
 deps.yacl = "3.8.1+1.21.6-fabric"
 deps.modmenu = "15.0.2"
 deps.particleRain = "v4-beta.3+1.21.6-fabric"
 
+[neoforge."1.21.8"]
+deps.neoLoader = "21.8.53"
+deps.klf = "3.0"
+parchment.version = "2025.09.14"
+
+deps.yacl = "3.8.2+1.21.6-neoforge"
+deps.particleRain = "v4-beta.7+1.21.6-neoforge"
+
+###############
+### 1.21.10 ###
+###############
+
 ["1.21.10"]
 minecraft.version = "1.21.10"
-
 additional.versions = ["1.21.9"]
 
+[fabric."1.21.10"]
 deps.fabricApi = "0.138.4+1.21.10"
 
 deps.yacl = "3.8.1+1.21.10-fabric"
 deps.modmenu = "16.0.1"
-deps.particleRain = "v4-beta.3+1.21.9-fabric"
+deps.particleRain = "v4-beta.10+1.21.9-fabric"
+
+[neoforge."1.21.10"]
+deps.neoLoader = "21.10.64"
+deps.klf = "3.1"
+parchment.version = "2025.10.12"
+
+deps.yacl = "3.8.2+1.21.10-neoforge"
+
+###############
+### 1.21.11 ###
+###############
 
 ["1.21.11"]
 minecraft.version = "1.21.11"
+
+[fabric."1.21.11"]
 
 # Dependencies
 deps.fabricApi = "0.141.4+1.21.11"
@@ -46,12 +97,23 @@ deps.yacl = "3.8.1+1.21.11-fabric"
 deps.modmenu = "17.0.0"
 deps.particleRain = "v4-beta.10+1.21.11-fabric"
 
+[neoforge."1.21.11"]
+deps.neoLoader = "21.11.42"
+deps.klf = "3.1"
+parchment.version = "2025.12.20"
+
+deps.yacl = "3.8.2+1.21.11-neoforge"
+
+############
+### 26.1 ###
+############
+
 ["26.1"]
 minecraft.version = "26.1.2"
-
 # Addtional supported versions
 additional.versions = ["26.1.1", "26.1"]
 
+[fabric."26.1"]
 # Dependencies
 deps.fabricApi = "0.151.0+26.1.2"
 
@@ -60,13 +122,30 @@ deps.yacl = "3.9.4+26.1-fabric"
 deps.modmenu = "18.0.0-alpha.8"
 deps.particleRain = "v4-beta.10+26.1-fabric"
 
+[neoforge."26.1"]
+deps.neoLoader = "26.1.2.76"
+deps.klf = "3.1"
+
+deps.yacl = "3.9.5+26.1-neoforge"
+
+############
+### 26.2 ###
+############
+
 ["26.2"]
 minecraft.version = "26.2"
 
+[fabric."26.2"]
 deps.fabricApi = "0.152.1+26.2"
 
 deps.yacl = "3.9.4+26.2-fabric"
 deps.modmenu = "20.0.0-beta.2"
 deps.particleRain = "v4-beta.10+26.1-fabric"
+
+[neoforge."26.2"]
+deps.neoLoader = "26.2.0.7-beta"
+deps.klf = "3.1"
+
+deps.yacl = "3.9.5+26.2-neoforge"
 
 

@@ -1,0 +1,36 @@
+license = "CC-BY-4.0"
+
+modLoader = "klf" # To be able to use Kotlin
+loaderVersion = "[2,)"
+
+issueTrackerURL = "https://github.com/Fellteros/more-leaf-particles/issues"
+
+[[mods]]
+modId = "${id}"
+displayName = "More Leaf Particles"
+version = "${version}"
+authors = "Fellter"
+description = "Mod changing the default leaf particle's texture based on the leaves that it originates from."
+
+logoFile = "assets/more_leaf_particles/icon.png"
+
+[[mixins]]
+config = "more_leaf_particles.mixins.json"
+
+[[dependencies.${id}]]
+modId = "neoforge"
+type = "required"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.${id}]]
+modId = "minecraft"
+type = "required"
+versionRange="${version_range}"
+
+#? if <= 1.21.8 {
+[[dependencies.${id}]]
+modId = "particlerain"
+type = "optional"
+versionRange="${version_range}"
+#?}
